@@ -1,7 +1,11 @@
 <!-- sidebar -->
 <div class="column col-sm-1 col-xs-1 sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+        <li>
+            <a href="javascript:;" data-toggle="offcanvas" class="visible-xs text-center">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </li>
     </ul>
     <ul class="nav hidden-xs" id="lg-menu">
         <li class="active"><a href="#featured"><i class="fa fa-list-alt"></i> Featured</a></li>
