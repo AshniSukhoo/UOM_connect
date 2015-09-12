@@ -46,23 +46,11 @@
     <?php else: ?>
         <div class="container">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand logo" style="background-color: #3B5999;color: #fff;margin: 20px;width: 244px;font-size: 35px;">
+                <a href="/" class="navbar-brand logo my-logo-navbrand">
                     UOM-Connect
                 </a>
             </div>
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email" value="" />
-                </div><!--/.form-group-->
-                &nbsp;&nbsp;
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" value="">
-                </div><!--/.form-group-->
-                &nbsp;&nbsp;
-                <button type="submit" class="btn btn-default navbar-btn">
-                    <i class="fa fa-sign-in"></i> Sign in
-                </button>
-            </form>
+            <?php include(APPPATH.'views/partials/_login-form.php'); ?>
         </div><!--/.container-->
     <?php endif; ?>
 </div>

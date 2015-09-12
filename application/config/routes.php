@@ -38,7 +38,22 @@
 |
 */
 
+/*
+ * Home page route
+ */
 $route['default_controller'] = "IndexController";
+
+/*
+ * Sign-up route
+ */
+$route['sign-up'] = "AuthController/signUp";
+
+/*
+ * Login route
+ */
+$route['login'] = "AuthController/login";
+
+
 $route['404_override'] = '';
 
 

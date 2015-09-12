@@ -1,0 +1,12 @@
+{
+    "name": "UOM Connect",
+    "description": "Social network for UOM.",
+    "keywords": ["UOM", "Social", "Project"],
+    "type": "project",
+    "require": {
+        "monolog/monolog": "1.17.1"
+    },
+    "autoload": {
+
+    }
+}

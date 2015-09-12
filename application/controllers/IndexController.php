@@ -3,13 +3,15 @@
 /**
  * Class IndexController
  */
-class IndexController extends MY_Controller {
+class IndexController extends MY_Controller
+{
 
     /**
      * Create Index controller
      * instance
      */
-    public function __construct() {
+    public function __construct()
+    {
         try {
             //Execute parent constructor
             parent::__construct();
@@ -22,7 +24,8 @@ class IndexController extends MY_Controller {
     }
 
 
-    public function index() {
+    public function index()
+    {
         $this->load->view('login');
     }
 }
