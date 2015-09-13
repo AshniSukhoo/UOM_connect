@@ -49,8 +49,16 @@
                 <a href="/" class="navbar-brand logo my-logo-navbrand">
                     UOM-Connect
                 </a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            <?php include(APPPATH.'views/partials/_login-form.php'); ?>
+            <nav class="collapse navbar-collapse" role="navigation">
+                <?php include(APPPATH.'views/partials/_login-form.php'); ?>
+            </nav>
         </div><!--/.container-->
     <?php endif; ?>
 </div>

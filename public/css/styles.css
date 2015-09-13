@@ -313,9 +313,8 @@ small.text-muted {
     background-size: cover;
 }
 
-.bg-mask {
-    width: 100%;
-    background: #000;
-    position: absolute;
-    opacity: 0.5;
+#main-login {
+    background: rgba(0,0,0,0.5);
+    padding-left: 0;
+    padding-right: 0;
 }
