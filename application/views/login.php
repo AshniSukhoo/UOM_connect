@@ -56,6 +56,17 @@
           </div>
       </div><!--/.row-->
   </div>
-
+  <?php include('template/_js.php'); ?>
+  <script type="text/javascript">
+      function coverBgMask() {
+          $('.bg-mask').css({height:$('body').height()});
+      }
+      $(document).ready(function(){
+          coverBgMask();
+      });
+      $(window).resize(function(){
+          coverBgMask();
+      });
+  </script>
 </body>
 </html>
