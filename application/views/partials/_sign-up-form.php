@@ -1,4 +1,4 @@
-<form id="signup-form" method="POST" action="<?=base_url()?>sign-up">
+<form id="signup-form" method="POST" action="<?=base_url()?>sign-up" autocomplete="off">
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group">
-                <input type="password" class="form-control" value="" placeholder="Confirm password">
+                <input type="password" class="form-control" name="confirmPassword" value="" placeholder="Confirm password">
             </div><!--/.form-group-->
         </div><!--/.col-sm-12-->
     </div><!--/.row-->
