@@ -23,7 +23,6 @@ Class AuthController extends MY_Controller
     public function signUp()
     {
         try {
-
             //Set the validation rules
             $this->form_validation->set_rules('firstName', 'First name', 'required|alpha|xss_clean');
             $this->form_validation->set_rules('lastName', 'Last name', 'required|alpha|xss_clean');
@@ -40,7 +39,28 @@ Class AuthController extends MY_Controller
             //Run the validation rules
             if($this->form_validation->run() === false) {
                 //Our form is not valid, so sad!!
-                echo validation_errors();
+                //Define list of fields
+                $fieldNames = [
+                    'firstName', 'lastName', 'email', 'password', 'confirmPassword', 'userType',
+                    'DOBDay', 'DOBMonth', 'DOBYear', 'gender', 'uomId'
+                ];
+                //Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block">', '</small>');
+                //Loop through all fields and put error
+                foreach($fieldNames as $fieldName) {
+                    //We have value for the field
+                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
+                        //Put value in keeper
+                        $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
+                    }
+                    //There is an error on the field
+                    if(form_error($fieldName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldName.'_error', form_error($fieldName));
+                    }
+                }
+                //Redirect on login-register page
+                redirect('/');
             }
             else {
                 echo 'Hurray!!!.. You have passed my validation dude';
