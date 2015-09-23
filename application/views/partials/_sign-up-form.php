@@ -8,7 +8,7 @@
         </div><!--/.col-sm-6-->
         <div class="col-sm-6">
             <div class="form-group<?=($this->keeper->has('lastName_error'))?' has-error':''?>">
-                <input type="text" class="form-control" name="lastName" value="" placeholder="Last name" />
+                <input type="text" class="form-control" name="lastName" value="<?=$this->keeper->has('lastName_value')?$this->keeper->get('lastName_value'):''?>" placeholder="Last name" />
                 <?=($this->keeper->has('lastName_error'))?$this->keeper->get('lastName_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-6-->
@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group<?=($this->keeper->has('email_error'))?' has-error':''?>">
-                <input type="email" class="form-control" name="email" value="" placeholder="Email" />
+                <input type="email" class="form-control" name="email" value="<?=$this->keeper->has('email_value')?$this->keeper->get('email_value'):''?>" placeholder="Email" />
                 <?=($this->keeper->has('email_error'))?$this->keeper->get('email_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-12-->
@@ -26,7 +26,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group<?=($this->keeper->has('password_error'))?' has-error':''?>">
-                <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                <input type="password" class="form-control" name="password" value="<?=$this->keeper->has('password_value')?$this->keeper->get('password_value'):''?>" placeholder="Password">
                 <?=($this->keeper->has('password_error'))?$this->keeper->get('password_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-12-->
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group<?=($this->keeper->has('confirmPassword_error'))?' has-error':''?>">
-                <input type="password" class="form-control" name="confirmPassword" value="" placeholder="Confirm password">
+                <input type="password" class="form-control" name="confirmPassword" value="<?=$this->keeper->has('confirmPassword_value')?$this->keeper->get('confirmPassword_value'):''?>" placeholder="Confirm password">
                 <?=($this->keeper->has('confirmPassword_error'))?$this->keeper->get('confirmPassword_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-12-->
@@ -48,9 +48,10 @@
         <div class="col-sm-10">
             <div class="form-group<?=($this->keeper->has('userType_error'))?' has-error':''?>">
                 <select id="user-type" name="userType" class="form-control">
-                    <option value="student">Student</option>
-                    <option value="lecturer">Lecturer</option>
+                    <option value="student<?=($this->keeper->has('student_value'))?($this->keeper->get('student_value')):''?>">Student</option>
+                    <option value="lecturer<?=($this->keeper->has('lecturer_value'))?($this->keeper->get('lecturer_value_value')):''?>">Lecturer</option>
                 </select>
+				
                 <?=($this->keeper->has('userType_error'))?$this->keeper->get('userType_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-10-->
@@ -112,7 +113,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group<?=($this->keeper->has('uomId_error'))?' has-error':''?>">
-                <input type="text" name="uomId" class="form-control" value="" placeholder="UOM student's or lecturer's ID">
+                <input type="text" name="uomId" class="form-control" value="<?=$this->keeper->has('uomId_value')?$this->keeper->get('uomId_value'):''?>" placeholder="UOM student's or lecturer's ID">
                 <?=($this->keeper->has('uomId_error'))?$this->keeper->get('uomId_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-12-->
