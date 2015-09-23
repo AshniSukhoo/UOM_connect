@@ -45,11 +45,11 @@ Class AuthController extends MY_Controller
                     'DOBDay', 'DOBMonth', 'DOBYear', 'gender', 'uomId'
                 ];
                 //Set error delimiter
-                $this->form_validation->set_error_delimiters('<small class="help-block">', '</small>');
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
                 //Loop through all fields and put error
                 foreach($fieldNames as $fieldName) {
                     //We have value for the field
-                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
+                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName]) && $fieldName != 'password' && $fieldName != 'confirmPassword') {
                         //Put value in keeper
                         $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
                     }

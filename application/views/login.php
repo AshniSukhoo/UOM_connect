@@ -58,8 +58,64 @@
 </div><!--/.wrapper-->
 
 <?php include('template/_js.php'); ?>
+<script type="text/javascript" src="/js/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+        /*
+        Remove error from form-group
+         */
+        function removeError(formGroup) {
+            if(formGroup.find('.server-error').length > 0) {
+                formGroup.find('.server-error').remove();
+                formGroup.removeClass('has-error');
+            }
+        }
 
+        $('input').on('keyup', function(){
+            var formGroup = $(this).parents('.form-group').first();
+            removeError(formGroup);
+        });
+        $('select').on('change', function(){
+            var formGroup = $(this).parents('.form-group').first();
+            removeError(formGroup);
+        });
+        $('input[type="radio"]').on('change', function(){
+            var formGroup = $(this).parents('.form-group').first();
+            removeError(formGroup);
+        });
+
+        $('#signup-form').validate({
+            ignore:[],
+            rules: {
+                firstName: {
+                    required: true,
+                },
+                lastName: {
+                    required: true,
+                }
+            },
+            messages: {
+                firstName: {
+                    required: "The First name field is required."
+                },
+                lastName: {
+                    required: "The Last name field is required.",
+                }
+            },
+            highlight: function (label) {
+                $(label).closest('.form-group ').addClass('has-error');
+            },
+            success: function (label) {
+                $(label).closest('.form-group ').removeClass('has-error');
+            },
+            errorElement: 'small',
+            errorPlacement: function(error, element) {
+                element.parents('.form-group').first().append(error);
+                error.addClass('help-block');
+            },
+        });
+
+    });
 </script>
 
 </body>

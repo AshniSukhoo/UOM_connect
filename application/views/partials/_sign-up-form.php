@@ -24,21 +24,18 @@
     </div><!--/.row-->
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="form-group<?=($this->keeper->has('password_error'))?' has-error':''?>">
-                <input type="password" class="form-control" name="password" value="<?=$this->keeper->has('password_value')?$this->keeper->get('password_value'):''?>" placeholder="Password">
+                <input type="password" class="form-control" name="password" value="" placeholder="Password">
                 <?=($this->keeper->has('password_error'))?$this->keeper->get('password_error'):''?>
             </div><!--/.form-group-->
-        </div><!--/.col-sm-12-->
-    </div><!--/.row-->
-
-    <div class="row">
-        <div class="col-sm-12">
+        </div><!--/.col-sm-6-->
+        <div class="col-md-6">
             <div class="form-group<?=($this->keeper->has('confirmPassword_error'))?' has-error':''?>">
-                <input type="password" class="form-control" name="confirmPassword" value="<?=$this->keeper->has('confirmPassword_value')?$this->keeper->get('confirmPassword_value'):''?>" placeholder="Confirm password">
+                <input type="password" class="form-control" name="confirmPassword" value="" placeholder="Confirm password">
                 <?=($this->keeper->has('confirmPassword_error'))?$this->keeper->get('confirmPassword_error'):''?>
             </div><!--/.form-group-->
-        </div><!--/.col-sm-12-->
+        </div>
     </div><!--/.row-->
 
     <div class="row">
@@ -48,10 +45,9 @@
         <div class="col-sm-10">
             <div class="form-group<?=($this->keeper->has('userType_error'))?' has-error':''?>">
                 <select id="user-type" name="userType" class="form-control">
-                    <option value="student<?=($this->keeper->has('student_value'))?($this->keeper->get('student_value')):''?>">Student</option>
-                    <option value="lecturer<?=($this->keeper->has('lecturer_value'))?($this->keeper->get('lecturer_value_value')):''?>">Lecturer</option>
+                    <option value="student" <?=($this->keeper->has('userType_value') && $this->keeper->get('userType_value') == 'student')?'selected':''?>>Student</option>
+                    <option value="lecturer" <?=($this->keeper->has('userType_value') && $this->keeper->get('userType_value') == 'lecturer')?'selected':''?>>Lecturer</option>
                 </select>
-				
                 <?=($this->keeper->has('userType_error'))?$this->keeper->get('userType_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-10-->
@@ -66,7 +62,7 @@
                 <select name="DOBDay" id="DOB-day" class="form-control">
                     <option value="">Day</option>
                     <?php foreach(range(1,31) as $day): ?>
-                        <option value="<?=$day?>"><?=$day?></option>
+                        <option value="<?=$day?>" <?=($this->keeper->has('DOBDay_value') && $this->keeper->get('DOBDay_value') == $day)?'selected':''?>><?=$day?></option>
                     <?php endforeach; ?>
                 </select>
                 <?=($this->keeper->has('DOBDay_error'))?$this->keeper->get('DOBDay_error'):''?>
@@ -77,7 +73,7 @@
                 <select name="DOBMonth" id="DOBMonth" class="form-control">
                     <option value="">Month</option>
                     <?php for ($m=1; $m<=12; $m++): ?>
-                        <option value="<?=$m?>"><?=date('F', mktime(0,0,0,$m, 1, date('Y')));?></option>
+                        <option value="<?=$m?>" <?=($this->keeper->has('DOBMonth_value') && $this->keeper->get('DOBMonth_value') == $m)?'selected':''?>><?=date('F', mktime(0,0,0,$m, 1, date('Y')));?></option>
                     <?php endfor; ?>
                 </select>
                 <?=($this->keeper->has('DOBMonth_error'))?$this->keeper->get('DOBMonth_error'):''?>
@@ -88,7 +84,7 @@
                 <select name="DOBYear" id="DOBYear" class="form-control">
                     <option value="">Year</option>
                     <?php foreach(range(date('Y') - 18, date('Y') - 100 ) as $year): ?>
-                        <option value="<?=$year?>"><?=$year?></option>
+                        <option value="<?=$year?>" <?=($this->keeper->has('DOBYear_value') && $this->keeper->get('DOBYear_value') == $year)?'selected':''?>><?=$year?></option>
                     <?php endforeach; ?>
                 </select>
                 <?=($this->keeper->has('DOBYear_error'))?$this->keeper->get('DOBYear_error'):''?>
@@ -102,9 +98,9 @@
         </div><!--/.col-sm-2-->
         <div class="col-sm-10">
             <div class="form-group<?=($this->keeper->has('gender_error'))?' has-error':''?>">
-                <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
+                <label class="radio-inline"><input type="radio" name="gender" value="female" <?=($this->keeper->has('gender_value') && $this->keeper->get('gender_value') == 'female')?'checked':''?>>Female</label>
                 &nbsp;&nbsp;
-                <label class="radio-inline"><input type="radio" name="gender" value="male">Male</label>
+                <label class="radio-inline"><input type="radio" name="gender" value="male" <?=($this->keeper->has('gender_value') && $this->keeper->get('gender_value') == 'male')?'checked':''?>>Male</label>
                 <?=($this->keeper->has('gender_error'))?$this->keeper->get('gender_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-10-->
