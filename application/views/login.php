@@ -92,7 +92,19 @@
                 },
                 lastName: {
                     required: true,
-                }
+                },
+				email: {
+					required:true,
+				},
+				password: {
+					required: true,
+				},
+				confirmPassword: {
+					required: true,
+				},
+				uomId:  {
+					required: true,
+				},
             },
             messages: {
                 firstName: {
@@ -100,7 +112,20 @@
                 },
                 lastName: {
                     required: "The Last name field is required.",
-                }
+                },
+				email:	{
+					required: "Email address is required.",
+				},
+				password: {
+					required: "Password is required.",
+				},
+				confirmPassword: {
+					required: "Password confirmation is required.",
+				},
+				uomId: {
+					required: "UOM ID is required.",
+				},
+				
             },
             highlight: function (label) {
                 $(label).closest('.form-group ').addClass('has-error');
