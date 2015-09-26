@@ -98,10 +98,28 @@
 				},
 				password: {
 					required: true,
+                    minlength: 5,
 				},
 				confirmPassword: {
 					required: true,
+                    equalTo: "#password",
+                    minlength: 5,
 				},
+                userType: {
+                    required: true,
+                },
+                DOBDay: {
+                    required: true,
+                },
+                DOBMonth: {
+                    required: true,
+                },
+                DOBYear: {
+                    required: true,
+                },
+                gender: {
+                    required: true,
+                },
 				uomId:  {
 					required: true,
 				},
@@ -114,16 +132,34 @@
                     required: "The Last name field is required.",
                 },
 				email:	{
-					required: "Email address is required.",
+					required: "Email address field is required.",
 				},
 				password: {
-					required: "Password is required.",
+					required: "Password field is required.",
+                    minlength: "Password must contain at least 5 characters",
 				},
 				confirmPassword: {
-					required: "Password confirmation is required.",
+					required: "Password confirmation field is required.",
+                    equalTo: "The password confirmation does not match the password.",
+                    minlength: "Password must contain at least 5 characters",
 				},
+                userType: {
+                    required: "The User type field is required.",
+                },
+                DOBDay: {
+                    required: "The Birthday\'s day field is required."
+                },
+                DOBMonth: {
+                    required: "The Birthday\'s month field is required."
+                },
+                DOBYear: {
+                    required: "The Birthday\'s year field is required.",
+                },
+                gender: {
+                    required: "The Gender field is required.",
+                },
 				uomId: {
-					required: "UOM ID is required.",
+					required: "UOM ID field is required.",
 				},
 				
             },

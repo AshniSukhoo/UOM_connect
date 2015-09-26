@@ -76,7 +76,32 @@ class User extends CI_Model
             //We simply return false
             return false;
         }
+    }
 
+    /**
+     * Saves a new user details
+     *
+     * @param array $data
+     * @return int
+     */
+    public function saveNewUser($data = [])
+    {
+        //Save new user record
+        $this->db->insert('users', $data);
+        //Return the new User Id
+        return $this->db->insert_id();
+    }
+
+    /**
+     * Save new account verification token
+     *
+     * @param array $data
+     * @return void
+     */
+    public function saveToken($data = [])
+    {
+        //Save new user record
+        $this->db->insert('account_verification_tokens', $data);
     }
 
 }

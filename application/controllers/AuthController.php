@@ -62,16 +62,61 @@ Class AuthController extends MY_Controller
                 //Redirect on login-register page
                 redirect('/');
             }
+            //Validation has passed.
             else {
-                echo 'Hurray!!!.. You have passed my validation dude';
+                //Save details in database
+                //Build array with data to be inserted in users table
+                $userDataToInsert = [
+                    'first_name' => $this->input->post('firstName'),
+                    'last_name' => $this->input->post('lastName'),
+                    'email' => $this->input->post('email'),
+                    'password' => $this->auth->encryptPassword($this->input->post('password')),
+                    'user_type' => $this->input->post('userType'),
+                    'date_of_birth' => $this->input->post('DOBYear').'-'.$this->input->post('DOBMonth').'-'.$this->input->post('DOBDay'),
+                    'gender' => $this->input->post('gender'),
+                    'uom_id' => $this->input->post('uomId'),
+                    'account_status' => 2,
+                    'datetime_joined' => date('Y-m-d H:i:s')
+                ];
+                //Save the new details
+                $newUserId = $this->User->saveNewUser($userDataToInsert);
+                //Generate a new token
+                $token = $this->auth->generateVerificationToken($this->input->post('email'));
+                //Build data to be inserted in account_verification_tokens
+                $tokenData = [
+                    'user_id' => $newUserId,
+                    'token' => $token,
+                    'status' => 'active',
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                //Save token
+                $this->User->saveToken($tokenData);
+
+                //We must send email for confirmation of account
+                //Basic email data
+                $this->email->from('registration@uom-connect.mu', 'UOM-Connect');
+                $this->email->to($this->input->post('email'));
+                $this->email->subject('Confirm your account');
+
+                //Email message
+                $message = '<a href="'.base_url().'verify-account?key='.$token.'">Click here to verify account</a>';
+                $this->email->message($message);
+                $this->email->send();
+
+                //Notify user that account has been created
+                $notif = 'Your account has been created successfully. We have send you an email, click on the link in the email to activate your account.';
+                $this->keeper->put('notificationSuccess', $notif);
+                //Redirect on login-register page
+                redirect('/');
             }
-
-
         }
         //Unexpected error or unknown error
         catch(Exception $e) {
+            //Notify error
+            $this->keeper->put('notificationError', $e->getMessage());
+            //Redirect on login-register page
+            redirect('/');
         }
-
     }
 
     /**

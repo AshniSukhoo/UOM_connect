@@ -1,3 +1,23 @@
+<?php if($this->keeper->has('notificationSuccess')): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible" role="alert"">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?=$this->keeper->get('notificationSuccess')?>
+            </div><!--/.alert alert-success-->
+        </div><!--/.col-md-12-->
+    </div><!--/.row-->
+<?php endif; ?>
+<?php if($this->keeper->has('notificationError')): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible" role="alert"">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?=$this->keeper->get('notificationError')?>
+            </div><!--/.alert alert-danger-->
+        </div><!--/.col-md-12-->
+    </div><!--/.row-->
+<?php endif; ?>
 <form id="signup-form" method="POST" action="<?=base_url()?>sign-up" autocomplete="off">
     <div class="row">
         <div class="col-sm-6">
@@ -26,7 +46,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group<?=($this->keeper->has('password_error'))?' has-error':''?>">
-                <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password">
                 <?=($this->keeper->has('password_error'))?$this->keeper->get('password_error'):''?>
             </div><!--/.form-group-->
         </div><!--/.col-sm-6-->
@@ -45,6 +65,7 @@
         <div class="col-sm-10">
             <div class="form-group<?=($this->keeper->has('userType_error'))?' has-error':''?>">
                 <select id="user-type" name="userType" class="form-control">
+                    <option value="">--- Select in which group you belong ---</option>
                     <option value="student" <?=($this->keeper->has('userType_value') && $this->keeper->get('userType_value') == 'student')?'selected':''?>>Student</option>
                     <option value="lecturer" <?=($this->keeper->has('userType_value') && $this->keeper->get('userType_value') == 'lecturer')?'selected':''?>>Lecturer</option>
                 </select>
