@@ -124,6 +124,53 @@ Class AuthController extends MY_Controller
      */
     public function login()
     {
+		try{
+			//Set validation rules
+			$this->form_validation->set_rules('login_email', 'Email', 'required|valid_email|xss_clean');
+            $this->form_validation->set_rules('login_password', 'Password', 'required|min_length[5]|xss_clean');
+			
+			//Run validation rules
+				if($this->form_validation->run() === false) {
+					//Our form is not valid
+					//Define list of fields
+					$fieldsNames = [
+					
+						'login_email', 'login_password'
+					];
+					
+				//Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
+                //Loop through all fields and put error
+				 foreach($fieldsNames as $fieldsName) {
+                    //We have value for the field
+                    if(isset($_POST[$fieldsName]) && !empty($_POST[$fieldsName]) && $fieldsName != 'password') {
+                        //Put value in keeper
+                        $this->keeper->put($fieldsName.'_value', $_POST[$fieldsName]);
+                    }
+                    //There is an error on the field
+                    if(form_error($fieldsName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldsName.'_error', form_error($fieldsName));
+                    }
+                }
+				//Redirect on login-register page
+                redirect('/');
+				}
+				//Validation has passed.
+				else {
+					
+						
+								
+				}	
+		}
+		
+		//Unexpected error or unknown error
+		catch(Exception $e){
+			//Notify error
+            $this->keeper->put('notificationError', $e->getMessage());
+            //Redirect on login-register page
+            redirect('/');
+		}
 
     }
 

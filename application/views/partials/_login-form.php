@@ -1,12 +1,16 @@
 <form id="login-form" method="POST" action="/login" class="navbar-form navbar-right">
-    <div class="form-group">
-        <input name="email" type="text" class="form-control input-sm" placeholder="Email" value="" />
-        <br/>
+    <div class="form-group<?=($this->keeper->has('login_email_error'))?' has-error':''?>">
+        <input type="email" class="form-control" name="login_email" value="<?=$this->keeper->has('login_email_value')?$this->keeper->get('login_email_value'):''?>" placeholder="Email" />
+       <?=($this->keeper->has('login_email_error'))?$this->keeper->get('login_email_error'):''?>
+	   
+	   <br/>
         <label for="remember-me" class="checkbox-inline"><input id="remember-me" type="checkbox" name="rememberMe" value="yes">Keep me logged in</label>
     </div><!--/.form-group-->
     &nbsp;&nbsp;
-    <div class="form-group">
-        <input name="password" type="password" class="form-control input-sm" placeholder="Password" value="">
+    <div class="form-group<?=($this->keeper->has('login_password_error'))?' has-error':''?>">
+			<input name="login_password" type="password" id="login_password" class="form-control input-sm" placeholder="Password" value="">
+			<?=($this->keeper->has('login_password_error'))?$this->keeper->get('login_password_error'):''?>
+	
         <br>
         <label class="checkbox-inline">
             <a href="#" style="color: #ffffff;cursor: pointer">Forgot your password?</a>
