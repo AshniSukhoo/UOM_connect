@@ -1,12 +1,12 @@
 /* custom template */
 html, body {
    height: 100%;
-   font-family:verdana,arial,sans-serif;
+   font-family: 'Roboto', sans-serif !important;
    color:#555555;
 }
 
 .nav {
-   font-family:Arial,sans-serif;
+   font-family:'Roboto', sans-serif !important;
    font-size:13px;
 }
 
@@ -317,4 +317,8 @@ small.text-muted {
     background: rgba(0,0,0,0.5);
     padding-left: 0;
     padding-right: 0;
+}
+
+.blue-anchor {
+    color: #428bca;
 }

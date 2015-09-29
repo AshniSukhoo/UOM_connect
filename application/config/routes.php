@@ -48,10 +48,17 @@ $route['default_controller'] = "IndexController";
  */
 $route['sign-up'] = "AuthController/signUp";
 
+
 /*
  * Login route
  */
-$route['login'] = "AuthController/login";
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+    //Get Method use AuthController and getLogin function
+    $route['login'] = "AuthController/getLogin";
+} elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+    //Post Method use AuthController and postLogin function
+    $route['login'] = "AuthController/postLogin";
+}
 
 
 $route['404_override'] = '';

@@ -6,8 +6,6 @@
  */
 Class AuthController extends MY_Controller
 {
-
-
     /**
      * Create new instance of AuthController
      */
@@ -61,9 +59,8 @@ Class AuthController extends MY_Controller
                 }
                 //Redirect on login-register page
                 redirect('/');
-            }
-            //Validation has passed.
-            else {
+            } else {
+                //Validation has passed.
                 //Save details in database
                 //Build array with data to be inserted in users table
                 $userDataToInsert = [
@@ -109,9 +106,8 @@ Class AuthController extends MY_Controller
                 //Redirect on login-register page
                 redirect('/');
             }
-        }
-        //Unexpected error or unknown error
-        catch(Exception $e) {
+        } catch(Exception $e) {
+            //Unexpected error or unknown error
             //Notify error
             $this->keeper->put('notificationError', $e->getMessage());
             //Redirect on login-register page
@@ -120,9 +116,26 @@ Class AuthController extends MY_Controller
     }
 
     /**
+     * Show login page
+     */
+    public function getLogin()
+    {
+        try {
+            //We must not show navigation login form
+            $data['noNavLogin'] = true;
+
+            //Load login page
+            $this->load->view('dedicated-login', $data);
+        } catch (Exception $e) {
+            //Unexpected error
+            echo $e->getMessage();
+        }
+    }
+
+    /**
      * Performs a user login
      */
-    public function login()
+    public function postLogin()
     {
 		try{
 			//Set validation rules
@@ -130,15 +143,13 @@ Class AuthController extends MY_Controller
             $this->form_validation->set_rules('login_password', 'Password', 'required|min_length[5]|xss_clean');
 			
 			//Run validation rules
-				if($this->form_validation->run() === false) {
-					//Our form is not valid
-					//Define list of fields
-					$fieldsNames = [
-					
-						'login_email', 'login_password'
-					];
-					
-				//Set error delimiter
+            if($this->form_validation->run() === false) {
+                //Our form is not valid
+                //Define list of fields
+                $fieldsNames = [
+                    'login_email', 'login_password'
+                ];
+                //Set error delimiter
                 $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
                 //Loop through all fields and put error
 				 foreach($fieldsNames as $fieldsName) {
@@ -154,25 +165,16 @@ Class AuthController extends MY_Controller
                     }
                 }
 				//Redirect on login-register page
-                redirect('/');
-				}
-				//Validation has passed.
-				else {
-					
-						
-								
-				}	
-		}
-		
-		//Unexpected error or unknown error
-		catch(Exception $e){
+                redirect('/login');
+            } else {
+                //Validation has passed.
+            }
+		} catch(Exception $e){
+            //Unexpected error or unknown error
 			//Notify error
             $this->keeper->put('notificationError', $e->getMessage());
             //Redirect on login-register page
             redirect('/');
 		}
-
     }
-
-
 }

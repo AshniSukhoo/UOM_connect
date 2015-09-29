@@ -56,9 +56,11 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <nav class="collapse navbar-collapse" role="navigation">
-                <?php include(APPPATH.'views/partials/_login-form.php'); ?>
-            </nav>
+            <?php if(!isset($noNavLogin) || $noNavLogin == false): ?>
+                <nav class="collapse navbar-collapse" role="navigation">
+                    <?php include(APPPATH.'views/partials/_login-form.php'); ?>
+                </nav>
+            <?php endif; ?>
         </div><!--/.container-->
     <?php endif; ?>
 </div>
