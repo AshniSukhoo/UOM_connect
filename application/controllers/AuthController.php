@@ -93,10 +93,17 @@ Class AuthController extends MY_Controller
                 //Basic email data
                 $this->email->from('registration@uom-connect.mu', 'UOM-Connect');
                 $this->email->to($this->input->post('email'));
-                $this->email->subject('Confirm your account');
+                $this->email->subject('Welcome to UOM-Connect');
 
+                //Start building data to go on email
+                $emailData = [
+                    'fullName' => $userDataToInsert['first_name'].' '.$userDataToInsert['last_name'],
+                    'comfirmationLink' => base_url().'verify-account?key='.$token,
+                    'title' => 'Welcome to UOM-Connect',
+                    'intro' => 'Your Confirmation to UOM-Connect'
+                ];
                 //Email message
-                $message = '<a href="'.base_url().'verify-account?key='.$token.'">Click here to verify account</a>';
+                $message = $this->load->view('emails/account-confirmation-email', $emailData, true);
                 $this->email->message($message);
                 $this->email->send();
 
@@ -113,6 +120,18 @@ Class AuthController extends MY_Controller
             //Redirect on login-register page
             redirect('/');
         }
+    }
+
+    /**
+     * Confirm user account from
+     * confirmation link
+     * @return void
+     */
+    public function confirmAccount()
+    {
+        echo 'Confirm my account please.';
+        echo '<br/>';
+        echo 'My Key is:'.$this->input->get('key');
     }
 
     /**

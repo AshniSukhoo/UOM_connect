@@ -48,7 +48,6 @@ $route['default_controller'] = "IndexController";
  */
 $route['sign-up'] = "AuthController/signUp";
 
-
 /*
  * Login route
  */
@@ -60,6 +59,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
     $route['login'] = "AuthController/postLogin";
 }
 
+/*
+ * Confirm account route
+ */
+$route['verify-account'] = 'AuthController/confirmAccount';
 
 $route['404_override'] = '';
 

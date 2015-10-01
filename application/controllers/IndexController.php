@@ -23,7 +23,6 @@ class IndexController extends MY_Controller
         }
     }
 
-
     public function index()
     {
         $this->load->view('login');
