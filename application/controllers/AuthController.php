@@ -187,6 +187,10 @@ Class AuthController extends MY_Controller
                 redirect('/login');
             } else {
                 //Validation has passed.
+                //Get user credentials
+                $email = $this->input->post('login_email');
+                $password = $this->input->post('login_password');
+
             }
 		} catch(Exception $e){
             //Unexpected error or unknown error

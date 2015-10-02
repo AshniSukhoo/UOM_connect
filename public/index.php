@@ -75,6 +75,11 @@ if (defined('ENVIRONMENT'))
 	$application_folder = '../application';
 
 /*
+ * Vendor Folder name
+ */
+	$vendor_folder = '../vendor';
+
+/*
  * --------------------------------------------------------------------
  * DEFAULT CONTROLLER
  * --------------------------------------------------------------------
@@ -190,6 +195,23 @@ if (defined('ENVIRONMENT'))
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
+
+	//The path to the "vendor" folder
+	if(is_dir($vendor_folder)){
+		define('VENDORPATH', $vendor_folder.'/');
+	}
+	else {
+		if ( ! is_dir(BASEPATH.$vendor_folder.'/'))
+		{
+			exit("Your vendor folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
+		}
+		define('VENDORPATH', BASEPATH.$vendor_folder.'/');
+	}
+
+/*
+ * Bootstrap the vendor
+ */
+require_once VENDORPATH.'autoload.php';
 
 /*
  * --------------------------------------------------------------------

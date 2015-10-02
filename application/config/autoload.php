@@ -54,6 +54,7 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = [
     'database',
+    'booteloquent',
     'session',
     'auth',
     'form_validation',
