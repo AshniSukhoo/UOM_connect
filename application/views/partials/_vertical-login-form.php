@@ -1,4 +1,14 @@
 <form id="login-form" method="POST" action="/login">
+    <?php if($this->keeper->has('error_msg_login')): ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-times"></i> <?=$this->keeper->get('error_msg_login')?>
+                </div>
+            </div><!--/.col-md-12-->
+        </div><!--/.row-->
+    <?php endif; ?>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group<?=($this->keeper->has('login_email_error'))?' has-error':''?>">

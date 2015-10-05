@@ -59,5 +59,17 @@ class Auth
         return sha1(mt_rand(10000,99999).time().$base);
     }
 
+    /**
+     * Attemps a user login
+     *
+     * @param array $credentials
+     * @param bool|false $keepAlive
+     * @return bool
+     */
+    public function attempt($credentials = [], $keepAlive = false)
+    {
+        return false;
+    }
+
 
 }

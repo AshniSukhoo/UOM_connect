@@ -55,6 +55,56 @@
 <script type="text/javascript" src="/js/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        /*
+         Remove error from form-group
+         */
+        function removeError(formGroup) {
+            if(formGroup.find('.server-error').length > 0) {
+                formGroup.find('.server-error').remove();
+                formGroup.removeClass('has-error');
+            }
+        }
+
+        $('input').on('keyup', function(){
+            var formGroup = $(this).parents('.form-group').first();
+            removeError(formGroup);
+        });
+
+        $('#login-form').validate({
+            ignore:[],
+            rules: {
+                login_email: {
+                    required: true,
+                    email: true,
+                },
+                login_password: {
+                    required: true,
+                    minlength: 5,
+                },
+            },
+            messages: {
+                login_email:{
+                    required: "The Email field is required.",
+                    email: "The Email field must be a valid email address.",
+                },
+                login_password: {
+                    required: "The Password field is required.",
+                    minlength: "The Password field must be at least 5 characters.",
+                },
+            },
+            highlight: function (label) {
+                $(label).closest('.form-group ').addClass('has-error');
+            },
+            success: function (label) {
+                $(label).closest('.form-group ').removeClass('has-error');
+            },
+            errorElement: 'small',
+            errorPlacement: function(error, element) {
+                element.parents('.form-group').first().append(error);
+                error.addClass('help-block');
+            },
+        })
+
     });
 </script>
 
