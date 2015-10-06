@@ -14,13 +14,10 @@ class User extends CI_Model
     public function checkEmail($email = '')
     {
         try {
-
             //Construct the query
             $sql = "SELECT * FROM users WHERE email = ".$this->db->escape($email);
-
             //Execute the query
             $query = $this->db->query($sql);
-
             //CHeck the number of rows
             if($query->num_rows() == 0){
                 //No rows found which means the email does not exists
@@ -38,7 +35,75 @@ class User extends CI_Model
             //We simply return false
             return false;
         }
+    }
 
+    /**
+     * Retrieve user row using email
+     *
+     * @param string $email
+     * @return stdClass|bool
+     */
+    public function retrieveUserByEmail($email = '')
+    {
+        try {
+            //Build SQL
+            $sql = 'SELECT * FROM users WHERE email = '.$this->db->escape($email);
+            //Execute SQL
+            $query = $this->db->query($sql);
+            //Count number of rows found
+            if($query->num_rows() > 0) {
+                //Return the row
+                return $query->row();
+            } else {
+                //No rows found
+                return false;
+            }
+        } catch(Exception $e) {
+            //Unexpected error
+            //simply return false
+            return false;
+        }
+    }
+
+    /**
+     * Retrieve a user account using the Remember me token
+     *
+     * @param string $token
+     * @return stdClass|bool
+     */
+    public function retrieveUserByRememberToken($token)
+    {
+        try {
+            //Build SQL
+            $sql = "SELECT * FROM users WHERE remember_me = ".$this->db->escape($token);
+            //Execute the query
+            $query = $this->db->query($sql);
+            //No user found with this token
+            if($query->num_rows() == 0) {
+                //return false
+                return false;
+            }
+            //Return the user account
+            return $query->row();
+        } catch (Exception $e) {
+            //Unexpected error
+            //Simply return false
+            return false;
+        }
+    }
+
+
+    /**
+     * Updates the remember me token in the user table
+     *
+     * @param int $userId
+     * @param string $token
+     */
+    public function updateRememberMeToken($userId, $token)
+    {
+        //Update the field remember_me where User id matches
+        $this->db->where('id', $userId);
+        $this->db->update('users', ['remember_me' => $token]);
     }
 
     /**

@@ -192,9 +192,12 @@ Class AuthController extends MY_Controller
                     'email' => $this->input->post('login_email'),
                     'password' => $this->input->post('login_password')
                 ];
-                $keepAlive = $this->input->post('rememberMe');
-                //Attemps auth
-                if($this->auth->attempt($credentials, $keepAlive)) {
+                //Check whether user has checked keep alive checkbox
+                $keepAlive = ($this->input->post('rememberMe') == 'yes')?true:false;
+                //Attempt to login user in
+                $loginAttempt = $this->auth->attempt($credentials, $keepAlive);
+                //Attemps was a success
+                if($loginAttempt['status']) {
                     //Redirect to Home page
                     redirect('/', 'location');
                 } else {
@@ -202,7 +205,7 @@ Class AuthController extends MY_Controller
                     //put email value in keeper
                     $this->keeper->put('login_email_value', $credentials['email']);
                     //Put error message Login in keeper
-                    $this->keeper->put('error_msg_login', 'Incorrect Email or password');
+                    $this->keeper->put('error_msg_login', $loginAttempt['error']);
                     //Redirect to login
                     redirect('login', 'location');
                 }
