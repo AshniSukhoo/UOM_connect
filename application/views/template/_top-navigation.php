@@ -19,30 +19,21 @@
                     </div>
                 </div>
             </form>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#"><i class="fa fa-home"></i> Home</a>
-                </li>
-                <li>
-                    <a href="#postModal" role="button" data-toggle="modal"><i class="fa fa-plus"></i> Post</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge">badge</span></a>
-                </li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#"><i class="fa fa-user"></i> <?=$this->auth->user()->first_name?></a>
+                </li>
+                <li>
+                    <a href="/"><i class="fa fa-home"></i> Home</a>
+                </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></a>
                     <ul class="dropdown-menu">
-                        <li><a href="">More</a></li>
-                        <li><a href="">More</a></li>
-                        <li><a href="">More</a></li>
-                        <li><a href="">More</a></li>
-                        <li><a href="">More</a></li>
+                        <li><a href="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
                     </ul>
                 </li>
-            </ul>
-        </nav>
+            </ul><!--/.nav navbar-nav navbar-right-->
+        </nav><!--/nav-->
     <?php else: ?>
         <div class="container">
             <div class="navbar-header">

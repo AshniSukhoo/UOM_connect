@@ -60,6 +60,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 /*
+ * Logout route
+ */
+$route['logout'] = "AuthController/getLogout";
+
+/*
  * Confirm account route
  */
 $route['verify-account'] = 'AuthController/confirmAccount';

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Login into UOM-Connect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <?php include('template/_css.php'); ?>
+    <?php include(APPPATH.'views/template/_css.php'); ?>
 </head>
 <body class="login-with-bg">
 
@@ -15,7 +15,7 @@
         <!-- main col -->
         <div class="column col-sm-12 col-xs-12" id="main-login">
 
-            <?php include('template/_top-navigation.php') ?>
+            <?php include(APPPATH.'views/template/_top-navigation.php') ?>
 
             <div class="padding">
 
@@ -33,7 +33,7 @@
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2">
-                                            <?php include('partials/_vertical-login-form.php') ?>
+                                            <?php include(APPPATH.'views/partials/_vertical-login-form.php') ?>
                                         </div><!--/.col-md-8 col-md-offset-2-->
                                     </div><!--/.row-->
                                 </div><!--/.panel-body-->
@@ -51,7 +51,7 @@
 
 </div><!--/.wrapper-->
 
-<?php include('template/_js.php'); ?>
+<?php include(APPPATH.'views/template/_js.php'); ?>
 <script type="text/javascript" src="/js/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

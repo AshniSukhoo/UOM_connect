@@ -1,5 +1,6 @@
 <?php
 
+use App\Eloquent\User;
 
 /**
  * Class Auth
@@ -63,6 +64,34 @@ class Auth
             //Unexpected error
             //Simply return false
             return false;
+        }
+    }
+
+    /**
+     * Returns the currently logged in User
+     *
+     * @return \App\Eloquent\User|null
+     */
+    public function user()
+    {
+        try {
+            //Check if user is logged in
+            if(!$this->check()) {
+                //Simply return null
+                return null;
+            }
+            //Get CI super object
+            $ci = & get_instance();
+            //Get user id from session
+            $userId = $ci->keeper->get('logged_in_user');
+            //Get the user
+            //SELECT * FROM users WHERE id = $userId
+            $user = User::findOrFail($userId);
+            //Return the user
+            return $user;
+        } catch(Exception $e) {
+            //Unknown error or unexpected results
+            return null;
         }
     }
 
@@ -157,6 +186,30 @@ class Auth
                 'status' => false,
                 'error' => $e->getMessage()
             ];
+        }
+    }
+
+    /**
+     * Clears all user sessions
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        //Get CI super object
+        $ci = & get_instance();
+        //Force delete all session data
+        $ci->keeper->clear();
+        //Verify conn_id cookie
+        $conn_id = $ci->input->cookie('conn_id', true);
+        //Conn id found
+        if($conn_id != false) {
+            //Get the user account
+            $userAccount = $ci->User->retrieveUserByRememberToken($conn_id);
+            //Set remember token to null
+            $ci->User->updateRememberMeToken($userAccount->id, null);
+            //Delete conn cookie
+            delete_cookie('conn_id');
         }
     }
 }

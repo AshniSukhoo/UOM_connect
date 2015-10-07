@@ -13,13 +13,6 @@ class Keeper
     protected $ci;
 
     /**
-     * The keeper key of the session
-     *
-     * @var string
-     */
-    protected $keeperKey = 'keeper';
-
-    /**
      * Create Keeper Instance
      */
     public function __construct()
@@ -107,7 +100,54 @@ class Keeper
             //we return false
             return false;
         }
+    }
 
+    /**
+     * Deletes a session data
+     *
+     * @param $key
+     * @return bool
+     */
+    public function forget($key)
+    {
+        try {
+            //We do not have this value in keeper
+            if(!$this->has($key)) {
+                //Stop and return false
+                return false;
+            }
+            //Get CI super object
+            $ci = & get_instance();
+            //Unset user data
+            $ci->session->unset_userdata($key);
+            //Return success
+            return true;
+        } catch(Exception $e) {
+            //Unexpected error
+            //return false
+            return false;
+        }
+    }
+
+    /**
+     * Clears all Keeper data
+     *
+     * @return bool
+     */
+    public function clear()
+    {
+        try {
+            //Get CI super object
+            $ci = & get_instance();
+            //Clear all session data
+            $ci->session->sess_destroy();
+            //Return success
+            return true;
+        } catch(Exception $e) {
+            //Unexpected error
+            //return false
+            return false;
+        }
     }
 
 }

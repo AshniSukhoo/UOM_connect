@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class AuthController
  */
@@ -144,10 +143,27 @@ Class AuthController extends MY_Controller
             $data['noNavLogin'] = true;
 
             //Load login page
-            $this->load->view('dedicated-login', $data);
+            $this->load->view('auth/dedicated-login', $data);
         } catch (Exception $e) {
             //Unexpected error
-            echo $e->getMessage();
+            show_404();
+        }
+    }
+
+    /**
+     * Logout from application
+     * @return void
+     */
+    public function getLogout()
+    {
+        try {
+            //Log user out
+            $this->auth->logout();
+            //Redirect back to home page
+            redirect('/', 'location');
+        } catch(Exception $e) {
+            //Unexpected error
+            show_404();
         }
     }
 

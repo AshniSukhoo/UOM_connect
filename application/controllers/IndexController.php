@@ -30,11 +30,14 @@ class IndexController extends MY_Controller
         //User is logged in
         if($this->auth->check()) {
 
-            echo 'Heyyy you are logged in';
+            //Pass page title to view
+            $data['title'] = 'Uom-Connect';
 
+            //Load feeds view
+            $this->load->view('pages/feeds', $data);
         } else {
             //Load login/Registration page
-            $this->load->view('login');
+            $this->load->view('auth/login');
         }
     }
 }
