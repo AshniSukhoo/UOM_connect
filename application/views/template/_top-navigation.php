@@ -21,7 +21,9 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#"><i class="fa fa-user"></i> <?=$this->auth->user()->first_name?></a>
+                    <a href="<?=($this->auth->user()->user_type == 'student')?'/student-profile/':'/lecturer-profile/';?><?=$this->auth->user()->id?>">
+                        <i class="fa fa-user"></i> <?=$this->auth->user()->first_name?>
+                    </a>
                 </li>
                 <li>
                     <a href="/"><i class="fa fa-home"></i> Home</a>
