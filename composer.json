@@ -16,6 +16,7 @@
     "bin-dir": "bin/"
   },
   "autoload": {
+    "files": [ "application/helpers/my-helpers.php" ],
     "psr-4" :{
       "App\\":"Application"
     }

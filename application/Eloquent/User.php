@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Presenters\UserPresenter;
 
 /**
  * Class User
@@ -10,6 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model
 {
+    /**
+     * User model presentation
+     * layer
+     */
+    use UserPresenter;
+
     /**
      * Table name to use
      * @var string

@@ -1,0 +1,59 @@
+<?php
+
+use Illuminate\Container\Container;
+use Illuminate\Support\Facades\App;
+
+/**
+ * Class Bootioc
+ * @package App\libraries
+ */
+class Bootioc
+{
+    /**
+     * Laravel IOC container
+     *
+     * @var \Illuminate\Container\Container
+     */
+    protected $ioc;
+
+    /**
+     * Create new instance of Bootioc
+     */
+    public function __construct()
+    {
+        //Register class loader
+        Illuminate\Support\ClassLoader::register();
+        //Create the IOC container
+        $this->ioc = new Container;
+        $this->ioc->bind('app', $this->ioc);
+        Illuminate\Support\Facades\Facade::setFacadeApplication($this->ioc);
+        //Execute TRegister
+        $this->registerRepositories();
+    }
+
+    /**
+     * Return the IOC container
+     *
+     * @return Container
+     */
+    public function returnIOC()
+    {
+        //Return the container
+        return $this->ioc;
+    }
+
+    /**
+     * Register repositories Interfaces
+     *
+     * @return void
+     */
+    public function registerRepositories()
+    {
+        //Bind UserRepository interface
+        $this->ioc->bind('App\Repositories\Contracts\UserRepositoryInterface', 'App\Repositories\UserRepository');
+        $this->ioc->bind('UserRepo', function($app) {
+            return $app->make('App\Repositories\Contracts\UserRepositoryInterface');
+        });
+    }
+
+}
