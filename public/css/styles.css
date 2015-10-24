@@ -322,3 +322,18 @@ small.text-muted {
 .blue-anchor {
     color: #428bca;
 }
+
+.post-status-well {
+    background: #ffffff;
+}
+
+.post-status-area {
+    height: 60px;
+    border: none;
+    border-radius: 0px;
+}
+
+.my-list-group > li {
+    border: none;
+}
+

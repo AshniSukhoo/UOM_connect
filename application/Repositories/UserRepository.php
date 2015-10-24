@@ -42,6 +42,11 @@ class UserRepository implements UserRepositoryInterface
         try {
             //Try to find the user with the ID and type specified
             $user = $this->user->where('user_type', '=', $type)->findOrFail($userId);
+            //User is not found
+            if($user == null) {
+                //We return false
+                return false;
+            }
             //Return the user
             return $user;
         } catch (Exception $e) {

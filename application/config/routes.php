@@ -70,9 +70,10 @@ $route['logout'] = "AuthController/getLogout";
 $route['verify-account'] = 'AuthController/confirmAccount';
 
 /*
- * Profile routes
+ * Student Profile routes
  */
 $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
+$route['student-profile/(:any)/timeline'] = 'Student/IndexController/profile/$1';
 
 $route['404_override'] = '';
 

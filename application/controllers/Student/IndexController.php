@@ -25,13 +25,17 @@ class IndexController extends MY_Controller
         try {
             //Get user for who this profile belongs
             $profileOwner = app('UserRepo')->getUser($userId, 'student');
-
+            //Student profile was not found
+            if($profileOwner == false) {
+                //Show 404 page
+                throw new Exception('Student profile not found', '404');
+            }
             //Load Student profile
-            $this->load->view('pages/student-profile', [
+            $this->load->view('student-profile/timeline', [
                 'title' => $profileOwner->full_name,
-                'profileData' => $profileOwner,
+                'profileOwner' => $profileOwner,
+                'profileMenu' => 1,
             ]);
-
         } catch (Exception $e) {
             //Unexpected error
             show_404();
