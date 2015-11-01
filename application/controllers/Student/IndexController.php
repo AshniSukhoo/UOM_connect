@@ -13,6 +13,11 @@ class IndexController extends MY_Controller
     {
         //Execute Parent Constructor
         parent::__construct();
+        //Check if not logged in
+        if(!$this->auth->check()) {
+            //Redirect to home
+            redirect('/', 'location');
+        }
     }
 
     /**

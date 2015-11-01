@@ -337,3 +337,71 @@ small.text-muted {
     border: none;
 }
 
+.post-photo {
+    width: 40px;
+    float: left;
+}
+
+.poster-name {
+    padding-left: 10px;
+    float: left;
+    font-weight: bold;
+    color: #3B5999
+}
+
+.poster-name:hover {
+    text-decoration: underline;
+}
+
+.post-text {
+    text-align: justify;
+    word-break: break-all;
+}
+
+.post-time {
+    cursor: pointer !important;
+    padding-left: 10px;
+    border: none !important;
+}
+
+.post-time:hover {
+    text-decoration: underline;
+}
+
+.like-action {
+    float: left;
+    padding-right: 20px;
+}
+
+.comment-action {
+    float: left;
+}
+
+.commenter-name {
+    font-weight: bold;
+    color: #3B5999
+}
+
+.commenter-name:hover {
+    text-decoration: underline;
+}
+
+.commenter-photo-container {
+    float: left;
+    width: 30px;
+}
+
+.commenter-photo-container img {
+    width: 100%;
+}
+
+.commenter-name-container {
+    float: left;
+    width: 90%;
+    padding-left: 10px;
+}
+
+.comment-time {
+    cursor: pointer !important;
+    border: none !important;
+}
