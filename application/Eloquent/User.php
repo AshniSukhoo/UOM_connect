@@ -4,6 +4,7 @@ namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Presenters\UserPresenter;
+use App\ModelFunctions\UserFunctions;
 
 /**
  * Class User
@@ -12,10 +13,9 @@ use App\Presenters\UserPresenter;
 class User extends Model
 {
     /**
-     * User model presentation
-     * layer
+     * Model's trait
      */
-    use UserPresenter;
+    use UserPresenter, UserFunctions;
 
     /**
      * Table name to use
@@ -71,4 +71,48 @@ class User extends Model
      * @var array
      */
     protected $hidden = ['password'];
+
+    /**
+     * One user has only one basic info
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function basicInfo()
+    {
+        //Return relationship
+        return $this->hasOne('App\Eloquent\UserBasicInfo', 'user_id', 'id');
+    }
+
+    /**
+     * A user can have many work
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function works()
+    {
+        //Return all user works
+        return $this->hasMany('App\Eloquent\UserWork', 'user_id', 'id');
+    }
+
+    /**
+     * A user can have many education
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function educations()
+    {
+        //Return all user educations
+        return $this->hasMany('App\Eloquent\UserEducation', 'user_id', 'id');
+    }
+
+    /**
+     * A user has one detail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function detail()
+    {
+        //Retun detail
+        return $this->hasOne('App\Eloquent\UserDetails', 'user_id', 'id');
+    }
 }

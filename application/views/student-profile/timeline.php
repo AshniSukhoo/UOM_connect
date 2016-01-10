@@ -1,3 +1,4 @@
+<?php $hasAd = true; ?>
 <?php include(APPPATH.'views/template/_header.php'); ?>
 
 <!-- content -->
@@ -11,7 +12,7 @@
 
         <div class="col-md-8">
             <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
-            <?php if($this->auth->user()->id == $profileOwner->id): ?>
+            <?php if($profileOwner->is($this->auth->user())): ?>
                 <?php include(APPPATH.'views/student-profile/partials/_post-status-form.php'); ?>
             <?php endif; ?>
 

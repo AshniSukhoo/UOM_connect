@@ -1,29 +1,21 @@
+<?php $hasAd = true; ?>
 <?php include(APPPATH.'views/template/_header.php'); ?>
 
 <!-- content -->
 <div class="container">
-	<div class="col-md-6">
-		<?php include(APPPATH.'views/pages/partials/post-status.php'); ?>
+    <div class="row">
+        <div class="col-md-8">
+            <?php include(APPPATH.'views/student-profile/partials/_post-status-form.php'); ?>
 
-		<?php for($i = 0; $i < 10; $i++): ?>
-             <?php include(APPPATH.'views/partials/_post-template.php'); ?>
-        <?php endfor; ?>
+            <?php for($i = 0; $i < 10; $i++): ?>
+                <?php include(APPPATH.'views/partials/_post-template.php'); ?>
+            <?php endfor; ?>
+        </div><!--/.col-md-8-->
 
-	</div><!--/.col-md-6-->
-
-	<div class="col-md-2">
-		col 2 here: advertisement/reminders area if any//check for unclosed tag to enable login
-	</div><!--/.col-md-2-->
-	
-	<div class="col-md-1">
-	col md 1 space
-	</div><!--/.col-md-1-->
-	
-    <div class="col-md-3">
-		<?php for($i = 0; $i < 100; $i++): ?>
-			<?php include(APPPATH.'views/pages/partials/chat-list-template.php'); ?>
-		 <?php endfor; ?>
-	</div><!--/.col-md-3-->
+        <div class="col-md-3">
+            <?php include(APPPATH.'views/pages/partials/_post-advertisement-template.php'); ?>
+        </div><!--/.col-md-4-->
+    </div><!--/.row-->
 </div><!--/.container-->
 
 
@@ -38,8 +30,6 @@
 
         });
     </script>
-
-<?php include(APPPATH.'views/template/_footer.php'); ?>
 
 <?php include(APPPATH.'views/template/_closing-body.php'); ?>
 

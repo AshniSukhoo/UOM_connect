@@ -72,8 +72,11 @@ $route['verify-account'] = 'AuthController/confirmAccount';
 /*
  * Student Profile routes
  */
-$route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 $route['student-profile/(:any)/timeline'] = 'Student/IndexController/profile/$1';
+$route['student-profile/(:any)/about'] = 'Student/IndexController/about/$1';
+$route['student-profile/(:any)/friends'] = 'Student/IndexController/friends/$1';
+$route['student-profile/(:any)/edit-basic-info'] = 'Student/IndexController/showEditBasicInfo/$1';
+$route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 
 $route['404_override'] = '';
 

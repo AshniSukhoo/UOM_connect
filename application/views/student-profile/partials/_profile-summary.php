@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-3">
-        <a href="#" class="thumbnail">
+        <a href="#" class="thumbnail" style="width: 80%;">
             <img style="width: 100%; height: 180px; display: block;" src="/img/avatar.png" alt="...">
         </a>
     </div><!--/.col-md-3-->
