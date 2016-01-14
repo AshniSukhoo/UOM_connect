@@ -78,6 +78,11 @@ $route['student-profile/(:any)/friends'] = 'Student/IndexController/friends/$1';
 $route['student-profile/(:any)/edit-basic-info'] = 'Student/IndexController/showEditBasicInfo/$1';
 $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 
+/*
+ * User actions routes
+ */
+$route['user-actions/save-basic-info'] = 'UserActionsController/saveBasicInfo';
+
 $route['404_override'] = '';
 
 

@@ -8,16 +8,16 @@
                 <i class="fa fa-calendar"></i> Born on <?=$profileOwner->date_of_birth->formatLocalized('%B %d, %Y') ?>
             </li>
             <li class="list-group-item">
-                <i class="fa fa-globe"></i> Country - <?=($profileOwner->basicInfo->country != '')?$profileOwner->basicInfo->country:'No info provided'?>
+                <i class="fa fa-globe"></i> Country - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->country != '')?$profileOwner->basicInfo->country:'No info provided'?>
             </li>
             <li class="list-group-item">
-                <i class="fa fa-building"></i> City - <?=($profileOwner->basicInfo->city != '')?$profileOwner->basicInfo->city:'No infor provided'?>
+                <i class="fa fa-building"></i> City - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->city != '')?$profileOwner->basicInfo->city:'No info provided'?>
             </li>
             <li class="list-group-item">
-                <i class="fa fa-map-marker"></i> Address - <?=($profileOwner->basicInfo->address != '')?$profileOwner->basicInfo->address:'No info provided'?>
+                <i class="fa fa-map-marker"></i> Address - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->address != '')?$profileOwner->basicInfo->address:'No info provided'?>
             </li>
             <li class="list-group-item">
-                <i class="fa fa-envelope"></i> Email - <?=($profileOwner->basicInfo->emails != null)?$profileOwner->basicInfo->emails->reduce(function($results, $item) {
+                <i class="fa fa-envelope"></i> Email - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->emails != null)?$profileOwner->basicInfo->emails->reduce(function($results, $item) {
                     return $results.' ,'.$item;
                 }):'No info provided'?>
             </li>

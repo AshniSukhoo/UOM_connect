@@ -1,5 +1,20 @@
 <?php $hasAd = true; ?>
+<?php
+	$css = [
+		'/css/bootstrap-tagsinput.css',
+	];
+?>
 <?php include(APPPATH.'views/template/_header.php'); ?>
+	<style type="text/css">
+		.bootstrap-tagsinput {
+			width: 100% !important;
+			border-bottom-left-radius: 0px;
+			border-top-left-radius: 0px;
+		}
+		.bootstrap-tagsinput input {
+			width: 100% !important;
+		}
+	</style>
 
     <!-- content -->
     <div class="container">
@@ -26,6 +41,7 @@
 
 <?php $js_plugins = [
     '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
+	'/js/plugins/tags-input/bootstrap-tagsinput.js',
 ]; ?>
 <?php include(APPPATH.'views/template/_footer.php'); ?>
 
@@ -33,6 +49,7 @@
         $(document).ready(function(){
             $(".post-status-area").autoGrow();
 
+	        $('input[name="emails"]').tagsinput();
         });
     </script>
 
