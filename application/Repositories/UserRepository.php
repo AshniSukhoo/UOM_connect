@@ -55,4 +55,33 @@ class UserRepository implements UserRepositoryInterface
         }
     }
 
+	/**
+	 * Saves user basic info
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserBasicInfo|null
+	 */
+	public function saveBasicInfo($user = null, $data = [])
+	{
+		try {
+			//Get the info of the user
+			$basicInfo = $user->basicInfo;
+			//No info found
+			if($basicInfo == null) {
+				//Create new info for the user
+				$basicInfo = $user->basicInfo()->create($data);
+			} else {
+				//User already has info
+				$basicInfo->fill($data);
+				//Save info
+				$basicInfo->save();
+			}
+			//Return basic info
+			return $basicInfo;
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
 }

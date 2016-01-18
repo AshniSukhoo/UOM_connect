@@ -17,4 +17,13 @@ interface UserRepositoryInterface
      * @return \App\Eloquent\User|null
      */
     public function getUser($userId, $type);
+
+	/**
+	 * Saves user basic info
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserBasicInfo|null
+	 */
+	public function saveBasicInfo($user = null, $data = []);
 }

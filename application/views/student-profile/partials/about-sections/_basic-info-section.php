@@ -17,9 +17,7 @@
                 <i class="fa fa-map-marker"></i> Address - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->address != '')?$profileOwner->basicInfo->address:'No info provided'?>
             </li>
             <li class="list-group-item">
-                <i class="fa fa-envelope"></i> Email - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->emails != null)?$profileOwner->basicInfo->emails->reduce(function($results, $item) {
-                    return $results.' ,'.$item;
-                }):'No info provided'?>
+                <i class="fa fa-envelope"></i> Email - <?=($profileOwner->basicInfo != null && $profileOwner->basicInfo->emails != null)?$profileOwner->basicInfo->show_emails:'No info provided'?>
             </li>
         </ul>
     </div><!--/panel-body-->

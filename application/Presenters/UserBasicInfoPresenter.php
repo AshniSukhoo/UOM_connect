@@ -30,4 +30,17 @@ trait UserBasicInfoPresenter
         //Json encode and return
         $this->attributes['emails'] = ($value != '' && $value != null)?json_encode($value->all()):'';
     }
+
+	/**
+	 * Show emails on html
+	 *
+	 * @return string
+	 */
+	public function getShowEmailsAttribute()
+	{
+		//Separate email addresses with comma and return them
+		return rtrim($this->emails->reduce(function($results, $item) {
+				return $item.', '.$results;
+		}), ', ');
+	}
 }
