@@ -50,6 +50,8 @@
             $(".post-status-area").autoGrow();
 
 	        $('input[name="emails"]').tagsinput();
+
+	        $('input[name="country"]').focus();
         });
     </script>
 

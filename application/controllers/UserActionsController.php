@@ -80,8 +80,73 @@ class UserActionsController extends CI_Controller
 			//Info not saved
 			if($basicInfo == null) {
 				//Alert error to user
-				throw new Exception('Could not data.Try again later', 422);
+				throw new Exception('Could not save data.Try again later', 422);
 			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Basic info saved');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
+
+	/**
+	 * Save new education information for a user
+	 *
+	 * @return string
+	 */
+	public function saveNewEducation()
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Set validation rules
+			$this->form_validation->set_rules('institution_name', 'Institution name', 'required|xss_clean');
+			$this->form_validation->set_rules('major', 'Major', 'required|xss_clean');
+			$this->form_validation->set_rules('year_joined', 'Year started', 'required|xss_clean');
+
+			//Apply validation rules
+			if($this->form_validation->run() === false) {
+				//Keep error messages
+				$this->errorBag->logValidationErrors([
+					'institution_name',
+					'major',
+					'year_joined'
+				]);
+				//Go back to  edit page user page
+				redirect($this->auth->user()->profile_uri.'/add-education', 'location');
+			}
+
+			//Save info
+			$newEducationRow = $this->userRepo->addEducation($this->auth->user(), [
+				'institution_name'  => $this->input->post('institution_name'),
+				'major'             => $this->input->post('major'),
+				'year_joined'       => $this->input->post('year_joined'),
+				'year_left'         => $this->input->post('year_left'),
+				'is_current'        => ($this->input->post('year_left') == '')
+			]);
+
+			//Info not saved
+			if($newEducationRow == null) {
+				//Alert error to user
+				throw new Exception('Could not save data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'New education added');
 
 			//All ok redirect to User profile
 			redirect($this->auth->user()->profile_uri.'/about', 'location');

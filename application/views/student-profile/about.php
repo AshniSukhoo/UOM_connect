@@ -13,6 +13,8 @@
             <div class="col-md-8">
                 <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
 
+                <?php include(APPPATH.'views/partials/_notifications-alert.php'); ?>
+
                 <?php include(APPPATH.'views/student-profile/partials/about-sections/_basic-info-section.php'); ?>
 
                 <?php include(APPPATH.'views/student-profile/partials/about-sections/_work-and-education-section.php'); ?>

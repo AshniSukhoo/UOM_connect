@@ -84,4 +84,22 @@ class UserRepository implements UserRepositoryInterface
 			return null;
 		}
 	}
+
+	/**
+	 * Add a new education info to user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserEducation|null
+	 */
+	public function addEducation($user = null, $data = [])
+	{
+		try {
+			//Add new education row and return
+			return $user->educations()->create($data);
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
 }
