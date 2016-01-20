@@ -2,6 +2,7 @@
 
 use App\Repositories\UserRepository;
 use App\Services\ErrorMessagesBag;
+use Carbon\Carbon;
 
 /**
  * Class UserActionsController
@@ -178,6 +179,7 @@ class UserActionsController extends CI_Controller
             //Set validation rules
             $this->form_validation->set_rules('job_title', 'Job name', 'required|xss_clean');
             $this->form_validation->set_rules('company_name', 'Company name', 'required|xss_clean');
+	        $this->form_validation->set_rules('date_joined', 'Date Joined', 'required|xss_clean');
 
             //Apply validation rules
             if($this->form_validation->run() === false) {
@@ -185,6 +187,7 @@ class UserActionsController extends CI_Controller
                 $this->errorBag->logValidationErrors([
                     'job_title',
                     'company_name',
+	                'date_joined',
                 ]);
                 //Go back to  edit page user page
                 redirect($this->auth->user()->profile_uri.'/add-work', 'location');
@@ -194,9 +197,9 @@ class UserActionsController extends CI_Controller
             $newWorkRow = $this->userRepo->addWork($this->auth->user(), [
                 'job_title'      => $this->input->post('job_title'),
                 'company_name'   => $this->input->post('company_name'),
-                'date_joined'    => $this->input->post('date_joined'),
-                'date_left'         => $this->input->post('date_left'),
-                'is_current'        => ($this->input->post('date_left') == '')
+                'date_joined'    => Carbon::createFromFormat('d/m/Y', $this->input->post('date_joined'))->format('Y-m-d 00:00:00'),
+                'date_left'      => ($this->input->post('date_left') != '' && $this->input->post('date_left') != null)?Carbon::createFromFormat('d/m/Y', $this->input->post('date_left'))->format('Y-m-d 00:00:00'):null,
+                'is_current'     => ($this->input->post('date_left') == '')
             ]);
 
             //Info not saved

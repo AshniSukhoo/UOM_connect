@@ -6,42 +6,52 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="form-group<?=($this->keeper->has('job_title_error'))?' has-error':''?>">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-"></i></span>
-                            <input type="text" name="job_title" placeholder="Enter job title" class="form-control" value="<?=$this->keeper->has('job_title')?$this->keeper->get('job_title'):''?>" />
-                        </div><!--/.input=-group--->
-                        <?=($this->keeper->has('job_title_error'))?$this->keeper->get('job_title_error'):''?>
-                    </div><!--/.form-group-->
 
-                    <div class="form-group<?=($this->keeper->has('company_name_error'))?' has-error':''?>">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-"></i></span>
-                            <input type="text" name="company_name" placeholder="Enter the name of the company you work for" class="form-control" value="<?=$this->keeper->has('company_name')?$this->keeper->get('company_name'):''?>" />
-                        </div><!--/.input=-group--->
-                        <?=($this->keeper->has('company_name_error'))?$this->keeper->get('company_name_error'):''?>
-                    </div><!--/.form-group-->
+	                <div class="row">
+		                <div class="col-md-12">
+			                <div class="form-group<?=($this->keeper->has('job_title_error'))?' has-error':''?>">
+				                <div class="input-group">
+					                <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
+					                <input type="text" name="job_title" placeholder="Enter job title" class="form-control" value="<?=$this->keeper->has('job_title')?$this->keeper->get('job_title'):''?>" />
+				                </div><!--/.input=-group--->
+				                <?=($this->keeper->has('job_title_error'))?$this->keeper->get('job_title_error'):''?>
+			                </div><!--/.form-group-->
+		                </div><!--/.col-md-12-->
+	                </div><!--/.row-->
 
-                    <div class="form-group<?=($this->keeper->has('date_joined_error'))?' has-error':''?>">
-                        <select name="date_joined" id="date_joined" class="form-control">
-                            <option value="">Year started</option>
-                            <?php foreach(range(date('Y'), date('Y') - 100 ) as $year): ?>
-                                <option value="<?=$year?>" <?=($this->keeper->has('date_joined_value') && $this->keeper->get('date_joined_value') == $year)?'selected':''?>><?=$year?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?=($this->keeper->has('date_joined_error'))?$this->keeper->get('date_joined_error'):''?>
-                    </div><!--/.form-group-->
+	                <div class="row">
+		                <div class="col-md-12">
+			                <div class="form-group<?=($this->keeper->has('company_name_error'))?' has-error':''?>">
+				                <div class="input-group">
+					                <span class="input-group-addon"><i class="fa fa-industry"></i></span>
+					                <input type="text" name="company_name" placeholder="Enter the name of the company you work for" class="form-control" value="<?=$this->keeper->has('company_name')?$this->keeper->get('company_name'):''?>" />
+				                </div><!--/.input=-group--->
+				                <?=($this->keeper->has('company_name_error'))?$this->keeper->get('company_name_error'):''?>
+			                </div><!--/.form-group-->
+		                </div><!--/.col-md-12-->
+	                </div><!--/.row-->
 
-                    <div class="form-group<?=($this->keeper->has('date_left_error'))?' has-error':''?>">
-                        <select name="date_left" id="date_left" class="form-control">
-                            <option value="">Year left</option>
-                            <?php foreach(range(date('Y'), date('Y') - 100 ) as $year): ?>
-                                <option value="<?=$year?>" <?=($this->keeper->has('date_left_value') && $this->keeper->get('date_left_value') == $year)?'selected':''?>><?=$year?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <small class="text-muted"><sup>#</sup>Leave unselected if still working</small>
-                        <?=($this->keeper->has('date_left_error'))?$this->keeper->get('date_left_error'):''?>
-                    </div><!--/.form-group-->
+	                <div class="row">
+		                <div class="col-md-6">
+			                <div class="form-group<?=($this->keeper->has('date_joined_error'))?' has-error':''?>">
+				                <div class="input-group">
+					                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                <input type="text" name="date_joined" placeholder="Date you started new position" class="form-control datepicker" value="<?=$this->keeper->has('date_joined')?$this->keeper->get('date_joined'):''?>" />
+				                </div><!--/.input=-group--->
+				                <?=($this->keeper->has('date_joined_error'))?$this->keeper->get('date_joined_error'):''?>
+			                </div><!--/.form-group-->
+		                </div><!--/.col-md-6-->
+		                <div class="col-md-6">
+			                <div class="form-group<?=($this->keeper->has('date_left_error'))?' has-error':''?>">
+				                <div class="input-group">
+					                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                <input type="text" name="date_left" placeholder="Date you left position" class="form-control datepicker" value="<?=$this->keeper->has('date_left')?$this->keeper->get('date_left'):''?>" />
+				                </div><!--/.input=-group--->
+				                <?=($this->keeper->has('date_left_error'))?$this->keeper->get('date_left_error'):''?>
+				                <small class="text-muted"><sup>#</sup>Leave blank if still working</small>
+			                </div><!--/.form-group-->
+		                </div><!--/.col-md-6-->
+	                </div><!--/.row-->
 
                 </div><!--/.col-md-12-->
             </div><!--/.row-->

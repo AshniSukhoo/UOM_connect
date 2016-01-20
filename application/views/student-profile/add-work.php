@@ -2,6 +2,7 @@
 <?php
 $css = [
     '/css/bootstrap-tagsinput.css',
+	'/css/bootstrap-datetimepicker.css',
 ];
 ?>
 <?php include(APPPATH.'views/template/_header.php'); ?>
@@ -32,8 +33,6 @@ $css = [
 
                 <?php include(APPPATH.'views/student-profile/partials/about-sections/_basic-info-section.php'); ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-forms/_add-education.php'); ?>
-
                 <?php include(APPPATH.'views/student-profile/partials/about-sections/_details-about-user-section.php'); ?>
             </div><!--/.col-md-8-->
 
@@ -44,6 +43,8 @@ $css = [
 <?php $js_plugins = [
     '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
     '/js/plugins/tags-input/bootstrap-tagsinput.js',
+	'/js/plugins/moment/min/moment-with-locales.min.js',
+	'/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
 ]; ?>
 <?php include(APPPATH.'views/template/_footer.php'); ?>
 
@@ -54,6 +55,12 @@ $css = [
             $('input[name="emails"]').tagsinput();
 
             $('input[name="institution_name"]').focus();
+
+	        $('.datepicker').datetimepicker({
+		        viewMode: 'years',
+		        format: 'DD/MM/YYYY',
+		        maxDate: moment()
+	        });
         });
     </script>
 

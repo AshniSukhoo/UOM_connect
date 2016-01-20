@@ -35,4 +35,13 @@ interface UserRepositoryInterface
 	 * @return \App\Eloquent\UserEducation|null
 	 */
 	public function addEducation($user = null, $data = []);
+
+	/**
+	 * Add a new work info to user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserWork|null
+	 */
+	public function addWork($user = null, $data = []);
 }
