@@ -56,5 +56,4 @@ class UomValidId extends Model
      */
     protected $dates = ['datetime'];
 
-
 }

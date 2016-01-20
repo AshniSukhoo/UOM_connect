@@ -77,6 +77,7 @@ $route['student-profile/(:any)/about'] = 'Student/IndexController/about/$1';
 $route['student-profile/(:any)/friends'] = 'Student/IndexController/friends/$1';
 $route['student-profile/(:any)/edit-basic-info'] = 'Student/IndexController/showEditBasicInfo/$1';
 $route['student-profile/(:any)/add-education'] = 'Student/IndexController/showAddEducation/$1';
+$route['student-profile/(:any)/add-work'] = 'Student/IndexController/showAddWork/$1';
 $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 
 /*
@@ -84,6 +85,7 @@ $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
  */
 $route['user-actions/save-basic-info'] = 'UserActionsController/saveBasicInfo';
 $route['user-actions/save-new-education'] = 'UserActionsController/saveNewEducation';
+$route['user-actions/save-new-work'] = 'UserActionsController/saveNewWork';
 
 $route['404_override'] = '';
 

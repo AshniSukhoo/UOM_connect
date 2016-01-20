@@ -160,4 +160,32 @@ class IndexController extends MY_Controller
 			show_404();
 		}
 	}
+
+    /**
+     * Show page to work to user student profile
+     *
+     * @param $userId
+     * @return string
+     */
+    public function showAddWork($userId)
+    {
+        try {
+            //Get user for who this profile belongs
+            $profileOwner = app('UserRepo')->getUser($userId, 'student');
+            //Student profile was not found
+            if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+                //Show 404 page
+                throw new Exception('Student profile not found', '404');
+            }
+            //Load Edit basic info page
+            $this->load->view('student-profile/add-work', [
+                'title' => $profileOwner->full_name,
+                'profileOwner' => $profileOwner,
+                'profileMenu' => 2,
+            ]);
+        } catch (Exception $e) {
+            //Unexpected error
+            show_404();
+        }
+    }
 }

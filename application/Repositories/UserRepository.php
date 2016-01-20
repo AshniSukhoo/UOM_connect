@@ -102,4 +102,22 @@ class UserRepository implements UserRepositoryInterface
 			return null;
 		}
 	}
+
+	/**
+	 * Add a new work info to user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserWork|null
+	 */
+	public function addWork($user = null, $data = [])
+	{
+		try {
+			//Add new work row and return
+			return $user->works()->create($data);
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
 }

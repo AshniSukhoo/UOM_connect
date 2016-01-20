@@ -158,4 +158,64 @@ class UserActionsController extends CI_Controller
 			redirect($this->auth->user()->profile_uri.'/about', 'location');
 		}
 	}
+
+    /**
+     * Save new work information for a user
+     *
+     * @return string
+     */
+    public function saveNewWork()
+    {
+        try {
+            //User must be logged in
+            if(!$this->auth->check()) {
+                //Notify error
+                $this->keeper->put('notificationError', 'You must log in to continue');
+                //Return to login
+                redirect('/login', 'location');
+            }
+
+            //Set validation rules
+            $this->form_validation->set_rules('job_title', 'Job name', 'required|xss_clean');
+            $this->form_validation->set_rules('company_name', 'Company name', 'required|xss_clean');
+
+            //Apply validation rules
+            if($this->form_validation->run() === false) {
+                //Keep error messages
+                $this->errorBag->logValidationErrors([
+                    'job_title',
+                    'company_name',
+                ]);
+                //Go back to  edit page user page
+                redirect($this->auth->user()->profile_uri.'/add-work', 'location');
+            }
+
+            //Save info
+            $newWorkRow = $this->userRepo->addWork($this->auth->user(), [
+                'job_title'      => $this->input->post('job_title'),
+                'company_name'   => $this->input->post('company_name'),
+                'date_joined'    => $this->input->post('date_joined'),
+                'date_left'         => $this->input->post('date_left'),
+                'is_current'        => ($this->input->post('date_left') == '')
+            ]);
+
+            //Info not saved
+            if($newWorkRow == null) {
+                //Alert error to user
+                throw new Exception('Could not save data.Try again later', 422);
+            }
+
+            //Notify success
+            $this->keeper->put('notificationSuccess', 'New work details added');
+
+            //All ok redirect to User profile
+            redirect($this->auth->user()->profile_uri.'/about', 'location');
+        } catch (Exception $e) {
+            //Unexpected error
+            //Notify error
+            $this->keeper->put('notificationError', $e->getMessage());
+            //Go back to profile page
+            redirect($this->auth->user()->profile_uri.'/about', 'location');
+        }
+    }
 }
