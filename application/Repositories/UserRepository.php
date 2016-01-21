@@ -120,4 +120,45 @@ class UserRepository implements UserRepositoryInterface
 			return null;
 		}
 	}
+
+	/**
+	 * Edits an education row for a user
+	 *
+	 * @param null $user
+	 * @param string $educationId
+	 * @param array $data
+	 * @return \App\Eloquent\UserEducation|null
+	 */
+	public function editEducation($user = null, $educationId = '', $data = [])
+	{
+		try {
+			//Find the eduction row
+			$educationRow = $user->educations()->findOrFail($educationId);
+			//Update row
+			$educationRow->fill($data);
+			//Save and return row
+			return $educationRow->save();
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
+
+	/**
+	 * Delete Education row from user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $educationId
+	 * @return bool
+	 */
+	public function deleteEducation($user = null, $educationId = '')
+	{
+		try {
+			//Delete education and return
+			return $user->educations()->whereId($educationId)->delete();
+		} catch (Exception $e) {
+			//Unexpected error
+			return false;
+		}
+	}
 }

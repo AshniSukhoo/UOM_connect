@@ -221,4 +221,120 @@ class UserActionsController extends CI_Controller
             redirect($this->auth->user()->profile_uri.'/about', 'location');
         }
     }
+
+	/**
+	 * Saves info about edited education row
+	 *
+	 * @param string $educationId
+	 * @return string
+	 */
+	public function saveEditedEducation($educationId = '')
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Verify education edit capabilities
+			if($this->auth->user()->educations()->whereId($educationId)->count() != 1) {
+				//Cannot edit
+				throw new Exception('You do not have permission to edit this record', 403);
+			}
+
+			//Set validation rules
+			$this->form_validation->set_rules('institution_name', 'Institution name', 'required|xss_clean');
+			$this->form_validation->set_rules('major', 'Major', 'required|xss_clean');
+			$this->form_validation->set_rules('year_joined', 'Year started', 'required|xss_clean');
+
+			//Apply validation rules
+			if($this->form_validation->run() === false) {
+				//Keep error messages
+				$this->errorBag->logValidationErrors([
+					'institution_name',
+					'major',
+					'year_joined'
+				]);
+				//Go back to  edit page user page
+				redirect($this->auth->user()->profile_uri.'/edit-education/'.$educationId, 'location');
+			}
+
+			//Save the new education data
+			$results = $this->userRepo->editEducation($this->auth->user(), $educationId, [
+				'institution_name'  => $this->input->post('institution_name'),
+				'major'             => $this->input->post('major'),
+				'year_joined'       => $this->input->post('year_joined'),
+				'year_left'         => $this->input->post('year_left'),
+				'is_current'        => ($this->input->post('year_left') == '')
+			]);
+
+			//Could not save
+			if($results == null) {
+				//Alert error to user
+				throw new Exception('Could not save data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Education skills updated');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
+
+	/**
+	 * Delete education row
+	 *
+	 * @param string $educationId
+	 * @return string
+	 */
+	public function deleteEducation($educationId = '')
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Verify education delete capabilities
+			if($this->auth->user()->educations()->whereId($educationId)->count() != 1) {
+				//Cannot edit
+				throw new Exception('You do not have permission to edit this record', 403);
+			}
+
+			//Perform delete
+			$results = $this->userRepo->deleteEducation($this->auth->user(), $educationId);
+
+			//Could not delete
+			if($results == null) {
+				//Alert error to user
+				throw new Exception('Could delete data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Education skills deleted');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
 }

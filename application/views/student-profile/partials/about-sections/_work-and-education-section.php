@@ -4,6 +4,30 @@
     </div><!--/.panel-heading-->
     <div class="panel-body">
         <?php if($profileOwner->hasWorkOrEduction()): ?>
+	        <?php if($profileOwner->hasEducations()): ?>
+		        <h4>Educational skills</h4>
+		        <div class="list-group">
+			        <?php foreach($profileOwner->educations()->orderBy('year_joined', 'desc')->get() as $education): ?>
+				        <a href="javascript:;" class="list-group-item">
+					        <h4 class="list-group-item-heading">Major in <?=$education->major?></h4>
+					        <p class="list-group-item-text">
+						        <?=($education->is_current)?'Studying':'Graduated'?> from <?=$education->institution_name?>
+						        <?=($education->is_current)?'since':'from'?> <?=$education->year_joined?> <?=($education->is_current)?'':' to '.$education->year_left?>
+						        <?php if($profileOwner->is($this->auth->user())): ?>
+							        <br/><br />
+							        <button class="btn btn-xs btn-primary link-button" data-target="<?=$profileOwner->profile_uri.'/edit-education/'.$education->id?>">
+								        <i class="fa fa-edit"></i> Edit
+							        </button>
+							        &nbsp;
+							        <button class="btn btn-xs btn-default link-button" data-target="<?=base_url()?>user-actions/delete-education/<?=$education->id?>">
+								        <i class="fa fa-times"></i> Delete
+							        </button>
+					            <?php endif; ?>
+					        </p>
+				        </a>
+			        <?php endforeach; ?>
+		        </div>
+	        <?php endif; ?>
         <?php else: ?>
             <h3 class="text-center">No details provided !</h3>
         <?php endif; ?>

@@ -28,7 +28,13 @@ $css = [
 			<div class="col-md-8">
 				<?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
 
-				<?php include(APPPATH.'views/student-profile/partials/about-forms/_add-education.php'); ?>
+				<?php if(isset($handle) && $handle == 'add'): ?>
+					<?php include(APPPATH.'views/student-profile/partials/about-forms/_add-education.php'); ?>
+				<?php endif; ?>
+
+				<?php if(isset($handle) && $handle == 'edit'): ?>
+					<?php include(APPPATH.'views/student-profile/partials/about-forms/_edit-education.php'); ?>
+				<?php endif; ?>
 
 				<?php include(APPPATH.'views/student-profile/partials/about-sections/_basic-info-section.php'); ?>
 

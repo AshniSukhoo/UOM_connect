@@ -154,6 +154,38 @@ class IndexController extends MY_Controller
 				'title' => $profileOwner->full_name,
 				'profileOwner' => $profileOwner,
 				'profileMenu' => 2,
+				'handle' => 'add',
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
+
+	/**
+	 * Show the page to edit education row
+	 *
+	 * @param $userId
+	 * @param $educationId
+	 * @return string
+	 */
+	public function showEditEducation($userId, $educationId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'student');
+			//Student profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Student profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('student-profile/add-education', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'edit',
+				'education' => $profileOwner->educations()->findOrFail($educationId),
 			]);
 		} catch (Exception $e) {
 			//Unexpected error

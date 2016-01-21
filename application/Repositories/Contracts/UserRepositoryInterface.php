@@ -44,4 +44,23 @@ interface UserRepositoryInterface
 	 * @return \App\Eloquent\UserWork|null
 	 */
 	public function addWork($user = null, $data = []);
+
+	/**
+	 * Edits an education row for a user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $educationId
+	 * @param array $data
+	 * @return \App\Eloquent\UserEducation|null
+	 */
+	public function editEducation($user = null, $educationId = '', $data = []);
+
+	/**
+	 * Delete Education row from user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $educationId
+	 * @return bool
+	 */
+	public function deleteEducation($user = null, $educationId = '');
 }

@@ -35,6 +35,11 @@
         $(document).ready(function(){
             $(".post-status-area").autoGrow();
 
+	        $('.link-button').on('click', function(e) {
+		        e.stopPropagation();
+		        e.preventDefault();
+		        window.location.href = $(this).attr('data-target');
+	        })
         });
     </script>
 
