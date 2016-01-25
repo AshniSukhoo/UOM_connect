@@ -63,4 +63,23 @@ interface UserRepositoryInterface
 	 * @return bool
 	 */
 	public function deleteEducation($user = null, $educationId = '');
+
+	/**
+	 * Edit a work item for a user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $workId
+	 * @param array $data
+	 * @return \App\Eloquent\UserWork|null
+	 */
+	public function editWork($user = null, $workId = '', $data = []);
+
+	/**
+	 * Delete a work item
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $workId
+	 * @return bool
+	 */
+	public function deleteWork($user = null, $workId = '');
 }

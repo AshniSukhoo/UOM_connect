@@ -337,4 +337,121 @@ class UserActionsController extends CI_Controller
 			redirect($this->auth->user()->profile_uri.'/about', 'location');
 		}
 	}
+
+	/**
+	 * Save an edited work item
+	 *
+	 * @param string $workId
+	 * @return string
+	 */
+	public function saveEditedWork($workId = '')
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Verify work edit capabilities
+			if($this->auth->user()->works()->whereId($workId)->count() != 1) {
+				//Cannot edit
+				throw new Exception('You do not have permission to edit this record', 403);
+			}
+
+			//Set validation rules
+			$this->form_validation->set_rules('job_title', 'Job name', 'required|xss_clean');
+			$this->form_validation->set_rules('company_name', 'Company name', 'required|xss_clean');
+			$this->form_validation->set_rules('date_joined', 'Date Joined', 'required|xss_clean');
+
+			//Apply validation rules
+			if($this->form_validation->run() === false) {
+				//Keep error messages
+				$this->errorBag->logValidationErrors([
+					'job_title',
+					'company_name',
+					'date_joined',
+				]);
+				//Go back to  edit page user page
+				redirect($this->auth->user()->profile_uri.'/edit-work/'.$workId, 'location');
+			}
+
+			//Save the edited work data
+			$results = $this->userRepo->editWork($this->auth->user(), $workId, [
+				'job_title'      => $this->input->post('job_title'),
+				'company_name'   => $this->input->post('company_name'),
+				'date_joined'    => Carbon::createFromFormat('d/m/Y', $this->input->post('date_joined'))->format('Y-m-d 00:00:00'),
+				'date_left'      => ($this->input->post('date_left') != '' && $this->input->post('date_left') != null)?Carbon::createFromFormat('d/m/Y', $this->input->post('date_left'))->format('Y-m-d 00:00:00'):null,
+				'is_current'     => ($this->input->post('date_left') == '')
+			]);
+
+			//Could not save
+			if($results == null) {
+				//Alert error to user
+				throw new Exception('Could not save data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Work experience updated');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
+
+	/**
+	 * Delete a work item
+	 *
+	 * @param string $workId
+	 * @return string
+	 */
+	public function deleteWork($workId = '')
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Verify work delete capabilities
+			if($this->auth->user()->works()->whereId($workId)->count() != 1) {
+				//Cannot edit
+				throw new Exception('You do not have permission to delete this record', 403);
+			}
+
+			//Perform delete
+			$results = $this->userRepo->deleteWork($this->auth->user(), $workId);
+
+			//Could not delete
+			if($results == null) {
+				//Alert error to user
+				throw new Exception('Could delete data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Work experience deleted');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
 }

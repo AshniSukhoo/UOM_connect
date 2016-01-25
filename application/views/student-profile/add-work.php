@@ -29,7 +29,14 @@ $css = [
             <div class="col-md-8">
                 <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-forms/_add-work.php'); ?>
+                <?php if(isset($handle) && $handle == 'add'): ?>
+	                <?php include(APPPATH.'views/student-profile/partials/about-forms/_add-work.php'); ?>
+                <?php endif; ?>
+
+                <?php if(isset($handle) && $handle == 'edit'): ?>
+	                <?php include(APPPATH.'views/student-profile/partials/about-forms/_edit-work.php'); ?>
+                <?php endif; ?>
+
 
                 <?php include(APPPATH.'views/student-profile/partials/about-sections/_basic-info-section.php'); ?>
 
@@ -54,7 +61,7 @@ $css = [
 
             $('input[name="emails"]').tagsinput();
 
-            $('input[name="institution_name"]').focus();
+            $('input[name="job_title"]').focus();
 
 	        $('.datepicker').datetimepicker({
 		        viewMode: 'years',

@@ -28,6 +28,28 @@
 			        <?php endforeach; ?>
 		        </div>
 	        <?php endif; ?>
+
+	        <?php if($profileOwner->hasWorks()): ?>
+		        <h4>Work Experiences</h4>
+		        <?php foreach($profileOwner->works()->orderBy('date_joined', 'desc')->get() as $work): ?>
+	                <a href="javascript:;" class="list-group-item">
+		                <h4 class="list-group-item-heading"><?=$work->job_title?> at <?=$work->company_name?></h4>
+		                <p class="list-group-item-text">
+			                <?=($work->is_current)?'Working since':'Worked from'?> <?=$work->date_joined->format('Y')?> <?=($work->is_current)?'':' to '.$work->date_left->format('Y')?>
+			                <?php if($profileOwner->is($this->auth->user())): ?>
+				                <br/><br />
+				                <button class="btn btn-xs btn-primary link-button" data-target="<?=$profileOwner->profile_uri.'/edit-work/'.$work->id?>">
+					                <i class="fa fa-edit"></i> Edit
+				                </button>
+				                &nbsp;
+				                <button class="btn btn-xs btn-default link-button" data-target="<?=base_url()?>user-actions/delete-work/<?=$work->id?>">
+					                <i class="fa fa-times"></i> Delete
+				                </button>
+			                <?php endif; ?>
+		                </p>
+		            </a>
+		        <?php endforeach; ?>
+	        <?php endif; ?>
         <?php else: ?>
             <h3 class="text-center">No details provided !</h3>
         <?php endif; ?>

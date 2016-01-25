@@ -214,10 +214,42 @@ class IndexController extends MY_Controller
                 'title' => $profileOwner->full_name,
                 'profileOwner' => $profileOwner,
                 'profileMenu' => 2,
+	            'handle' => 'add',
             ]);
         } catch (Exception $e) {
             //Unexpected error
             show_404();
         }
     }
+
+	/**
+	 * Show page to edit a work item
+	 *
+	 * @param string $userId
+	 * @param string $workId
+	 * @return string
+	 */
+	public function showEditWork($userId, $workId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'student');
+			//Student profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Student profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('student-profile/add-work', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'edit',
+				'work' => $profileOwner->works()->findOrFail($workId),
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
 }

@@ -155,7 +155,48 @@ class UserRepository implements UserRepositoryInterface
 	{
 		try {
 			//Delete education and return
-			return $user->educations()->whereId($educationId)->delete();
+			return $user->educations()->findOrFail($educationId)->delete();
+		} catch (Exception $e) {
+			//Unexpected error
+			return false;
+		}
+	}
+
+	/**
+	 * Edit a work item for a user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $workId
+	 * @param array $data
+	 * @return \App\Eloquent\UserWork|null
+	 */
+	public function editWork($user = null, $workId = '', $data = [])
+	{
+		try {
+			//Find work row
+			$workRow = $user->works()->findOrFail($workId);
+			//Update row
+			$workRow->fill($data);
+			//Save and return row
+			return $workRow->save();
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
+
+	/**
+	 * Delete a work item
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @param string $workId
+	 * @return bool
+	 */
+	public function deleteWork($user = null, $workId = '')
+	{
+		try {
+			//Perform delete and return
+			return $user->works()->findOrFail($workId)->delete();
 		} catch (Exception $e) {
 			//Unexpected error
 			return false;
