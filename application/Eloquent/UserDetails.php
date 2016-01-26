@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Presenters\UserDetailsPresenter;
 
 /**
  * Class UserDetails
@@ -10,6 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserDetails extends Model
 {
+	/**
+	 * Model's trait
+	 */
+	use UserDetailsPresenter;
+
     /**
      * The table associated with the model.
      *

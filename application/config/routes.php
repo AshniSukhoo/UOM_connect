@@ -80,6 +80,7 @@ $route['student-profile/(:any)/add-education'] = 'Student/IndexController/showAd
 $route['student-profile/(:any)/add-work'] = 'Student/IndexController/showAddWork/$1';
 $route['student-profile/(:any)/edit-education/(:any)'] = 'Student/IndexController/showEditEducation/$1/$2';
 $route['student-profile/(:any)/edit-work/(:any)'] = 'Student/IndexController/showEditWork/$1/$2';
+$route['student-profile/(:any)/add-edit-details'] = 'Student/IndexController/addEditDetails/$1';
 $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 
 /*

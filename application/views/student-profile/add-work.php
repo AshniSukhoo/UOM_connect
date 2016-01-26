@@ -1,22 +1,10 @@
 <?php $hasAd = true; ?>
 <?php
 $css = [
-    '/css/bootstrap-tagsinput.css',
 	'/css/bootstrap-datetimepicker.css',
 ];
 ?>
 <?php include(APPPATH.'views/template/_header.php'); ?>
-    <style type="text/css">
-        .bootstrap-tagsinput {
-            width: 100% !important;
-            border-bottom-left-radius: 0px;
-            border-top-left-radius: 0px;
-        }
-        .bootstrap-tagsinput input {
-            width: 100% !important;
-        }
-    </style>
-
     <!-- content -->
     <div class="container">
         <?php include(APPPATH.'views/student-profile/partials/_profile-summary.php'); ?>
@@ -49,7 +37,6 @@ $css = [
 
 <?php $js_plugins = [
     '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-    '/js/plugins/tags-input/bootstrap-tagsinput.js',
 	'/js/plugins/moment/min/moment-with-locales.min.js',
 	'/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
 ]; ?>

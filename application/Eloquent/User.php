@@ -112,7 +112,7 @@ class User extends Model
      */
     public function detail()
     {
-        //Retun detail
+        //Return detail
         return $this->hasOne('App\Eloquent\UserDetails', 'user_id', 'id');
     }
 }
