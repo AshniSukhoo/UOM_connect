@@ -9,7 +9,7 @@
 					<div class="form-group<?=($this->keeper->has('hobbies_error'))?' has-error':''?>">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-							<input type="text" name="hobbies" placeholder="Enter a hobby of yours and press enter to add" class="form-control tags-input" value="<?=$this->keeper->has('hobbies')?$this->keeper->get('hobbies'):(($profileOwner->detail != null && $profileOwner->detail->hobbies != null)?$profileOwner->detail->hobbies_list:'')?>" />
+							<input type="text" name="hobbies" placeholder="Enter a hobby of yours and press enter to add" class="form-control tags-input" value="<?=$this->keeper->has('hobbies_value')?$this->keeper->get('hobbies_value'):(($profileOwner->detail != null && $profileOwner->detail->hobbies != null)?$profileOwner->detail->hobbies_list:'')?>" />
 						</div><!--/.input-group-->
 						<?=($this->keeper->has('hobbies_error'))?$this->keeper->get('hobbies_error'):''?>
 					</div><!--/.form-group-->
@@ -21,7 +21,7 @@
 					<div class="form-group<?=($this->keeper->has('interests_error'))?' has-error':''?>">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-flag-checkered"></i></span>
-							<input type="text" name="interests" placeholder="Enter an interest of yours and press enter to add" class="form-control tags-input" value="<?=$this->keeper->has('interests')?$this->keeper->get('interests'):(($profileOwner->detail != null && $profileOwner->detail->interests != null)?$profileOwner->detail->interests_list:'')?>" />
+							<input type="text" name="interests" placeholder="Enter an interest of yours and press enter to add" class="form-control tags-input" value="<?=$this->keeper->has('interests_value')?$this->keeper->get('interests_value'):(($profileOwner->detail != null && $profileOwner->detail->interests != null)?$profileOwner->detail->interests_list:'')?>" />
 						</div><!--/.input-group-->
 						<?=($this->keeper->has('interests_error'))?$this->keeper->get('interests_error'):''?>
 					</div><!--/.form-group-->
@@ -31,7 +31,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="form-group<?=($this->keeper->has('about_error'))?' has-error':''?>">
-						<textarea class="form-control" name="about" placeholder="Write something about yourself"></textarea>
+						<textarea class="form-control" name="about" placeholder="Write something about yourself"><?=$this->keeper->has('about_value')?$this->keeper->get('about_value'):(($profileOwner->detail != null && $profileOwner->detail->about != null && $profileOwner->detail->about != '')?$profileOwner->detail->about:'')?></textarea>
 						<?=($this->keeper->has('about_error'))?$this->keeper->get('about_error'):''?>
 					</div><!--/.form-group-->
 				</div><!--/.col-md-12-->

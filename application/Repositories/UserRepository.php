@@ -202,4 +202,22 @@ class UserRepository implements UserRepositoryInterface
 			return false;
 		}
 	}
+
+	/**
+	 * Saves user details
+	 *
+	 * @param null $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserDetails|null
+	 */
+	public function saveUserDetails($user = null, $data = [])
+	{
+		try {
+			//Save the details and return
+			return ($user->detail != null)?$user->detail->fill($data)->save():$user->detail()->create($data)->save();
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
 }

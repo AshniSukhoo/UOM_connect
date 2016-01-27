@@ -373,7 +373,7 @@ class UserActionsController extends CI_Controller
 					'job_title',
 					'company_name',
 					'date_joined',
-				]);
+				])->preserveInputs();
 				//Go back to  edit page user page
 				redirect($this->auth->user()->profile_uri.'/edit-work/'.$workId, 'location');
 			}
@@ -442,6 +442,63 @@ class UserActionsController extends CI_Controller
 
 			//Notify success
 			$this->keeper->put('notificationSuccess', 'Work experience deleted');
+
+			//All ok redirect to User profile
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+
+		} catch (Exception $e) {
+			//Unexpected error
+			//Notify error
+			$this->keeper->put('notificationError', $e->getMessage());
+			//Go back to profile page
+			redirect($this->auth->user()->profile_uri.'/about', 'location');
+		}
+	}
+
+	/**
+	 * Save user details
+	 *
+	 * @return string
+	 */
+	public function saveDetails()
+	{
+		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
+
+			//Set validation rules
+			$this->form_validation->set_rules('hobbies', 'Hobbies', 'required|xss_clean');
+			$this->form_validation->set_rules('interests', 'Interests', 'required|xss_clean');
+			$this->form_validation->set_rules('about', 'About', 'required|xss_clean');
+
+			//Validation fails
+			if($this->form_validation->run() === false) {
+				//Keep error messages
+				$this->errorBag->logValidationErrors([
+					'hobbies',
+					'interests',
+					'about'
+				])->preserveInputs();
+				//Go back to  edit page user page
+				redirect($this->auth->user()->profile_uri.'/add-edit-details/'.$workId, 'location');
+			}
+
+			//Save the user details
+			$results = $this->userRepo->saveUserDetails($this->auth->user(), $_POST);
+
+			//Could not save
+			if($results == null) {
+				//Alert error to user
+				throw new Exception('Could save data.Try again later', 422);
+			}
+
+			//Notify success
+			$this->keeper->put('notificationSuccess', 'Details saved');
 
 			//All ok redirect to User profile
 			redirect($this->auth->user()->profile_uri.'/about', 'location');

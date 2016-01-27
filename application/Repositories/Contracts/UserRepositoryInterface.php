@@ -82,4 +82,13 @@ interface UserRepositoryInterface
 	 * @return bool
 	 */
 	public function deleteWork($user = null, $workId = '');
+
+	/**
+	 * Saves user details
+	 *
+	 * @param null $user
+	 * @param array $data
+	 * @return \App\Eloquent\UserDetails|null
+	 */
+	public function saveUserDetails($user = null, $data = []);
 }

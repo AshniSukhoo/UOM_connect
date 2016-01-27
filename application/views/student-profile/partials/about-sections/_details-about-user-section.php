@@ -2,8 +2,23 @@
     <div class="panel-heading">
         <h4><i class="fa fa-user"></i> Details about <?=($profileOwner->is($this->auth->user()))?'you':$profileOwner->full_name?></h4>
     </div><!--/.panel-heading-->
-    <div class="panel-body">
+    <div class="panel-body" style="text-align: justify;">
         <?php if($profileOwner->hasDetails()): ?>
+	        <?php if($profileOwner->detail->hobbies != null): ?>
+		        <h4>Hobbies</h4>
+		        <?=$profileOwner->detail->hobbies_list?>
+	        <?php endif; ?>
+
+	        <?php if($profileOwner->detail->hobbies != null): ?>
+		        <h4>Interests</h4>
+		        <?=$profileOwner->detail->interests_list?>
+	        <?php endif; ?>
+
+	        <?php if($profileOwner->detail->about != ''): ?>
+		        <h4>About</h4>
+		        <?=nl2br($profileOwner->detail->about)?>
+	        <?php endif; ?>
+
         <?php else: ?>
             <h3 class="text-center">No details provided !</h3>
         <?php endif; ?>
