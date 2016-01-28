@@ -7,7 +7,7 @@ use Carbon\Carbon;
 /**
  * Class UserActionsController
  */
-class UserActionsController extends CI_Controller
+class UserActionsController extends MY_Controller
 {
 	/**
 	 * The user repo service

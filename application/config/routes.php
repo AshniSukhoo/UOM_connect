@@ -100,6 +100,11 @@ $route['user-actions/save-edit-work/(:any)'] = 'UserActionsController/saveEdited
 $route['user-actions/delete-work/(:any)'] = 'UserActionsController/deleteWork/$1';
 $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
 
+/*
+ * Image manip routes
+ */
+$route['preview/(:num)/(:num)'] = 'ImageController/previewImage/$1/$2';
+
 $route['404_override'] = '';
 
 

@@ -38,6 +38,7 @@ class UserDetails extends Model
     protected $fillable = [
         'id',
         'user_id',
+	    'profile_picture',
         'hobbies',
         'interests',
         'about',

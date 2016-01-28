@@ -46,6 +46,8 @@
 ]; ?>
 <?php include(APPPATH.'views/template/_footer.php'); ?>
 
+	<?php include(APPPATH.'views/student-profile/partials/_js-common.php'); ?>
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.tags-input').tagsinput();

@@ -10,7 +10,9 @@
     "symfony/var-dumper": "^2.7",
     "nesbot/carbon": "^1.20",
     "davedevelopment/phpmig": "*",
-    "pimple/pimple": "1.*"
+    "pimple/pimple": "1.*",
+    "intervention/image": "^2.3",
+    "intervention/imagecache": "^2.3"
   },
   "config": {
     "bin-dir": "bin/"
