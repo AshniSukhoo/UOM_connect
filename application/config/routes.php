@@ -104,6 +104,7 @@ $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
  * Image manip routes
  */
 $route['preview/(:num)/(:num)'] = 'ImageController/previewImage/$1/$2';
+$route['save-user-profile-picture'] = 'ImageController/postSaveUserProfilePicture';
 
 $route['404_override'] = '';
 

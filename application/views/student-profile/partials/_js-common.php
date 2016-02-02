@@ -7,6 +7,25 @@
 				$('input[name="profile-picture"]').click();
 			});
 
+			function hideProfilePicActions() {
+				$('#btn-save-profile-pic').addClass('hidden');
+				$('#btn-cancel-profile-pic').addClass('hidden');
+			}
+
+			function showProfilePicactions() {
+				$('#btn-save-profile-pic').removeClass('hidden');
+				$('#btn-cancel-profile-pic').removeClass('hidden');
+			}
+
+			$('#btn-cancel-profile-pic').on('click', function(e) {
+				e.preventDefault();
+				hideProfilePicActions();
+				document.getElementById("change-picture-form").reset();
+				$('#img-profile-pic').attr('src', previousProfilePicSrc);
+			});
+
+			var previousProfilePicSrc = '';
+
 			$('input[name="profile-picture"]').on('change', function() {
 				var formInformation = new FormData(document.getElementById("change-picture-form"));
 
@@ -20,8 +39,13 @@
 					processData:false,
 					contentType:false,
 					beforeSend:function() {
+						previousProfilePicSrc = $('#img-profile-pic').attr('src');
 					},
-					success:function(data){
+					success:function(data) {
+						if(data.error != true) {
+							$('#img-profile-pic').attr('src', data.data);
+							showProfilePicactions();
+						}
 					}
 				});
 			});
