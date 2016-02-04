@@ -77,4 +77,15 @@ trait UserFunctions
 		//Check and return
 		return ($this->works != null && $this->works()->count() > 0);
 	}
+
+	/**
+	 * Checks if a user has profile picture
+	 *
+	 * @return bool
+	 */
+	public function hasProfilePic()
+	{
+		//Check and return
+		return ($this->hasDetails() && $this->detail->getOriginal('profile_picture') != null && $this->detail->getOriginal('profile_picture') != '');
+	}
 }

@@ -60,7 +60,8 @@ $autoload['libraries'] = [
     'auth',
     'form_validation',
     'keeper',
-    'email'
+    'email',
+	'user_agent',
 ];
 
 

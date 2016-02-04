@@ -4,7 +4,7 @@
 		<?php if($profileOwner->is($this->auth->user())): ?>
 			$('#changeProfilePic').on('click', function(e) {
 				$(this).blur();
-				$('input[name="profile-picture"]').click();
+				$('input[name="profile_picture"]').click();
 			});
 
 			function hideProfilePicActions() {
@@ -26,7 +26,7 @@
 
 			var previousProfilePicSrc = '';
 
-			$('input[name="profile-picture"]').on('change', function() {
+			$('input[name="profile_picture"]').on('change', function() {
 				var formInformation = new FormData(document.getElementById("change-picture-form"));
 
 				$.ajax({

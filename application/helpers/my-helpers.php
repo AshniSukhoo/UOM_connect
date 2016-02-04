@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Return the Instance of the IOC container
- */
 if (! function_exists('app')) {
     /**
      * Get the available container instance.
@@ -22,4 +19,18 @@ if (! function_exists('app')) {
         }
         return $app->make($make, $parameters);
     }
+}
+
+if(! function_exists('public_path')) {
+	/**
+	 * Get the public path and return
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	function public_path($path = '')
+	{
+		//Get path to public
+		return ($path == '')?realpath(__DIR__.'../../../public'):realpath(__DIR__.'../../../public/'.ltrim($path.'/'));
+	}
 }

@@ -80,4 +80,18 @@ trait UserDetailsPresenter
 			return $results.', '.$item;
 		}), ', '):null;
 	}
+
+	/**
+	 * Get the profile picture attribute
+	 *
+	 * @param string $value
+	 * @return string
+	 */
+	public function getProfilePictureAttribute($value)
+	{
+		//Get value of image name
+		$profile_pic = ($value != null && $value != '')?$value.'.png':'avatar.png';
+		//return full url of profile picture
+		return base_url('img/profile-pictures/'.$profile_pic);
+	}
 }
