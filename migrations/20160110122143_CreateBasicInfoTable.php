@@ -64,6 +64,9 @@ class CreateBasicInfoTable extends Migration
      */
     public function down()
     {
+	    $this->schema->table('users_basic_info', function($table) {
+		    $table->dropForeign('users_basic_info_user_id_foreign');
+	    });
         //Drop table
         $this->schema->dropIfExists('users_basic_info');
     }

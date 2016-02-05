@@ -115,4 +115,26 @@ class User extends Model
         //Return detail
         return $this->hasOne('App\Eloquent\UserDetails', 'user_id', 'id');
     }
+
+	/**
+	 * Many posts
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function posts()
+	{
+		//A user has many post
+		return $this->hasMany('App\Eloquent\Post', 'user_id', 'id');
+	}
+
+	/**
+	 * Many comments
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function comments()
+	{
+		//A user has many post
+		return $this->hasMany('App\Eloquent\Comment', 'user_id', 'id');
+	}
 }

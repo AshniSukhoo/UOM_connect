@@ -3,8 +3,8 @@ use Phpmig\Migration\Migration;
 use Illuminate\Database\Capsule\Manager as DB;
 
 /**
- * Class CreateUserDetailsTable */
-class CreateUserDetailsTable extends Migration
+ * Class CreatePostTable */
+class CreatePostTable extends Migration
 {
     /**
      * The Eloquent Capsule
@@ -45,16 +45,15 @@ class CreateUserDetailsTable extends Migration
      */
     public function up()
     {
-        //Create user details table
-        $this->schema->create('user_details', function($table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->text('hobbies');
-            $table->text('interests');
-            $table->text('about');
+	    $this->schema->create('posts', function($table) {
+		    $table->increments('id');
+		    $table->integer('user_id')->unsigned();
+		    $table->text('content');
+		    $table->timestamps();
+		    $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
-        });
+		    $table->foreign('user_id')->references('id')->on('users');
+	    });
     }
 
     /**
@@ -63,10 +62,9 @@ class CreateUserDetailsTable extends Migration
     public function down()
     {
 	    //Drop foreign
-	    $this->schema->table('user_details', function($table) {
-		    $table->dropForeign('user_details_user_id_foreign');
+	    $this->schema->table('posts', function($table) {
+		    $table->dropForeign('posts_user_id_foreign');
 	    });
-        //Drop user details table
-        $this->schema->dropIfExists('user_details');
+	    $this->schema->dropIfExists('posts');
     }
 }

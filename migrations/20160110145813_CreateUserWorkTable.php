@@ -64,6 +64,9 @@ class CreateUserWorkTable extends Migration
      */
     public function down()
     {
+	    $this->schema->table('user_works', function($table) {
+		    $table->dropForeign('user_works_user_id_foreign');
+	    });
         //Drop table
         $this->schema->dropIfExists('user_works');
     }
