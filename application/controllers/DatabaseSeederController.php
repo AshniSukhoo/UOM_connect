@@ -2,8 +2,13 @@
 
 use App\Eloquent\UomValidId;
 use App\Eloquent\User;
+use App\Eloquent\Post;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
+/**
+ * Class DatabaseSeederController
+ */
 class DatabaseSeederController extends CI_Controller
 {
     /**
@@ -68,5 +73,28 @@ class DatabaseSeederController extends CI_Controller
 
         echo '200 Users created';
     }
+
+	/**
+	 * Seeding posts
+	 */
+	public function seedPosts($userId = '', $numberPost = 20)
+	{
+		//Unguard model
+		Model::unguard();
+
+		//Generate posts for specific user
+		for($i = 0; $i < $numberPost; $i++) {
+			Post::create([
+				'user_id' => $userId,
+				'content' => $this->faker->paragraphs(rand(3, 10), true),
+				'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+				'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+			]);
+		}
+
+		echo $numberPost.' posts created';
+
+		Model::reguard();
+	}
 
 }

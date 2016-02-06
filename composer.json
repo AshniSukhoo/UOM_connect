@@ -4,25 +4,26 @@
   "keywords": ["UOM", "Social", "Project"],
   "type": "project",
   "require": {
-    "monolog/monolog": "1.17.1",
-    "fzaninotto/faker": "^1.5",
-    "illuminate/database": "^5.1",
-    "symfony/var-dumper": "^2.7",
-    "nesbot/carbon": "^1.20",
-    "davedevelopment/phpmig": "*",
-    "pimple/pimple": "1.*",
-    "intervention/image": "^2.3",
-    "intervention/imagecache": "^2.3",
-    "ramsey/uuid": "^3.1",
-    "league/flysystem": "^1.0"
+      "monolog/monolog": "1.17.1",
+      "fzaninotto/faker": "^1.5",
+      "illuminate/database": "^5.1",
+      "illuminate/pagination": "^5.1",
+      "symfony/var-dumper": "^2.7",
+      "nesbot/carbon": "^1.20",
+      "davedevelopment/phpmig": "*",
+      "pimple/pimple": "1.*",
+      "intervention/image": "^2.3",
+      "intervention/imagecache": "^2.3",
+      "ramsey/uuid": "^3.1",
+      "league/flysystem": "^1.0"
   },
   "config": {
-    "bin-dir": "bin/"
+      "bin-dir": "bin/"
   },
   "autoload": {
-    "files": [ "application/helpers/my-helpers.php" ],
-    "psr-4" :{
-      "App\\":"Application"
-    }
+      "files": [ "application/helpers/my-helpers.php" ],
+      "psr-4" :{
+        "App\\":"Application"
+      }
   }
 }

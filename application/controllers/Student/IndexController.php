@@ -1,10 +1,19 @@
 <?php
 
+use App\Repositories\PostRepository;
+
 /**
  * Class IndexController
  */
 class IndexController extends MY_Controller
 {
+	/**
+	 * The post repository service
+	 *
+	 * @var \App\Repositories\PostRepository
+	 */
+	protected $postsRepo;
+
     /**
      * Create a new instance of
      * IndexController
@@ -18,6 +27,8 @@ class IndexController extends MY_Controller
             //Redirect to home
             redirect('/', 'location');
         }
+	    //Inject post repo in the controller
+	    $this->postsRepo = new PostRepository;
     }
 
     /**
@@ -36,10 +47,18 @@ class IndexController extends MY_Controller
                 //Show 404 page
                 throw new Exception('Student profile not found', '404');
             }
+
+	        //Get Posts
+	        $posts = $this->postsRepo->paginateUserPosts($profileOwner);
+	        //Get next page url
+	        $nextPageUrl = generate_next_page_url($posts);
+
             //Load Student profile
             $this->load->view('student-profile/timeline', [
                 'title' => $profileOwner->full_name,
                 'profileOwner' => $profileOwner,
+	            'posts' => $posts,
+	            'nextPageUrl' => $nextPageUrl,
                 'profileMenu' => 1,
             ]);
         } catch (Exception $e) {

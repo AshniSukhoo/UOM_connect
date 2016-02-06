@@ -34,3 +34,27 @@ if(! function_exists('public_path')) {
 		return ($path == '')?realpath(__DIR__.'../../../public'):realpath(__DIR__.'../../../public/'.ltrim($path.'/'));
 	}
 }
+
+if(! function_exists('generate_next_page_url')) {
+	/**
+	 * Generate a next page url for a paginator instance
+	 *
+	 * @param \Illuminate\Pagination\LengthAwarePaginator
+	 * @return string|null
+	 */
+	function generate_next_page_url($paginator = null)
+	{
+		//Get CI super object
+		$ci = &get_instance();
+		//Return next page url or null
+		return ($paginator != null && $paginator->hasMorePages())?
+				str_replace(
+					'/?',
+					'?',
+					$paginator->setPath(current_url())
+							  ->appends(collect(($ci->input->get(NULL, TRUE) != false)?$ci->input->get(NULL, TRUE):[])->forget(['page'])->all())
+							  ->nextPageUrl()
+				)
+				:null;
+	}
+}

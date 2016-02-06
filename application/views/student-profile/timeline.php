@@ -1,42 +1,41 @@
 <?php $hasAd = true; ?>
-<?php include(APPPATH.'views/template/_header.php'); ?>
+<?php $this->load->view('template/_header') ?>
 
 <!-- content -->
 <div class="container">
-    <?php include(APPPATH.'views/student-profile/partials/_profile-summary.php'); ?>
+    <?php $this->load->view('student-profile/partials/_profile-summary') ?>
 
     <div class="row">
         <div class="col-md-4">
-            <?php include(APPPATH.'views/student-profile/partials/_student-about-summary.php'); ?>
+            <?php $this->load->view('student-profile/partials/_student-about-summary') ?>
         </div><!--/.col-md-4-->
 
         <div class="col-md-8">
-            <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
+            <?php $this->load->view('student-profile/partials/_profile-navigation') ?>
             <?php if($profileOwner->is($this->auth->user())): ?>
-                <?php include(APPPATH.'views/student-profile/partials/_post-status-form.php'); ?>
+                <?php $this->load->view('student-profile/partials/_post-status-form') ?>
             <?php endif; ?>
 
-            <?php for($i = 0; $i < 10; $i++): ?>
-                <?php include(APPPATH.'views/partials/_post-template.php'); ?>
-            <?php endfor; ?>
+            <?php if(isset($posts) && $posts != null): ?>
+	            <?php $this->load->view('partials/_posts-grid.php', ['posts' => $posts]) ?>
+            <?php endif; ?>
         </div><!--/.col-md-8-->
 
     </div><!--/.row-->
 
 </div><!--/.container-->
 
-<?php $js_plugins = [
-    '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-]; ?>
-<?php include(APPPATH.'views/template/_footer.php'); ?>
+<?php $this->load->view('template/_footer', ['js_plugins' => [
+	'/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
+]]); ?>
 
-	<?php include(APPPATH.'views/student-profile/partials/_js-common.php'); ?>
+<?php $this->load->view('student-profile/partials/_js-common') ?>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
         $(document).ready(function(){
             $(".post-status-area").autoGrow();
 
         });
     </script>
 
-<?php include(APPPATH.'views/template/_closing-body.php'); ?>
+<?php $this->load->view('template/_closing-body') ?>
