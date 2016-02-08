@@ -405,3 +405,11 @@ small.text-muted {
     cursor: pointer !important;
     border: none !important;
 }
+
+.more-comments {
+    color: #3B5999;
+}
+
+.more-comments:hover {
+    text-decoration: underline;
+}

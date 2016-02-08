@@ -84,11 +84,12 @@ class DatabaseSeederController extends CI_Controller
 
 		//Generate posts for specific user
 		for($i = 0; $i < $numberPost; $i++) {
+			$randDate = $this->faker->dateTimeBetween('-1years', 'now');
 			Post::create([
 				'user_id' => $userId,
 				'content' => $this->faker->paragraphs(rand(3, 10), true),
-				'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-				'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+				'created_at' => $randDate,
+				'updated_at' => $randDate
 			]);
 		}
 
@@ -97,4 +98,32 @@ class DatabaseSeederController extends CI_Controller
 		Model::reguard();
 	}
 
+	/**
+	 * Seeding comments on posts
+	 */
+	public function seedComments()
+	{
+		//Unguard model
+		Model::unguard();
+
+		$totalGenerated = 0;
+
+		foreach(Post::all() as $post) {
+			$numComments = rand(3, 50);
+			$randDate = $this->faker->dateTimeBetween('-1years', 'now');
+			for($i = 0; $i < $numComments; $i++) {
+				$post->comments()->create([
+					'user_id' => User::orderByRaw('RAND()')->limit(1)->first()->id,
+					'content' => $this->faker->paragraph(rand(1, 5)),
+					'created_at' => $randDate,
+					'updated_at' => $randDate,
+				]);
+			}
+			$totalGenerated += $numComments;
+		}
+
+		echo $totalGenerated.' comments created';
+
+		Model::reguard();
+	}
 }

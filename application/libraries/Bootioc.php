@@ -16,6 +16,10 @@ class Bootioc
      */
     protected $ioc;
 
+	protected $facades = [
+		'PostRepo' => 'App\Repositories\Facades\PostRepositoryFacade',
+	];
+
     /**
      * Create new instance of Bootioc
      */
@@ -29,6 +33,8 @@ class Bootioc
         Illuminate\Support\Facades\Facade::setFacadeApplication($this->ioc);
         //Execute TRegister
         $this->registerRepositories();
+	    //Add facades to classes
+	    $this->addFacades();
     }
 
     /**
@@ -54,6 +60,24 @@ class Bootioc
         $this->ioc->bind('UserRepo', function($app) {
             return $app->make('App\Repositories\Contracts\UserRepositoryInterface');
         });
+
+	    //Bind PostRepository interface
+	    $this->ioc->bind('App\Repositories\Contracts\PostRepositoryInterface', 'App\Repositories\PostRepository');
+	    $this->ioc->bind('PostRepo', function($app) {
+		    return $app->make('App\Repositories\Contracts\PostRepositoryInterface');
+	    });
     }
+
+	/**
+	 * Add aliases to facades
+	 */
+	public function addFacades()
+	{
+		//Loop through all facades defined
+		foreach($this->facades as $facade => $trueClass) {
+			//Add alias
+			class_alias ($trueClass,$facade,true);
+		}
+	}
 
 }

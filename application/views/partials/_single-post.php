@@ -34,6 +34,13 @@
 		</div><!--/.row-->
 	</div><!--/.panel-body-->
 	<div class="panel-footer">
+		<div class="comments-container">
+			<?php if($post->hasComments()): ?>
+				<?php $this->load->view('partials/_comments-grid', [
+					'comments' => PostRepo::paginateComments($post),
+				]) ?>
+			<?php endif; ?>
+		</div><!--/.comments-container-->
 
 		<div class="row" style="margin-bottom: 10px;">
 			<div class="col-md-12">

@@ -5,6 +5,7 @@ namespace App\Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Presenters\PostPresenter;
+use App\ModelFunctions\PostFunctions;
 
 /**
  * Class Post
@@ -15,7 +16,7 @@ class Post extends Model
 	/**
 	 * The model's trait
 	 */
-	use SoftDeletes, PostPresenter;
+	use SoftDeletes, PostPresenter, PostFunctions;
 
 	/**
 	 * The table associated with the model.

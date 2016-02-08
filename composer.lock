@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91761f6800b1629437d51351ab7acde8",
-    "content-hash": "1894af4d6c279d8f64e53943f26feeba",
+    "hash": "bd711c783804aad9fa508af055ada5dc",
+    "content-hash": "c90d9636fd9781d9f748ba43d01dbf3e",
     "packages": [
+        {
+            "name": "ahir/facades",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ahirarge/facades.git",
+                "reference": "a7f543e711b3614d463a739f145340b07afea3ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ahirarge/facades/zipball/a7f543e711b3614d463a739f145340b07afea3ce",
+                "reference": "a7f543e711b3614d463a739f145340b07afea3ce",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ahir\\Facades": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahir Ar-Ge",
+                    "email": "development@ahir.com.tr"
+                },
+                {
+                    "name": "Özgür Adem Işıklı",
+                    "email": "i.ozguradem@gmail.com",
+                    "role": "Creator & Designer"
+                }
+            ],
+            "description": "Facades is a library for a facade pattern.",
+            "keywords": [
+                "facade",
+                "php"
+            ],
+            "time": "2014-12-03 14:01:00"
+        },
         {
             "name": "davedevelopment/phpmig",
             "version": "v1.2.0",

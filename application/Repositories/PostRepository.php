@@ -45,4 +45,27 @@ class PostRepository implements PostRepositoryInterface
 			return null;
 		}
 	}
+
+	/**
+	 * Paginate comments on post
+	 *
+	 * @param \App\Eloquent\Post $post
+	 * @param int $numberPerPage
+	 * @return \Illuminate\Pagination\LengthAwarePaginator|null
+	 */
+	public function paginateComments($post = null, $numberPerPage = 5)
+	{
+		try {
+			//Paginate comments of post
+			$comments = $post->comments()->orderBy('created_at', 'desc')->paginate($numberPerPage);
+			//Check if we have comments
+			if($comments->count() > 0) {
+				//Set comments path
+				return $comments->setPath(base_url().'posts/'.$post->id.'/comments');
+			}
+		} catch (Exception $e) {
+			//Unexpected error
+			return null;
+		}
+	}
 }

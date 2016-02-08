@@ -1,5 +1,6 @@
-<?php $hasAd = true; ?>
-<?php $this->load->view('template/_header') ?>
+<?php $this->load->view('template/_header', [
+	'hasAd' => true
+]) ?>
 
 <!-- content -->
 <div class="container">
@@ -17,7 +18,7 @@
             <?php endif; ?>
 
             <?php if(isset($posts) && $posts != null): ?>
-	            <?php $this->load->view('partials/_posts-grid.php', ['posts' => $posts]) ?>
+	            <?php $this->load->view('partials/_posts-grid', ['posts' => $posts]) ?>
             <?php endif; ?>
         </div><!--/.col-md-8-->
 

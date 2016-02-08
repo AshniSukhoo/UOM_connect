@@ -4,6 +4,7 @@ namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Presenters\CommentPresenter;
 
 /**
  * Class Comment
@@ -14,7 +15,7 @@ class Comment extends Model
 	/**
 	 * The model's trait
 	 */
-	use SoftDeletes;
+	use SoftDeletes, CommentPresenter;
 
 	/**
 	 * The table associated with the model.
