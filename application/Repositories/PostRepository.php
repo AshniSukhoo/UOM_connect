@@ -29,6 +29,18 @@ class PostRepository implements PostRepositoryInterface
 	}
 
 	/**
+	 * Get post and it
+	 *
+	 * @param string $postId
+	 * @return \App\Eloquent\Post
+	 */
+	public function getPost($postId = '')
+	{
+		//Return post based on Id
+		return $this->post->findOrFail($postId);
+	}
+
+	/**
 	 * Paginate user posts
 	 *
 	 * @param \App\Eloquent\User $user
@@ -56,8 +68,15 @@ class PostRepository implements PostRepositoryInterface
 	public function paginateComments($post = null, $numberPerPage = 5)
 	{
 		try {
+			//Get CI super object
+			$ci = & get_instance();
 			//Paginate comments of post
-			$comments = $post->comments()->orderBy('created_at', 'desc')->paginate($numberPerPage);
+			$comments = $post->comments()->orderBy('created_at', 'desc')->paginate(
+				$numberPerPage,
+				['*'],
+				'commentPage',
+				($ci->input->get('commentPage') != false?$ci->input->get('commentPage'):1)
+			);
 			//Check if we have comments
 			if($comments->count() > 0) {
 				//Set comments path

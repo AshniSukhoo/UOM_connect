@@ -9,6 +9,14 @@ namespace App\Repositories\Contracts;
 interface PostRepositoryInterface
 {
 	/**
+	 * Get post and it
+	 *
+	 * @param string $postId
+	 * @return \App\Eloquent\Post
+	 */
+	public function getPost($postId = '');
+
+	/**
 	 * Paginate user posts
 	 *
 	 * @param \App\Eloquent\User $user

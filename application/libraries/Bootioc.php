@@ -17,7 +17,8 @@ class Bootioc
     protected $ioc;
 
 	protected $facades = [
-		'PostRepo' => 'App\Repositories\Facades\PostRepositoryFacade',
+		'PostRepo'  => 'App\Repositories\Facades\PostRepositoryFacade',
+		'Html'      => 'App\Services\Facades\HtmlBuilderFacade',
 	];
 
     /**

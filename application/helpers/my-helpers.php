@@ -58,3 +58,16 @@ if(! function_exists('generate_next_page_url')) {
 				:null;
 	}
 }
+
+if(! function_exists('remove_carriage_return')) {
+	/**
+	 * Remove CR from string and return it
+	 *
+	 * @return string
+	 */
+	function remove_carriage_return($string = '')
+	{
+		//Strip line return and return string
+		return preg_replace("/\r|\n/", "", $string);
+	}
+}

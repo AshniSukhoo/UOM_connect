@@ -101,6 +101,11 @@ $route['user-actions/delete-work/(:any)'] = 'UserActionsController/deleteWork/$1
 $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
 
 /*
+ * Post actions and comments actions
+ */
+$route['posts/(:num)/comments'] = 'PostsActionsController/getComments/$1';
+
+/*
  * Image manip routes
  */
 $route['preview/(:num)/(:num)'] = 'ImageController/previewImage/$1/$2';
