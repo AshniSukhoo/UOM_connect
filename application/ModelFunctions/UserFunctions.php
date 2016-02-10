@@ -18,7 +18,7 @@ trait UserFunctions
 	public function is($user)
 	{
 		//Perform check and return
-		return (get_class($this) == get_class($user) && $this->id == $user->id);
+		return ($user != null && get_class($this) == get_class($user) && $this->id == $user->id);
 	}
 
 	/**
@@ -87,5 +87,17 @@ trait UserFunctions
 	{
 		//Check and return
 		return ($this->hasDetails() && $this->detail->getOriginal('profile_picture') != null && $this->detail->getOriginal('profile_picture') != '');
+	}
+
+	/**
+	 * Checks if user has liked a post
+	 *
+	 * @param \App\Eloquent\Post $post
+	 * @return bool
+	 */
+	public function likedPost($post = null)
+	{
+		//Check and return
+		return ($post->likes()->where('user_id', $this->id)->count() == 1);
 	}
 }

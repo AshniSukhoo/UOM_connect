@@ -50,8 +50,15 @@ class PostRepository implements PostRepositoryInterface
 	public function paginateUserPosts($user = null, $numberPerPage = 3)
 	{
 		try {
+			//Get CI super object
+			$ci = & get_instance();
 			//Return post pagination
-			return $user->posts()->orderBy('created_at', 'desc')->paginate($numberPerPage);
+			return $user->posts()->orderBy('created_at', 'desc')->paginate(
+				$numberPerPage,
+				['*'],
+				'page',
+				($ci->input->get('page') != false?$ci->input->get('page'):1)
+			);
 		} catch (Exception $e) {
 			//Unexpected error return nul
 			return null;

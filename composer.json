@@ -16,7 +16,8 @@
       "intervention/imagecache": "^2.3",
       "ramsey/uuid": "^3.1",
       "league/flysystem": "^1.0",
-      "ahir/facades": "^1.0"
+      "ahir/facades": "^1.0",
+      "coduo/php-humanizer": "^1.0"
   },
   "config": {
       "bin-dir": "bin/"

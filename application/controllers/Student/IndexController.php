@@ -53,17 +53,36 @@ class IndexController extends MY_Controller
 	        //Get next page url
 	        $nextPageUrl = generate_next_page_url($posts);
 
-            //Load Student profile
-            $this->load->view('student-profile/timeline', [
-                'title' => $profileOwner->full_name,
-                'profileOwner' => $profileOwner,
-	            'posts' => $posts,
-	            'nextPageUrl' => $nextPageUrl,
-                'profileMenu' => 1,
-            ]);
+	        //This is a normal request
+	        if(!$this->input->is_ajax_request()) {
+		        //Load Student profile
+		        $this->load->view('student-profile/timeline', [
+			        'title' => $profileOwner->full_name,
+			        'profileOwner' => $profileOwner,
+			        'posts' => $posts,
+			        'nextPageUrl' => $nextPageUrl,
+			        'profileMenu' => 1,
+		        ]);
+	        } else {
+		        //Return json encoded data
+		        echo json_encode([
+			        'error' => false,
+			        'grid'  => $this->load->view('partials/_posts-grid', ['posts' => $posts], true),
+			        'nextPageUrl' => $nextPageUrl
+		        ]);
+	        }
         } catch (Exception $e) {
             //Unexpected error
-            show_404();
+	        //This is a normal request
+	        if(!$this->input->is_ajax_request()) {
+		        show_error($e->getMessage(), $e->getCode());
+	        } else {
+		        //Return error json
+		        echo json_encode([
+			        'error' => true,
+			        'message' => $e->getMessage()
+		        ]);
+	        }
         }
     }
 

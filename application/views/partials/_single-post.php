@@ -34,6 +34,16 @@
 		</div><!--/.row-->
 	</div><!--/.panel-body-->
 	<div class="panel-footer">
+		<div class="likes-container">
+			<div class="row" style="margin-bottom: 10px;">
+				<div class="col-md-12">
+					<?php if($post->likes()->count() > 0): ?>
+						<?=Html::showPostLikes($post, $this->auth->user())?>
+					<?php endif; ?>
+				</div><!--/.col-md-12-->
+			</div><!--/.row-->
+		</div><!--/.likes-container-->
+
 		<div class="comments-container">
 			<?php if($post->hasComments()): ?>
 				<?php $this->load->view('partials/_comments-grid', [

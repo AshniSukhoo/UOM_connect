@@ -126,4 +126,33 @@ class DatabaseSeederController extends CI_Controller
 
 		Model::reguard();
 	}
+
+	/**
+	 * Seeding likes on a post
+	 */
+	public function seedLikesOnPosts()
+	{
+		//Unguard model
+		Model::unguard();
+
+		$totalGenerated = 0;
+
+		foreach(Post::all() as $post) {
+			$users = User::orderByRaw('RAND()')->limit(rand(1, 30))->get();
+			//Create a new like on post by the user
+			foreach($users as $user) {
+				$randDate = $this->faker->dateTimeBetween('-1years', 'now');
+				$post->likes()->create([
+					'user_id' => $user->id,
+					'created_at' => $randDate,
+					'updated_at' => $randDate,
+				]);
+			}
+			$totalGenerated += $users->count();
+		}
+
+		echo $totalGenerated.' likes created on posts';
+
+		Model::reguard();
+	}
 }

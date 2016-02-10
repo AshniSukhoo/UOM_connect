@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bd711c783804aad9fa508af055ada5dc",
-    "content-hash": "c90d9636fd9781d9f748ba43d01dbf3e",
+    "hash": "23801e7c73a4c1447cf17627ef3aed4d",
+    "content-hash": "ced2869edf6e5e1eb053faab541bddd7",
     "packages": [
         {
             "name": "ahir/facades",
@@ -51,6 +51,65 @@
                 "php"
             ],
             "time": "2014-12-03 14:01:00"
+        },
+        {
+            "name": "coduo/php-humanizer",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coduo/php-humanizer.git",
+                "reference": "b364572a7a73bed0be62a7d2df382fb1ab35cd2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coduo/php-humanizer/zipball/b364572a7a73bed0be62a7d2df382fb1ab35cd2a",
+                "reference": "b364572a7a73bed0be62a7d2df382fb1ab35cd2a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/config": "~2.3",
+                "symfony/intl": "~2.3",
+                "symfony/translation": "~2.3",
+                "symfony/yaml": "~2.3",
+                "thunderer/shortcode": "~0.5"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "2.0.*",
+                "phpunit/phpunit": "^4.5|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "": "src",
+                    "Coduo\\PHPHumanizer\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Norbert Orzechowicz",
+                    "email": "norbert@orzechowicz.pl"
+                },
+                {
+                    "name": "Michał Dąbrowski",
+                    "email": "dabrowski@brillante.pl"
+                }
+            ],
+            "keywords": [
+                "humanize",
+                "humanizer",
+                "php"
+            ],
+            "time": "2015-12-02 08:39:11"
         },
         {
             "name": "davedevelopment/phpmig",
@@ -1534,6 +1593,137 @@
             "time": "2016-01-27 05:14:46"
         },
         {
+            "name": "symfony/intl",
+            "version": "v2.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/intl.git",
+                "reference": "045a1beea48d159e1f637c469640943637681794"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/045a1beea48d159e1f637c469640943637681794",
+                "reference": "045a1beea48d159e1f637c469640943637681794",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "symfony/polyfill-intl-icu": "~1.0",
+                "symfony/polyfill-php54": "~1.0"
+            },
+            "require-dev": {
+                "symfony/filesystem": "~2.1|~3.0.0"
+            },
+            "suggest": {
+                "ext-intl": "to use the component with locales other than \"en\""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Intl\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ],
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Eriksen Costa",
+                    "email": "eriksen.costa@infranology.com.br"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A PHP replacement layer for the C intl extension that includes additional data from the ICU library.",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "i18n",
+                "icu",
+                "internationalization",
+                "intl",
+                "l10n",
+                "localization"
+            ],
+            "time": "2016-01-06 09:59:23"
+        },
+        {
+            "name": "symfony/polyfill-intl-icu",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-icu.git",
+                "reference": "66b0bb4abda229bc073eff6bbc8f2685bdaac165"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/66b0bb4abda229bc073eff6bbc8f2685bdaac165",
+                "reference": "66b0bb4abda229bc073eff6bbc8f2685bdaac165",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/intl": "~2.3|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's ICU-related data and classes",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "icu",
+                "intl",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-01-20 09:13:37"
+        },
+        {
             "name": "symfony/polyfill-mbstring",
             "version": "v1.1.0",
             "source": {
@@ -1586,6 +1776,64 @@
             "keywords": [
                 "compatibility",
                 "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-01-20 09:13:37"
+        },
+        {
+            "name": "symfony/polyfill-php54",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php54.git",
+                "reference": "74663d5a2ff3c530c1bc0571500e0feec9094054"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/74663d5a2ff3c530c1bc0571500e0feec9094054",
+                "reference": "74663d5a2ff3c530c1bc0571500e0feec9094054",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php54\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 5.4+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
                 "polyfill",
                 "portable",
                 "shim"
@@ -1702,30 +1950,30 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.0.2",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "2de0b6f7ebe43cffd8a06996ebec6aab79ea9e91"
+                "reference": "bc0b666903944858f4ffec01c4e50c63e5c276c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/2de0b6f7ebe43cffd8a06996ebec6aab79ea9e91",
-                "reference": "2de0b6f7ebe43cffd8a06996ebec6aab79ea9e91",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/bc0b666903944858f4ffec01c4e50c63e5c276c0",
+                "reference": "bc0b666903944858f4ffec01c4e50c63e5c276c0",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9",
+                "php": ">=5.3.9",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
-                "symfony/config": "<2.8"
+                "symfony/config": "<2.7"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~2.8|~3.0",
-                "symfony/intl": "~2.8|~3.0",
-                "symfony/yaml": "~2.8|~3.0"
+                "symfony/config": "~2.8",
+                "symfony/intl": "~2.4|~3.0.0",
+                "symfony/yaml": "~2.2|~3.0.0"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -1735,7 +1983,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1762,7 +2010,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-02 13:44:19"
+            "time": "2016-01-03 15:33:41"
         },
         {
             "name": "symfony/var-dumper",
@@ -1875,6 +2123,58 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-01-13 10:28:07"
+        },
+        {
+            "name": "thunderer/shortcode",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thunderer/Shortcode.git",
+                "reference": "3a8d53780dc4c2cd823ba0c7c25f1131045337d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/3a8d53780dc4c2cd823ba0c7c25f1131045337d8",
+                "reference": "3a8d53780dc4c2cd823ba0c7c25f1131045337d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.1|~5"
+            },
+            "suggest": {
+                "ext-dom": "if you want to use XML serializer",
+                "ext-json": "if you want to use JSON serializer",
+                "symfony/yaml": "if you want to use YAML serializer"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Thunder\\Shortcode\\": "src/",
+                    "Thunder\\Shortcode\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tomasz Kowalczyk",
+                    "email": "tomasz@kowalczyk.cc"
+                }
+            ],
+            "description": "Advanced shortcode (BBCode) parser and engine for PHP",
+            "keywords": [
+                "bbcode",
+                "engine",
+                "library",
+                "parser",
+                "shortcode"
+            ],
+            "time": "2016-01-26 09:36:46"
         }
     ],
     "packages-dev": [],
