@@ -90,14 +90,14 @@ trait UserFunctions
 	}
 
 	/**
-	 * Checks if user has liked a post
+	 * Checks if user has liked a resource
 	 *
-	 * @param \App\Eloquent\Post $post
+	 * @param mixed $resource
 	 * @return bool
 	 */
-	public function likedPost($post = null)
+	public function liked($resource = null)
 	{
 		//Check and return
-		return ($post->likes()->where('user_id', $this->id)->count() == 1);
+		return ($resource->likes()->where('user_id', $this->id)->count() == 1);
 	}
 }

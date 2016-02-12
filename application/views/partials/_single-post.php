@@ -22,16 +22,18 @@
 				<hr style="margin: 10px 0px;"/>
 			</div><!--/.col-md-12-->
 		</div><!--/.row-->
-		<div class="row">
-			<div class="col-md-12">
-				<a href="javascript:;" class="like-action text-muted">
-					<i class="fa fa-thumbs-up"></i> Like
-				</a>
-				<a href="javascript:;" class="comment-action text-muted">
-					<i class="fa fa-comment"></i> Comment
-				</a>
-			</div><!--/.col-md-12-->
-		</div><!--/.row-->
+		<?php if($this->auth->check()): ?>
+			<div class="row">
+				<div class="col-md-12">
+					<a href="javascript:;" class="text-muted <?=($this->auth->user()->liked($post))?'unlike-action active':'like-action'?>" data-post-id="<?=$post->id?>">
+						<i class="fa fa-thumbs-up"></i> Like
+					</a>
+					<a href="javascript:;" class="comment-action text-muted">
+						<i class="fa fa-comment"></i> Comment
+					</a>
+				</div><!--/.col-md-12-->
+			</div><!--/.row-->
+		<?php endif; ?>
 	</div><!--/.panel-body-->
 	<div class="panel-footer">
 		<div class="likes-container">

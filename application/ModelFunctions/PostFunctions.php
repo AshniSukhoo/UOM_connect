@@ -53,7 +53,7 @@ trait PostFunctions
 				//Prepare array to present
 				$likers = [];
 				//Check if viewer has like
-				if($viewer != null && $viewer->likedPost($this)) {
+				if($viewer != null && $viewer->liked($this)) {
 					//Push viewer in array
 					array_push($likers, 'You');
 				}
@@ -71,7 +71,7 @@ trait PostFunctions
 				//Prepare array to present
 				$likers = [];
 				//Check if viewer has like
-				if($viewer != null && $viewer->likedPost($this)) {
+				if($viewer != null && $viewer->liked($this)) {
 					//Push viewer in array
 					array_push($likers, 'You');
 					//remove one to count

@@ -5,6 +5,24 @@
 	$(document).ready(function(){
 		$(".post-status-area").autoGrow();
 
+		$(".posts-container").on('click', '.like-action', function(e) {
+			e.preventDefault();
+			var likeButton = $(this);
+			$.ajax({
+				url: '<?=base_url()?>posts/like',
+				dataType: 'JSON',
+				type: 'POST',
+				data: {post_id:likeButton.attr('data-post-id')},
+				beforeSend: function() {
+					likeButton.addClass('active');
+					likeButton.blur();
+				},
+				success: function(data) {
+
+				}
+			});
+		});
+
 		$('.posts-container').on('click', '.more-comments', function(e) {
 			e.preventDefault();
 			var loader = '<?=Html::moreCommentsLoader()?>';

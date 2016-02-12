@@ -413,3 +413,7 @@ small.text-muted {
 .more-comments:hover {
     text-decoration: underline;
 }
+
+a.active {
+    color: #2a6496;
+}

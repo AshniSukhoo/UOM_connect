@@ -56,4 +56,12 @@ class PostsActionsController extends CI_Controller
 		}
 	}
 
+	/**
+	 * Create a new like on a post
+	 *
+	 * @return string
+	 */
+	public function postLike()
+	{}
+
 }

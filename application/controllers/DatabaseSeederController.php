@@ -3,6 +3,7 @@
 use App\Eloquent\UomValidId;
 use App\Eloquent\User;
 use App\Eloquent\Post;
+use App\Eloquent\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -152,6 +153,35 @@ class DatabaseSeederController extends CI_Controller
 		}
 
 		echo $totalGenerated.' likes created on posts';
+
+		Model::reguard();
+	}
+
+	/**
+	 * Seeding likes on comments
+	 */
+	public function seedLikesOnComments()
+	{
+		//Unguard model
+		Model::unguard();
+
+		$totalGenerated = 0;
+
+		foreach(Comment::orderBYRaw('RAND()')->limit(100)->get() as $comment) {
+			$users = User::orderByRaw('RAND()')->limit(rand(1, 30))->get();
+			//Create a new like on post by the user
+			foreach($users as $user) {
+				$randDate = $this->faker->dateTimeBetween('-1years', 'now');
+				$comment->likes()->create([
+					'user_id' => $user->id,
+					'created_at' => $randDate,
+					'updated_at' => $randDate,
+				]);
+			}
+			$totalGenerated += $users->count();
+		}
+
+		echo $totalGenerated.' likes created on comments';
 
 		Model::reguard();
 	}
