@@ -373,6 +373,11 @@ small.text-muted {
     padding-right: 20px;
 }
 
+.unlike-action {
+    float: left;
+    padding-right: 20px;
+}
+
 .comment-action {
     float: left;
 }

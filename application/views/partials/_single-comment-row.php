@@ -11,15 +11,14 @@
 			<br class="clearfix"/>
 			<?php if($this->auth->check()): ?>
 				<a href="javascript:;" class="text-muted <?=($this->auth->user()->liked($comment))?'unlike-comment':'like-comment'?>" data-comment-id="<?=$comment->id?>">
-					<?=($this->auth->user()->liked($comment))?'Unlike':'like'?>
+					<?=($this->auth->user()->liked($comment))?'Unlike':'Like'?>
 				</a>
 				-
 			<?php endif; ?>
 			<abbr title="<?=$comment->created_at->toRfc822String()?>" class="text-muted comment-time"><?=$comment->created_at->diffForHumans()?></abbr>
-			<?php if($comment->hasLikes()): ?>
-				-
-				<i class="fa fa-thumbs-up"></i> <?=$comment->likes()->count()?>
-			<?php endif; ?>
+			<span class="comment-likes">
+				<?=Html::showCommentLikes($comment)?>
+			</span>
 		</div><!--/.comment-name-container-->
 	</div><!--/.col-md--12-->
 </div><!--/.row-->

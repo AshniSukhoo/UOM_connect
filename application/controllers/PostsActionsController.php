@@ -1,6 +1,8 @@
 <?php
 
 use App\Repositories\PostRepository;
+use App\Repositories\LikeRepository;
+use App\Repositories\CommentRepository;
 
 /**
  * Class PostsActionsController
@@ -15,6 +17,20 @@ class PostsActionsController extends CI_Controller
 	protected $postRepo;
 
 	/**
+	 * The Comment repository service
+	 *
+	 * @var \App\Repositories\CommentRepository
+	 */
+	protected $commentRepo;
+
+	/**
+	 * The Like repository service
+	 *
+	 * @var \App\Repositories\LikeRepository
+	 */
+	protected $likeRepo;
+
+	/**
 	 * Create new instance of PostsActionsController
 	 *
 	 * @return void
@@ -25,6 +41,10 @@ class PostsActionsController extends CI_Controller
 		parent::__construct();
 		//Inject post repo in the controller
 		$this->postRepo = new PostRepository;
+		//Inject comment repo in controller
+		$this->commentRepo = new CommentRepository;
+		//Inject like repo in controller
+		$this->likeRepo = new LikeRepository;
 	}
 
 	/**
@@ -62,6 +82,170 @@ class PostsActionsController extends CI_Controller
 	 * @return string
 	 */
 	public function postLike()
-	{}
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation for getting the post ID
+			$this->form_validation->set_rules('post_id', 'Post Identifier', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing post identification', '422');
+			}
+			//Get the post to like
+			$post = $this->postRepo->getPost($this->input->post('post_id'));
+			//Like the post
+			$this->likeRepo->likeResource($post, $this->auth->user());
+			//Echo like grid back
+			echo json_encode([
+				'error' => false,
+				'postLikes' => Html::showPostLikes($post, $this->auth->user())
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
+	 * Unlike a post
+	 *
+	 * @return string
+	 */
+	public function deleteUnlike()
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation for getting the post ID
+			$this->form_validation->set_rules('post_id', 'Post Identifier', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing post identification', '422');
+			}
+			//Get the post to unlike
+			$post = $this->postRepo->getPost($this->input->post('post_id'));
+			//Unlike the post
+			$this->likeRepo->unlikeResource($post, $this->auth->user());
+			//Echo like grid back
+			echo json_encode([
+				'error' => false,
+				'postLikes' => Html::showPostLikes($post, $this->auth->user())
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
+	 * Like a comment
+	 *
+	 * @return string
+	 */
+	public function postLikeComment()
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation
+			$this->form_validation->set_rules('comment_id', 'Comment Identifier', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing comment identification', '422');
+			}
+			//Get the comment to like
+			$comment = $this->commentRepo->getComment($this->input->post('comment_id'));
+			//Like the post
+			$this->likeRepo->likeResource($comment, $this->auth->user());
+			//Echo like grid back
+			echo json_encode([
+				'error' => false,
+				'commentLikes' => Html::showCommentLikes($comment)
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
+	 * Unlike a comment
+	 *
+	 * @return string
+	 */
+	public function deleteUnlikeComment()
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation
+			$this->form_validation->set_rules('comment_id', 'Comment Identifier', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing comment identification', '422');
+			}
+			//Get the comment to unlike
+			$comment = $this->commentRepo->getComment($this->input->post('comment_id'));
+			//Like the post
+			$this->likeRepo->unlikeResource($comment, $this->auth->user());
+			//Echo like grid back
+			echo json_encode([
+				'error' => false,
+				'commentLikes' => Html::showCommentLikes($comment)
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
 
 }

@@ -51,4 +51,21 @@ class HtmlBuilder
 		//return the string of like presentation
 		return '<span>'.$post->getLikesAsHumanReadable($viewer).'</span>';
 	}
+
+	/**
+	 * Show likes on a comment
+	 *
+	 * @param \App\Eloquent\Comment $comment
+	 * @return string
+	 */
+	public function showCommentLikes($comment = null)
+	{
+		//No likes
+		if($comment->likes()->count() == 0) {
+			//We return blank
+			return '';
+		}
+		//Return comment likes
+		return ' - <i class="fa fa-thumbs-up"></i> '.$comment->likes()->count();
+	}
 }

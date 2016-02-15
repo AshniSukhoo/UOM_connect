@@ -105,6 +105,9 @@ $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
  */
 $route['posts/(:num)/comments'] = 'PostsActionsController/getComments/$1';
 $route['posts/like'] = 'PostsActionsController/postLike';
+$route['posts/unlike'] = 'PostsActionsController/deleteUnlike';
+$route['comments/like'] = 'PostsActionsController/postLikeComment';
+$route['comments/unlike'] = 'PostsActionsController/deleteUnlikeComment';
 
 /*
  * Image manip routes
