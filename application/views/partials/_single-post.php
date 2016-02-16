@@ -59,9 +59,12 @@
 				<div class="commenter-photo-container">
 					<img src="<?=$this->auth->user()->profile_picture?>" />
 				</div><!--/.commenter-photo-container-->
-				<div class="commenter-name-container">
-					<input type="text" class="form-control" placeholder="Write a comment..." />
-				</div>
+				<form class="comment-on-post" method="post" action="<?=base_url('posts/comment')?>">
+					<div class="commenter-name-container">
+						<input type="hidden" name="post_id" value="<?=$post->id?>" />
+						<textarea class="form-control comment-box" name="comment" placeholder="Write a comment..." style="height: 34px;"></textarea>
+					</div>
+				</form>
 			</div><!--.col-md-12-->
 		</div><!--/.row-->
 	</div><!--/.panel-footer-->

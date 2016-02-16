@@ -3,7 +3,9 @@
 </script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".post-status-area").autoGrow();
+		$(".post-status-area").autogrow();
+
+		$(".comment-box").autogrow();
 
 		$(".posts-container").on('click', '.like-action', function(e) {
 			e.preventDefault();
@@ -142,6 +144,72 @@
 				}
 			}).always(function() {
 				comments_container.find('.more-comments-loader').remove();
+			});
+		});
+
+		$('.posts-container').on('keypress','.comment-box', function(e) {
+			if(e.keyCode == 13 && e.shiftKey){
+
+			} else if(e.keyCode == 13) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $form = $(this).parents('.comment-on-post').first();
+				$form.submit();
+			}
+		});
+
+		$(".posts-container").on('submit', '.comment-on-post', function(e) {
+			e.preventDefault();
+			var form = $(this);
+			var comment = form.find('.comment-box').val();
+			var commentsContainer = form.parents('.panel-footer').first().find('.comments-container')
+			$.ajax({
+				url: form.attr('action'),
+				type: form.attr('method'),
+				dataType: 'JSON',
+				data: $(this).serialize(),
+				beforeSend: function() {
+					form[0].reset();
+					form.find('.comment-box').css('height', '34px');
+					form.find('.comment-box').blur();
+				},
+				success: function(data) {
+					if(data.error == false) {
+						commentsContainer.append(data.commentRow);
+					} else {
+						form.find('.comment-box').val(comment);
+						form.find('.comment-box').focus();
+						form.find('.comment-box').trigger('keyup');
+						alertError(data.message);
+					}
+				}
+			});
+		});
+
+		$('.post-status-form').on('submit', function(e) {
+			e.preventDefault();
+			var form = $(this);
+			var post = form.find('.post-status-area').val();
+			$.ajax({
+				url: form.attr('action'),
+				type: form.attr('method'),
+				dataType: 'JSON',
+				data: $(this).serialize(),
+				beforeSend: function() {
+					form[0].reset();
+					form.find('.post-status-area').css('height', '70px');
+					form.find('.post-status-area').blur();
+				},
+				success: function(data) {
+					if(data.error == false) {
+						$('.posts-container').prepend(data.post);
+					} else {
+						form.find('.post-status-area').val(post);
+						form.find('.post-status-area').focus();
+						form.find('.post-status-area').trigger('keyup');
+						alertError(data.message);
+					}
+				}
 			});
 		});
 

@@ -103,9 +103,11 @@ $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
 /*
  * Post actions and comments actions
  */
+$route['posts/create-new'] = 'PostsActionsController/postCreateNewPost';
 $route['posts/(:num)/comments'] = 'PostsActionsController/getComments/$1';
 $route['posts/like'] = 'PostsActionsController/postLike';
 $route['posts/unlike'] = 'PostsActionsController/deleteUnlike';
+$route['posts/comment'] = 'PostsActionsController/postComment';
 $route['comments/like'] = 'PostsActionsController/postLikeComment';
 $route['comments/unlike'] = 'PostsActionsController/deleteUnlikeComment';
 

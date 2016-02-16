@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\PostRepositoryInterface;
 use App\Eloquent\Post;
+use Carbon\Carbon;
 use Exception;
 
 /**
@@ -93,5 +94,22 @@ class PostRepository implements PostRepositoryInterface
 			//Unexpected error
 			return null;
 		}
+	}
+
+	/**
+	 * Creates a new post for the user
+	 *
+	 * @param string $post
+	 * @param \App\Eloquent\User $user
+	 * @return \App\Eloquent\Post
+	 */
+	public function newPost($post = '', $user = null)
+	{
+		//Create new post
+		return $user->posts()->create([
+			'content' => $post,
+			'created_at' => Carbon::now(),
+			'updated_at' => Carbon::now()
+		]);
 	}
 }

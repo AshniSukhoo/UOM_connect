@@ -29,7 +29,7 @@
 </div><!--/.container-->
 
 <?php $this->load->view('template/_footer', ['js_plugins' => [
-	'/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
+	'/js/plugins/autogrow/autogrow.min.js',
 ]]); ?>
 
 <?php $this->load->view('student-profile/partials/_js-common') ?>

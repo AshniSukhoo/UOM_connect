@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Eloquent\Comment;
+use Carbon\Carbon;
 
 /**
  * Class CommentRepository
@@ -39,4 +40,22 @@ class CommentRepository implements CommentRepositoryInterface
 		return $this->comment->findOrFail($commentId);
 	}
 
+	/**
+	 * Create a new Comment on a resource
+	 *
+	 * @param mixed $resource
+	 * @param string $comment
+	 * @param \App\Eloquent\User $user
+	 * @return \App\Eloquent\Comment
+	 */
+	public function createComment($resource = null, $comment = '', $user = null)
+	{
+		//Create new comment
+		return $resource->comments()->create([
+			'user_id' => $user->id,
+			'content' => $comment,
+			'created_at' => Carbon::now(),
+			'updated_at' => Carbon::now()
+		]);
+	}
 }

@@ -48,6 +48,50 @@ class PostsActionsController extends CI_Controller
 	}
 
 	/**
+	 * Creates a new post
+	 *
+	 * @return string
+	 */
+	public function postCreateNewPost()
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation
+			$this->form_validation->set_rules('post', 'Post', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing post', '422');
+			}
+			//Create post and return
+			echo json_encode([
+				'error' => false,
+				'post' => $this->load->view('partials/_single-post', [
+					'post' => $this->postRepo->newPost(
+						$this->input->post('post'),
+						$this->auth->user()
+					)
+				], true),
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
 	 * Get and return next comments bach
 	 *
 	 * @param string $postId
@@ -248,4 +292,49 @@ class PostsActionsController extends CI_Controller
 		}
 	}
 
+	/**
+	 * Create a new comment on a post
+	 *
+	 * @return string
+	 */
+	public function postComment()
+	{
+		try {
+			//Must be an ajax request
+			if(!$this->input->is_ajax_request()) {
+				//Raise error
+				throw new Exception('The request is not allowed', 422);
+			}
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Raise error
+				throw new Exception('You must be logged in to proceed', 422);
+			}
+			//Set validation
+			$this->form_validation->set_rules('post_id', 'Post Identifier', 'required|xss_clean');
+			$this->form_validation->set_rules('comment', 'Comment', 'required|xss_clean');
+			//Apply validation
+			if($this->form_validation->run() == false) {
+				//Raise error
+				throw new Exception('Missing parameters', '422');
+			}
+			//Create comment and return
+			echo json_encode([
+				'error' => false,
+				'commentRow' => $this->load->view('partials/_single-comment-row', [
+					'comment' => $this->commentRepo->createComment(
+						$this->postRepo->getPost($this->input->post('post_id')),
+						$this->input->post('comment'),
+						$this->auth->user()
+					)
+				], true),
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			echo json_encode([
+				'error' => true,
+				'message' => $e->getMessage()
+			]);
+		}
+	}
 }

@@ -33,4 +33,13 @@ interface PostRepositoryInterface
 	 * @return \Illuminate\Pagination\LengthAwarePaginator|null
 	 */
 	public function paginateComments($post = null, $numberPerPage = 5);
+
+	/**
+	 * Creates a new post for the user
+	 *
+	 * @param string $post
+	 * @param \App\Eloquent\User $user
+	 * @return \App\Eloquent\Post
+	 */
+	public function newPost($post = '', $user = null);
 }
