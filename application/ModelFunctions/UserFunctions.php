@@ -100,4 +100,52 @@ trait UserFunctions
 		//Check and return
 		return ($resource->likes()->where('user_id', $this->id)->count() == 1);
 	}
+
+	/**
+	 * Checks if two users are friends
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @return bool
+	 */
+	public function isFriendsWith($user = null)
+	{
+		//Perform check and return
+		return ($user != null && $this->friends()->where('users.id', $user->id)->count() == 1);
+	}
+
+	/**
+	 * Checks if two users are not friends
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @return bool
+	 */
+	public function notFriendsWith($user = null)
+	{
+		//Perform check and return
+		return ($user != null && !$this->isFriendsWith($user));
+	}
+
+	/**
+	 * Checks if this user has sent the other user a friend request
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @return bool
+	 */
+	public function hasSentFriendRequestTo($user = null)
+	{
+		//Check and return
+		return ($this->sentFriendRequests()->where('receiver', $user->id)->count() == 1);
+	}
+
+	/**
+	 * Checks if this user has received a friend request from the other user
+	 *
+	 * @param \App\Eloquent\User $user
+	 * @return bool
+	 */
+	public function hasReceivedFriendRequestFrom($user = null)
+	{
+		//CHeck and return
+		return ($this->receivedFriendRequests()->where('sender', $user->id)->count() == 1);
+	}
 }

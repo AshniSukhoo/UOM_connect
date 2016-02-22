@@ -137,4 +137,37 @@ class User extends Model
 		//A user has many post
 		return $this->hasMany('App\Eloquent\Comment', 'user_id', 'id');
 	}
+
+	/**
+	 * Return all friends of a user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function friends()
+	{
+		//Return all friends
+		return $this->belongsToMany('App\Eloquent\User', 'friends', 'user_id_1', 'user_id_2');
+	}
+
+	/**
+	 * Return all the request sent by this user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function sentFriendRequests()
+	{
+		//All sent friend requests
+		return $this->hasMany('App\Eloquent\FriendRequest', 'sender', 'id');
+	}
+
+	/**
+	 * Return all received request by this user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function receivedFriendRequests()
+	{
+		//All received request
+		return $this->hasMany('App\Eloquent\FriendRequest', 'receiver', 'id');
+	}
 }

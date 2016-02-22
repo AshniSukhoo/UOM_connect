@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin-bottom: 20px;">
     <div class="col-md-3">
         <a href="javascript:;" class="thumbnail" style="width: 80%;">
             <img id="img-profile-pic" style="width: 100%; height: 180px; display: block;" src="<?=$profileOwner->profile_picture?>" alt="<?=$profileOwner->full_name?>">
@@ -18,6 +18,25 @@
 				    <i class="fa fa-times"></i> Cancel
 			    </button>
 		    </form>
+	    <?php elseif($this->auth->check() && $this->auth->user()->isFriendsWith($profileOwner)): ?>
+		    friends
+	    <?php elseif($this->auth->check() && $this->auth->user()->hasSentFriendRequestTo($profileOwner)): ?>
+		    <a href="javascript:;" class="btn btn-default">
+			    <i class="fa fa-user-times"></i> Cancel Friend Request
+		    </a>
+		<?php elseif($this->auth->check() && $this->auth->user()->hasReceivedFriendRequestFrom($profileOwner)): ?>
+		    <a href="javascript:;" class="btn btn-primary">
+			    <i class="fa fa-check"></i> Accept Friend Request
+		    </a>
+		    <a href="javascript:;" class="btn btn-default">
+			    <i class="fa fa-times"></i> Ignore request
+		    </a>
+		<?php elseif($this->auth->check() && $this->auth->user()->notFriendsWith($profileOwner)): ?>
+		    <a href="javascript:;" class="btn btn-default">
+			    <i class="fa fa-user-plus"></i> Add as Friend
+		    </a>
+		<?php else: ?>
+		    dede
 	    <?php endif; ?>
     </div><!--/.col-md-3-->
 
