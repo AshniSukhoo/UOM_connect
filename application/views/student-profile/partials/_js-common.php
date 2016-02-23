@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		<?php if($profileOwner->is($this->auth->user())): ?>
+		<?php if($this->auth->check() && $this->auth->user()->is($profileOwner)): ?>
 			$('#changeProfilePic').on('click', function(e) {
 				$(this).blur();
 				$('input[name="profile_picture"]').click();
@@ -51,5 +51,23 @@
 			});
 		<?php endif; ?>
 
+		<?php if($this->auth->check() && $this->auth->user()->isNot($profileOwner)): ?>
+
+			$('.profile-actions-container').on('click', '.add-friend', function(e) {
+				var thisButton = $(this);
+				var user_id = $(this).attr('data-user-id');
+				$.ajax({
+					url: '<?=base_url('user-actions/add-friend')?>',
+					type: 'POST',
+					data: {user_id:user_id},
+					beforeSend: function() {
+
+					},
+					success: function(data) {
+
+					}
+				});
+			});
+		<?php endif; ?>
 	});
 </script>

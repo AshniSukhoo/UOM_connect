@@ -68,4 +68,89 @@ class HtmlBuilder
 		//Return comment likes
 		return ' - <i class="fa fa-thumbs-up"></i> '.$comment->likes()->count();
 	}
+
+	/**
+	 * Show add as friend button
+	 *
+	 * @param string $userId
+	 * @param string $btnSize
+	 * @return string
+	 */
+	public function addAsFriendButton($userId = null, $btnSize = 'md')
+	{
+		//Return add as friend button for a user
+		return remove_carriage_return(
+			'<a href="javascript:;" class="btn btn-default btn-'.$btnSize.' add-friend" data-user-id="'.(($userId != null)?$userId:':userId').'">
+				<i class="fa fa-user-plus"></i> Add as Friend
+			</a>'
+		);
+	}
+
+	/**
+	 * Show the accept friend request button
+	 *
+	 * @param string $userId
+	 * @param string $btnSize
+	 * @return string
+	 */
+	public function acceptFriendRequestButton($userId = null, $btnSize = 'md')
+	{
+		//Return button
+		return remove_carriage_return(
+			'<a href="javascript:;" class="btn btn-primary btn-'.$btnSize.' accept-friend-request" data-user-id="'.(($userId != null)?$userId:':userId').'">
+				<i class="fa fa-check"></i> Accept Friend Request
+			</a>'
+		);
+	}
+
+	/**
+	 * Show ignore friend request button
+	 *
+	 * @param string $userId
+	 * @param string $btnSize
+	 * @return string
+	 */
+	public function ignoreFriendRequestButton($userId = null, $btnSize = 'md')
+	{
+		//Return button
+		return remove_carriage_return(
+			'<a href="javascript:;" class="btn btn-default btn-'.$btnSize.' ignore-friend-request" data-user-id="'.(($userId != null)?$userId:':userId').'">
+				<i class="fa fa-times"></i> Ignore request
+			</a>'
+		);
+	}
+
+	/**
+	 * Show cancel friend request button
+	 *
+	 * @param string $userId
+	 * @param string $btnSize
+	 * @return string
+	 */
+	public function cancelFriendRequestButton($userId = null, $btnSize = 'md')
+	{
+		//Return button
+		return remove_carriage_return(
+			'<a href="javascript:;" class="btn btn-default btn-'.$btnSize.' cancel-friend-request" data-user-id="'.(($userId != null)?$userId:':userId').'">
+				<i class="fa fa-times"></i> Cancel Friend Request
+			</a>'
+		);
+	}
+
+	/**
+	 * Show unfriend button
+	 *
+	 * @param string $userId
+	 * @param string $btnSize
+	 * @return string
+	 */
+	public function unfriendButton($userId = null, $btnSize = 'md')
+	{
+		//Return button
+		return remove_carriage_return(
+			'<a href="javascript:;" class="btn btn-default btn-'.$btnSize.' unfriend" data-user-id="'.(($userId != null)?$userId:':userId').'">
+				<i class="fa fa-user-times"></i> Unfriend
+			</a>'
+		);
+	}
 }

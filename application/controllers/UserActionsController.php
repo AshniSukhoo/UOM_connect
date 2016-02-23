@@ -511,4 +511,17 @@ class UserActionsController extends MY_Controller
 			redirect($this->auth->user()->profile_uri.'/about', 'location');
 		}
 	}
+
+	/**
+	 * Send a new friend request to user
+	 */
+	public function postAddFriend()
+	{
+		try {
+
+		} catch (Exception $e) {
+			//Unexpected error
+
+		}
+	}
 }

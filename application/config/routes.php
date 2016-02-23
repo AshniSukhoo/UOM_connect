@@ -99,6 +99,7 @@ $route['user-actions/delete-education/(:any)'] = 'UserActionsController/deleteEd
 $route['user-actions/save-edit-work/(:any)'] = 'UserActionsController/saveEditedWork/$1';
 $route['user-actions/delete-work/(:any)'] = 'UserActionsController/deleteWork/$1';
 $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
+$route['user-actions/add-friend'] = 'UserActionsController/postAddFriend';
 
 /*
  * Post actions and comments actions
