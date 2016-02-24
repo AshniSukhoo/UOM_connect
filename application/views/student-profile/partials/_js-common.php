@@ -56,15 +56,23 @@
 			$('.profile-actions-container').on('click', '.add-friend', function(e) {
 				var thisButton = $(this);
 				var user_id = $(this).attr('data-user-id');
+				var replacementButton = '';
 				$.ajax({
 					url: '<?=base_url('user-actions/add-friend')?>',
 					type: 'POST',
+					dataType: 'JSON',
 					data: {user_id:user_id},
 					beforeSend: function() {
-
+						replacementButton = '<?=Html::cancelFriendRequestButton()?>';
+						replacementButton.replace(/:userId/g, ':userId')
+						$('.profile-actions-container').html(replacementButton);
 					},
 					success: function(data) {
-
+						if(data.error) {
+							replacementButton = '<?=Html::addAsFriendButton()?>';
+							replacementButton.replace(/:userId/g, ':userId')
+							$('.profile-actions-container').html(replacementButton);
+						}
 					}
 				});
 			});

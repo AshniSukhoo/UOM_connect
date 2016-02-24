@@ -126,6 +126,28 @@ trait UserFunctions
 	}
 
 	/**
+	 * Checks if this user has pending friend requests
+	 *
+	 * @return bool
+	 */
+	public function hasPendingFriendRequests()
+	{
+		//Perform check and return
+		return ($this->receivedFriendRequests()->notNotified()->count() > 0);
+	}
+
+	/**
+	 * Returns the number of pending friend requests for this user
+	 *
+	 * @return int
+	 */
+	public function pendingFriendRequests()
+	{
+		//Return count
+		return ($this->receivedFriendRequests()->notNotified()->count());
+	}
+
+	/**
 	 * Checks if this user has sent the other user a friend request
 	 *
 	 * @param \App\Eloquent\User $user

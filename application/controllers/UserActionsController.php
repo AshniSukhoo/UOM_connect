@@ -514,14 +514,45 @@ class UserActionsController extends MY_Controller
 
 	/**
 	 * Send a new friend request to user
+	 *
+	 * @return string
 	 */
 	public function postAddFriend()
 	{
 		try {
+			//User must be logged in
+			if(!$this->auth->check()) {
+				//Notify error
+				$this->keeper->put('notificationError', 'You must log in to continue');
+				//Return to login
+				redirect('/login', 'location');
+			}
 
+			//Set validation rules
+			$this->form_validation->set_rules('user_id', 'User identifier', 'required|xss_clean');
+
+			//Validation fails
+			if($this->form_validation->run() === false) {
+				//Raise exception
+				throw new Exception('User identifier missing', 422);
+			}
+
+			//Send request
+			$results = $this->userRepo->sendFriendRequest(
+				$this->auth->user(),
+				$this->userRepo->findUser($this->input->post('user_id'))
+			);
+
+			//Return results
+			return json_encode([
+				'error' => !$results
+			]);
 		} catch (Exception $e) {
 			//Unexpected error
-
+			return json_encode([
+				'error'     => true,
+				'message'   => $e->getMessage()
+			]);
 		}
 	}
 }

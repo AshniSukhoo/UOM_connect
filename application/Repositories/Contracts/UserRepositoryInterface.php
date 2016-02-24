@@ -19,6 +19,16 @@ interface UserRepositoryInterface
     public function getUser($userId, $type);
 
 	/**
+	 * Get a single User using only
+	 * his user ID
+	 *
+	 * @param string $userId
+	 * @throws ModelNotFoundException
+	 * @return \App\Eloquent\User|null
+	 */
+	public function findUser($userId);
+
+	/**
 	 * Saves user basic info
 	 *
 	 * @param \App\Eloquent\User $user
@@ -86,9 +96,18 @@ interface UserRepositoryInterface
 	/**
 	 * Saves user details
 	 *
-	 * @param null $user
+	 * @param \App\Eloquent\User $user
 	 * @param array $data
 	 * @return \App\Eloquent\UserDetails|null
 	 */
 	public function saveUserDetails($user = null, $data = []);
+
+	/**
+	 * Send a friend request to user
+	 *
+	 * @param \App\Eloquent\User $sender
+	 * @param \App\Eloquent\User $receiver
+	 * @return bool
+	 */
+	public function sendFriendRequest($sender = null, $receiver = null);
 }

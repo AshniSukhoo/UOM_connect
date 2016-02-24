@@ -67,6 +67,18 @@ class FriendRequest extends Model
 	public $timestamps = true;
 
 	/**
+	 * Returns only not notified
+	 *
+	 * @param \Illuminate\Database\Eloquent\Builder $query
+	 * @return \Illuminate\Database\Eloquent\Builder
+	 */
+	public function scopeNotNotified($query)
+	{
+		//Return not notified rows only
+		return $query->where('notified', 0);
+	}
+
+	/**
 	 * Return sender of this request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

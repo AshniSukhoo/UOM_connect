@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Eloquent\User;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class UserRepository
@@ -54,6 +55,20 @@ class UserRepository implements UserRepositoryInterface
             return null;
         }
     }
+
+	/**
+	 * Get a single User using only
+	 * his user ID
+	 *
+	 * @param string $userId
+	 * @throws ModelNotFoundException
+	 * @return \App\Eloquent\User|null
+	 */
+	public function findUser($userId)
+	{
+		//Return user
+		return $this->user->findOrFail($userId);
+	}
 
 	/**
 	 * Saves user basic info
@@ -219,5 +234,23 @@ class UserRepository implements UserRepositoryInterface
 			//Unexpected error
 			return null;
 		}
+	}
+
+	/**
+	 * Send a friend request to user
+	 *
+	 * @param \App\Eloquent\User $sender
+	 * @param \App\Eloquent\User $receiver
+	 * @return bool
+	 */
+	public function sendFriendRequest($sender = null, $receiver = null)
+	{
+		//Add sender's request to receiver's list
+		$receiver->receivedFriendRequests()->create([
+			'sender' => $sender->id,
+			'notified' => false,
+		]);
+		//Return completed
+		return true;
 	}
 }
