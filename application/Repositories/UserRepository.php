@@ -245,11 +245,37 @@ class UserRepository implements UserRepositoryInterface
 	 */
 	public function sendFriendRequest($sender = null, $receiver = null)
 	{
-		//Add sender's request to receiver's list
-		$receiver->receivedFriendRequests()->create([
-			'sender' => $sender->id,
-			'notified' => false,
-		]);
+		//Receiver has already had this request before
+		if($receiver->receivedFriendRequests()->withTrashed()->where('sender', $sender->id)->count() > 0) {
+			//Restore request and update to not notified
+			$request = $receiver->receivedFriendRequests()->withTrashed()->where('sender', $sender->id)->restore();
+			//Update info
+			$request->update([
+				'notified' => false
+			]);
+		} else {
+			//New request
+			//Add sender's request to receiver's list
+			$receiver->receivedFriendRequests()->create([
+				'sender' => $sender->id,
+				'notified' => false,
+			]);
+		}
+		//Return completed
+		return true;
+	}
+
+	/**
+	 * Cancels a friend request between users
+	 *
+	 * @param \App\Eloquent\User $sender
+	 * @param \App\Eloquent\User $receiver
+	 * @return bool
+	 */
+	public function  cancelFriendRequest($sender = null, $receiver = null)
+	{
+		//Remover request from receiver list
+		$receiver->receivedFriendRequests()->where('sender', $sender->id)->delete();
 		//Return completed
 		return true;
 	}

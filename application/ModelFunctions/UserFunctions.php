@@ -170,4 +170,26 @@ trait UserFunctions
 		//CHeck and return
 		return ($this->receivedFriendRequests()->where('sender', $user->id)->count() == 1);
 	}
+
+	/**
+	 * Checks if this user has some pending notifications
+	 *
+	 * @return bool
+	 */
+	public function hasPendingNotifications()
+	{
+		//Check and return
+		return ($this->receivedNotifications()->notNotified()->count() > 0);
+	}
+
+	/**
+	 * Return all pending notifications for this user
+	 *
+	 * @return int
+	 */
+	public function pendingNotifications()
+	{
+		//Return number of rows
+		return ($this->receivedNotifications()->notNotified()->count());
+	}
 }

@@ -22,8 +22,11 @@
 	        </a>
         </li>
         <li>
-	        <a href="#" class="hint--warning hint--bottom" data-hint="Notifications">
-		        <i class="fa fa-bell"></i> <span class="label label-danger">23</span>
+	        <a href="#" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingNotifications())?$this->auth->user()->pendingNotifications().' pending notifications':'No new notifications'?>">
+		        <i class="fa fa-bell"></i>
+		        <?php if($this->auth->user()->hasPendingNotifications()): ?>
+			        <span class="label label-danger"><?=$this->auth->user()->pendingNotifications()?></span>
+		        <?php endif; ?>
 	        </a>
         </li>
     </ul>

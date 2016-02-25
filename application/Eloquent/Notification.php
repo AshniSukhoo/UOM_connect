@@ -3,25 +3,19 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class FriendRequest
+ * Class Notification
  * @package App\Eloquent
  */
-class FriendRequest extends Model
+class Notification extends Model
 {
-	/**
-	 * Model's trait
-	 */
-	use SoftDeletes;
-
 	/**
 	 * The table associated with the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'friend_requests';
+	protected $table = 'notifications';
 
 	/**
 	 * The primary key for the model.
@@ -54,49 +48,44 @@ class FriendRequest extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'id',
-		'sender',
 		'receiver',
+		'notifier',
+		'content',
+		'notified',
+		'type'
 	];
 
 	/**
-	 * Indicates if the model should be timestamped.
+	 * Get only not notified notifications
 	 *
-	 * @var bool
-	 */
-	public $timestamps = true;
-
-	/**
-	 * Returns only not notified
-	 *
-	 * @param \Illuminate\Database\Eloquent\Builder $query
-	 * @return \Illuminate\Database\Eloquent\Builder
+	 * @param $query
 	 */
 	public function scopeNotNotified($query)
 	{
-		//Return not notified rows only
+		//Only not notified
 		return $query->where('notified', 0);
 	}
 
 	/**
-	 * Return sender of this request
-	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-	 */
-	public function theSender()
-	{
-		//Return sender
-		return $this->belongsTo('App\Eloquent\User', 'sender', 'id');
-	}
-
-	/**
-	 * Return receiver of this request
+	 * Returns the user receiver of this notification
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
 	public function theReceiver()
 	{
-		//Return receiver
+		//Return the user model
 		return $this->belongsTo('App\Eloquent\User', 'receiver', 'id');
 	}
+
+	/**
+	 * Returns the user notifier of this notification
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function theNotifier()
+	{
+		//Return user model
+		return $this->belongsTo('App\Eloquent\User', 'notifier', 'id');
+	}
+
 }

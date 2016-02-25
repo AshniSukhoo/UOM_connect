@@ -110,4 +110,13 @@ interface UserRepositoryInterface
 	 * @return bool
 	 */
 	public function sendFriendRequest($sender = null, $receiver = null);
+
+	/**
+	 * Cancels a friend request between users
+	 *
+	 * @param \App\Eloquent\User $sender
+	 * @param \App\Eloquent\User $receiver
+	 * @return bool
+	 */
+	public function  cancelFriendRequest($sender = null, $receiver = null);
 }

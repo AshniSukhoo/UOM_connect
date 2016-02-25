@@ -170,4 +170,15 @@ class User extends Model
 		//All received request
 		return $this->hasMany('App\Eloquent\FriendRequest', 'receiver', 'id');
 	}
+
+	/**
+	 * Return all notifications for this user
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function receivedNotifications()
+	{
+		//Return all notifications
+		return $this->hasMany('App\Eloquent\Notification', 'receiver', 'id');
+	}
 }
