@@ -104,7 +104,30 @@
 			});
 
 			$('.profile-actions-container').on('click', '.accept-friend-request', function(e) {
-                
+                var thisButton = $(this);
+                var user_id = $(this).attr('data-user-id');
+                var replacementButton = '';
+                $.ajax({
+                    url : '<?=base_url('user-actions/accept-friend-request')?>',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {user_id:user_id},
+                    beforeSend: function() {
+                        replacementButton = '<?=Html::unfriendButton()?>';
+                        replacementButton = replacementButton.replace(/:userId/g, user_id)
+                        $('.profile-actions-container').html(replacementButton);
+                    },
+                    success: function(data) {
+                        if(data.error) {
+                            replacementButton = '<?=Html::acceptFriendRequestButton()?><?=Html::ignoreFriendRequestButton()?>';
+                            replacementButton = replacementButton.replace(/:userId/g, user_id)
+                            $('.profile-actions-container').html(replacementButton);
+                            alertError(data.message);
+                        } else {
+                            location.reload();
+                        }
+                    }
+                });
             })
 		<?php endif; ?>
 	});

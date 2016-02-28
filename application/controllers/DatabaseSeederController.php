@@ -185,4 +185,35 @@ class DatabaseSeederController extends CI_Controller
 
 		Model::reguard();
 	}
+
+    /**
+     * Seeding friends for a user
+     */
+	public function seedFriends($userId = '')
+    {
+        //Unguard model
+        Model::unguard();
+
+        $totalGenerated = rand(30, 100);
+
+        $currentUser = User::findOrFail($userId);
+
+        $users = User::where('id', '!=', $userId)->orderBYRaw('RAND()')->limit($totalGenerated)->get();
+
+        foreach($users as $user) {
+            //Make users friends
+            $user->friends()->attach($currentUser->id, [
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+            $currentUser->friends()->attach($user->id, [
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+
+        echo $totalGenerated.' friends generated for '.$currentUser->full_name;
+
+        Model::reguard();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Eloquent\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -69,6 +70,31 @@ class UserRepository implements UserRepositoryInterface
 		//Return user
 		return $this->user->findOrFail($userId);
 	}
+
+    /**
+     * Paginate the user's friends
+     *
+     * @param \App\Eloquent\User $user
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function paginateFriends($user = null, $numberPerPage = 10)
+    {
+        try {
+            //Get CI super object
+            $ci = & get_instance();
+            //Return friends pagination
+            return $user->friends()->orderBy('created_at', 'desc')->paginate(
+                $numberPerPage,
+                ['*'],
+                'page',
+                ($ci->input->get('page') != false?$ci->input->get('page'):1)
+            );
+        } catch (Exception $e) {
+            //Unexpected error return nul
+            return null;
+        }
+    }
 
 	/**
 	 * Saves user basic info
@@ -279,4 +305,35 @@ class UserRepository implements UserRepositoryInterface
 		//Return completed
 		return true;
 	}
+
+	/**
+	 * Accept friend request from a user
+	 *
+     * @param \App\Eloquent\User $receiver
+     * @param \App\Eloquent\User $sender
+	 * @return bool
+	 */
+	public function acceptFriendRequest($receiver = null, $sender = null)
+    {
+        //Delete friend request first
+        $receiver->receivedFriendRequests()->where('sender', $sender->id)->forceDelete();
+        //Make users friends
+        $receiver->friends()->attach($sender->id, [
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        $sender->friends()->attach($receiver->id, [
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        //Create notification for sender
+        $sender->receivedNotifications()->create([
+            'notifier' => $receiver->id,
+            'content' => 'accepted your friend request',
+            'notified' => false,
+            'type' => 'friended'
+        ]);
+        //Return completion of process
+        return true;
+    }
 }

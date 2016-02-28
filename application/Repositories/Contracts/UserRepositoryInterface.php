@@ -28,6 +28,15 @@ interface UserRepositoryInterface
 	 */
 	public function findUser($userId);
 
+    /**
+     * Paginate the user's friends
+     *
+     * @param \App\Eloquent\User $user
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function paginateFriends($user = null, $numberPerPage = 10);
+
 	/**
 	 * Saves user basic info
 	 *
@@ -119,4 +128,13 @@ interface UserRepositoryInterface
 	 * @return bool
 	 */
 	public function  cancelFriendRequest($sender = null, $receiver = null);
+
+	/**
+     * Accept friend request from a user
+     *
+     * @param \App\Eloquent\User $receiver
+	 * @param \App\Eloquent\User $sender
+	 * @return bool
+	 */
+	public function acceptFriendRequest($receiver = null, $sender = null);
 }

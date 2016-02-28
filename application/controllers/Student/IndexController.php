@@ -130,10 +130,17 @@ class IndexController extends MY_Controller
                 //Show 404 page
                 throw new Exception('Student profile not found', '404');
             }
+
+            //Get Friends
+            $friends = app('UserRepo')->paginateFriends($this->auth->user(), 10);
+            //Get next page url
+            $nextPageUrl = generate_next_page_url($friends);
+
             //Load friends page
             $this->load->view('student-profile/friends', [
                 'title' => $profileOwner->full_name,
                 'profileOwner' => $profileOwner,
+                'friends' => $friends,
                 'profileMenu' => 3,
             ]);
         } catch (Exception $e) {

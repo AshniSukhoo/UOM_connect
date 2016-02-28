@@ -48,6 +48,7 @@ class CreateFriendstTable extends Migration
     {
 	    //Create friends table
 	    $this->schema->create('friends', function($table) {
+            $table->increments('id');
 		    $table->integer('user_id_1')->unsigned();
 		    $table->integer('user_id_2')->unsigned();
 		    $table->timestamps();
