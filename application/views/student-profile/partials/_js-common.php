@@ -102,6 +102,10 @@
 					}
 				});
 			});
+
+			$('.profile-actions-container').on('click', '.accept-friend-request', function(e) {
+                
+            })
 		<?php endif; ?>
 	});
 </script>
