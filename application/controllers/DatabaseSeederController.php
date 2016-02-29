@@ -216,4 +216,8 @@ class DatabaseSeederController extends CI_Controller
 
         Model::reguard();
     }
+
+
+	public function seedStudentCoursesAndFaculties()
+    {}
 }

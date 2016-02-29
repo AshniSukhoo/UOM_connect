@@ -169,8 +169,4 @@ class IndexController extends MY_Controller
 			show_404();
 		}
 	}
-
-
-
-
 }
