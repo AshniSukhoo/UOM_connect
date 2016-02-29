@@ -1,31 +1,34 @@
-<?php $hasAd = true; ?>
-<?php include(APPPATH.'views/template/_header.php'); ?>
+<?php $this->load->view('template/_header', [
+    'hasAd' => true
+]) ?>
 
     <!-- content -->
     <div class="container">
-        <?php include(APPPATH.'views/student-profile/partials/_profile-summary.php'); ?>
+        <?php $this->load->view('student-profile/partials/_profile-summary') ?>
 
         <div class="row">
             <div class="col-md-4">
-                <?php include(APPPATH.'views/student-profile/partials/_student-about-summary.php'); ?>
+                <?php $this->load->view('student-profile/partials/_student-about-summary') ?>
             </div><!--/.col-md-4-->
 
             <div class="col-md-8">
-                <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
+                <?php $this->load->view('student-profile/partials/_profile-navigation') ?>
 
-
+                <?php if(isset($friends) && $friends != null): ?>
+                    <?php $this->load->view('partials/_friends-grid', [
+                        'friends' => $friends
+                    ]) ?>
+                <?php else: ?>
+                <?php endif; ?>
             </div><!--/.col-md-8-->
 
         </div><!--/.row-->
 
     </div><!--/.container-->
 
-<?php $js_plugins = [
-    '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-]; ?>
-<?php include(APPPATH.'views/template/_footer.php'); ?>
+<?php $this->load->view('template/_footer') ?>
 
-	<?php include(APPPATH.'views/student-profile/partials/_js-common.php'); ?>
+	<?php $this->load->view('student-profile/partials/_js-common') ?>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -34,4 +37,4 @@
         });
     </script>
 
-<?php include(APPPATH.'views/template/_closing-body.php'); ?>
+<?php $this->load->view('template/_closing-body') ?>

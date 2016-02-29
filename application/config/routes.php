@@ -107,6 +107,7 @@ $route['user-actions/delete-work/(:any)'] = 'UserActionsController/deleteWork/$1
 $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
 $route['user-actions/add-friend'] = 'UserActionsController/postAddFriend';
 $route['user-actions/cancel-friend-request'] = 'UserActionsController/postCancelFriendRequest';
+$route['user-actions/accept-friend-request'] = 'UserActionsController/postAcceptFriendRequest';
 
 /*
  * Post actions and comments actions
