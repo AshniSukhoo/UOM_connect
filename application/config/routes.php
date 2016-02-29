@@ -86,6 +86,12 @@ $route['student-profile/(:any)'] = 'Student/IndexController/profile/$1';
 /*
  * Lecturer Profile routes
  */
+$route['lecturer-profile/(:any)/timeline'] = 'Lecturer/IndexController/profile/$1';
+$route['lecturer-profile/(:any)/about'] = 'Lecturer/IndexController/about/$1';
+$route['lecturer-profile/(:any)/friends'] = 'Lecturer/IndexController/friends/$1';
+$route['lecturer-profile/(:any)/edit-basic-info'] = 'Lecturer/IndexController/showEditBasicInfo/$1';
+
+
 $route['lecturer-profile/(:any)'] = 'Lecturer/IndexController/profile/$1';
 
 /*
