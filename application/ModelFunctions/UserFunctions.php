@@ -35,6 +35,17 @@ trait UserFunctions
 	}
 
 	/**
+	 * Checks if user is a student
+	 *
+	 * @return bool
+	 */
+	public function isStudent()
+	{
+		//Checks if user is a student
+		return $this->user_type == 'student';
+	}
+
+	/**
 	 * Checks if user has input details
 	 *
 	 * @return bool

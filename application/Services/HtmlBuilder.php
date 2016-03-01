@@ -148,7 +148,7 @@ class HtmlBuilder
 	{
 		//Return button
 		return remove_carriage_return(
-			'<a href="javascript:;" class="btn btn-default btn-'.$btnSize.' unfriend" data-user-id="'.(($userId != null)?$userId:':userId').'">
+			'<a href="javascript:;" class="btn btn-warning btn-'.$btnSize.' unfriend" data-user-id="'.(($userId != null)?$userId:':userId').'">
 				<i class="fa fa-user-times"></i> Unfriend
 			</a>'
 		);

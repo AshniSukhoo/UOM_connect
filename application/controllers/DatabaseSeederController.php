@@ -217,7 +217,27 @@ class DatabaseSeederController extends CI_Controller
         Model::reguard();
     }
 
-
+	/**
+	 * Seed student faculties and courses
+	 */
 	public function seedStudentCoursesAndFaculties()
-    {}
+    {
+        //Unguard model
+        Model::unguard();
+
+        $studentsUomId = \App\Eloquent\UomValidId::whereType('student')->get();
+
+        foreach($studentsUomId as $uomId) {
+            $randomFaculty = \App\Eloquent\Faculty::orderByRaw('RAND()')->limit(1)->first();
+            $course = $randomFaculty->courses()->orderByRaw('RAND()')->limit(1)->first();
+
+            $uomId->faculties()->attach($randomFaculty->id, [
+                'course_id' => $course->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
+
+        Model::reguard();
+    }
 }

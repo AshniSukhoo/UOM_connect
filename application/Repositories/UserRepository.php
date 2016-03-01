@@ -7,6 +7,7 @@ use App\Eloquent\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class UserRepository
@@ -83,14 +84,26 @@ class UserRepository implements UserRepositoryInterface
         try {
             //Get CI super object
             $ci = & get_instance();
+            //Calculate page
+            $page = $ci->input->get('page') !== false? $ci->input->get('page'):1;
             //Return friends pagination
-            return $user->friends()->orderBy('created_at', 'desc')->paginate(
+            $friends = $user->friends()->orderBy('created_at', 'desc')->skip($numberPerPage * ($page - 1))->take($numberPerPage)->get();
+            //No items found
+            if($friends->count() == 0) {
+                //We return null
+                return null;
+            }
+            return new LengthAwarePaginator(
+                $friends,
+                $user->friends()->count(),
                 $numberPerPage,
-                ['*'],
-                'page',
-                ($ci->input->get('page') != false?$ci->input->get('page'):1)
+                $page,
+                [
+                    'path' => current_url()
+                ]
             );
         } catch (Exception $e) {
+            dd($e->getMessage());
             //Unexpected error return nul
             return null;
         }

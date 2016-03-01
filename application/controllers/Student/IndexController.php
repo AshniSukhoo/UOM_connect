@@ -132,17 +132,27 @@ class IndexController extends MY_Controller
             }
 
             //Get Friends
-            $friends = app('UserRepo')->paginateFriends($this->auth->user(), 10);
+            $friends = app('UserRepo')->paginateFriends($profileOwner, 10);
             //Get next page url
             $nextPageUrl = generate_next_page_url($friends);
-
-            //Load friends page
-            $this->load->view('student-profile/friends', [
-                'title' => $profileOwner->full_name,
-                'profileOwner' => $profileOwner,
-                'friends' => $friends,
-                'profileMenu' => 3,
-            ]);
+			//This is a normal request
+			if(!$this->input->is_ajax_request()) {
+				//Load friends page
+				$this->load->view('student-profile/friends', [
+					'title' => $profileOwner->full_name,
+					'profileOwner' => $profileOwner,
+					'friends' => $friends,
+                    'nextPageUrl' => $nextPageUrl,
+					'profileMenu' => 3,
+				]);
+			} else {
+                //Return json encoded data
+                echo json_encode([
+                    'error' => false,
+                    'grid'  => $this->load->view('partials/_friends-grid', ['friends' => $friends], true),
+                    'nextPageUrl' => $nextPageUrl
+                ]);
+			}
         } catch (Exception $e) {
             //Unexpected error
             show_404();

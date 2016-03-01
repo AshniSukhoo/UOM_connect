@@ -56,4 +56,25 @@ class UomValidId extends Model
      */
     protected $dates = ['datetime'];
 
+    /**
+     * All faculties for this Uom_id
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function faculties()
+    {
+        //Return all faculties
+        return $this->belongsToMany('App\Eloquent\Faculty', 'students_courses_faculties', 'uom_id', 'faculty_id');
+    }
+
+    /**
+     * All courses for this Uom_id
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function courses()
+    {
+        //Return all courses
+        return $this->belongsToMany('App\Eloquent\Course', 'students_courses_faculties', 'uom_id', 'course_id');
+    }
 }

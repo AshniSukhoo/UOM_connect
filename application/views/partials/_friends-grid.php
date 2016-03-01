@@ -1,11 +1,9 @@
-<?php foreach($friends->getCollection()->chunk(2) as $friendRow): ?>
+<?php foreach($friends as $friend): ?>
     <div class="row">
-        <?php foreach($friendRow as $friend): ?>
-            <div class="col-md-6">
-                <?php $this->load->view('partials/_single-user-card', [
-                    'user' => $friend
-                ]) ?>
-            </div><!--/.col-md-6-->
-        <?php endforeach; ?>
+        <div class="col-md-12">
+            <?php $this->load->view('partials/_single-user-card', [
+                'user' => $friend
+            ]) ?>
+        </div><!--/.col-md-12-->
     </div><!--/.row-->
 <?php endforeach; ?>

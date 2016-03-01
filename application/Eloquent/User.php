@@ -73,6 +73,17 @@ class User extends Model
     protected $hidden = ['password'];
 
     /**
+     * The Uom id of the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function uomId()
+    {
+        //Return Uom ID
+        return $this->belongsTo('App\Eloquent\UomValidId', 'uom_id', 'id');
+    }
+
+    /**
      * One user has only one basic info
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
