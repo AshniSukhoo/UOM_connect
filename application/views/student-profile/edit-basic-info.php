@@ -4,7 +4,7 @@
 		'/css/bootstrap-tagsinput.css',
 	];
 ?>
-<?php include(APPPATH.'views/template/_header.php'); ?>
+<?php $this->load->view('template/_header') ?>
 	<style type="text/css">
 		.bootstrap-tagsinput {
 			width: 100% !important;
@@ -18,21 +18,21 @@
 
     <!-- content -->
     <div class="container">
-        <?php include(APPPATH.'views/student-profile/partials/_profile-summary.php'); ?>
+        <?php $this->load->view('student-profile/partials/_profile-summary') ?>
 
         <div class="row">
             <div class="col-md-4">
-                <?php include(APPPATH.'views/student-profile/partials/_student-about-summary.php'); ?>
+                <?php $this->load->view('student-profile/partials/_student-about-summary') ?>
             </div><!--/.col-md-4-->
 
             <div class="col-md-8">
-                <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
+                <?php $this->load->view('student-profile/partials/_profile-navigation') ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-forms/_basic-info-form.php'); ?>
+                <?php $this->load->view('student-profile/partials/about-forms/_basic-info-form') ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-sections/_work-and-education-section.php'); ?>
+                <?php $this->load->view('student-profile/partials/about-sections/_work-and-education-section') ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-sections/_details-about-user-section.php'); ?>
+                <?php $this->load->view('student-profile/partials/about-sections/_details-about-user-section') ?>
             </div><!--/.col-md-8-->
 
         </div><!--/.row-->
@@ -43,9 +43,9 @@
     '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
 	'/js/plugins/tags-input/bootstrap-tagsinput.js',
 ]; ?>
-<?php include(APPPATH.'views/template/_footer.php'); ?>
+<?php $this->load->view('template/_footer') ?>
 
-	<?php include(APPPATH.'views/student-profile/partials/_js-common.php'); ?>
+	<?php $this->load->view('student-profile/partials/_js-common') ?>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -57,4 +57,4 @@
         });
     </script>
 
-<?php include(APPPATH.'views/template/_closing-body.php'); ?>
+<?php $this->load->view('template/_closing-body') ?>

@@ -28,9 +28,11 @@
 
 </div><!--/.container-->
 
-<?php $this->load->view('template/_footer', ['js_plugins' => [
-	'/js/plugins/autogrow/autogrow.min.js',
-]]); ?>
+<?php $this->load->view('template/_footer', [
+    'js_plugins' => [
+        '/js/plugins/autogrow/autogrow.min.js',
+    ]
+]); ?>
 
 <?php $this->load->view('student-profile/partials/_js-common') ?>
 <?php $this->load->view('partials/_js-timeline-actions', ['nextPageUrl' => $nextPageUrl]) ?>

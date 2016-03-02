@@ -137,4 +137,22 @@ interface UserRepositoryInterface
 	 * @return bool
 	 */
 	public function acceptFriendRequest($receiver = null, $sender = null);
+
+    /**
+     * Ignore friend request from a user
+     *
+     * @param \App\Eloquent\User $receiver
+     * @param \App\Eloquent\User $sender
+     * @return bool
+     */
+    public function ignoreFriendRequest($receiver = null, $sender = null);
+
+    /**
+     * Un-friends two users
+     *
+     * @param \App\Eloquent\User $user1
+     * @param \App\Eloquent\User $user2
+     * @return bool
+     */
+    public function unfriendUsers($user1 = null, $user2 = null);
 }

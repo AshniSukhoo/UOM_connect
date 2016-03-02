@@ -1,48 +1,48 @@
-<?php $hasAd = true; ?>
-<?php
-$css = [
-	'/css/bootstrap-datetimepicker.css',
-];
-?>
-<?php include(APPPATH.'views/template/_header.php'); ?>
+<?php $this->load->view('template/_header', [
+    'css' => [
+        '/css/bootstrap-datetimepicker.css',
+    ],
+    'hasAd' => true,
+]); ?>
     <!-- content -->
     <div class="container">
-        <?php include(APPPATH.'views/student-profile/partials/_profile-summary.php'); ?>
+        <?php $this->load->view('student-profile/partials/_profile-summary') ?>
 
         <div class="row">
             <div class="col-md-4">
-                <?php include(APPPATH.'views/student-profile/partials/_student-about-summary.php'); ?>
+                <?php $this->load->view('student-profile/partials/_student-about-summary') ?>
             </div><!--/.col-md-4-->
 
             <div class="col-md-8">
-                <?php include(APPPATH.'views/student-profile/partials/_profile-navigation.php'); ?>
+                <?php $this->load->view('student-profile/partials/_profile-navigation') ?>
 
                 <?php if(isset($handle) && $handle == 'add'): ?>
-	                <?php include(APPPATH.'views/student-profile/partials/about-forms/_add-work.php'); ?>
+	                <?php $this->load->view('student-profile/partials/about-forms/_add-work') ?>
                 <?php endif; ?>
 
                 <?php if(isset($handle) && $handle == 'edit'): ?>
-	                <?php include(APPPATH.'views/student-profile/partials/about-forms/_edit-work.php'); ?>
+	                <?php $this->load->view('student-profile/partials/about-forms/_edit-work') ?>
                 <?php endif; ?>
 
 
-                <?php include(APPPATH.'views/student-profile/partials/about-sections/_basic-info-section.php'); ?>
+                <?php $this->load->view('student-profile/partials/about-sections/_basic-info-section') ?>
 
-                <?php include(APPPATH.'views/student-profile/partials/about-sections/_details-about-user-section.php'); ?>
+                <?php $this->load->view('student-profile/partials/about-sections/_details-about-user-section') ?>
             </div><!--/.col-md-8-->
 
         </div><!--/.row-->
 
     </div><!--/.container-->
 
-<?php $js_plugins = [
-    '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-	'/js/plugins/moment/min/moment-with-locales.min.js',
-	'/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
-]; ?>
-<?php include(APPPATH.'views/template/_footer.php'); ?>
+<?php $this->load->view('template/_footer', [
+    'js_plugins' => [
+        '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
+        '/js/plugins/moment/min/moment-with-locales.min.js',
+        '/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
+    ]
+]); ?>
 
-	<?php include(APPPATH.'views/student-profile/partials/_js-common.php'); ?>
+	<?php $this->load->view('student-profile/partials/_js-common') ?>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -60,4 +60,4 @@ $css = [
         });
     </script>
 
-<?php include(APPPATH.'views/template/_closing-body.php'); ?>
+<?php $this->load->view('template/_closing-body') ?>

@@ -108,6 +108,8 @@ $route['user-actions/save-details'] = 'UserActionsController/saveDetails';
 $route['user-actions/add-friend'] = 'UserActionsController/postAddFriend';
 $route['user-actions/cancel-friend-request'] = 'UserActionsController/postCancelFriendRequest';
 $route['user-actions/accept-friend-request'] = 'UserActionsController/postAcceptFriendRequest';
+$route['user-actions/ignore-friend-request'] = 'UserActionsController/deleteIgnoreFriendRequest';
+$route['user-actions/unfriend'] = 'UserActionsController/deleteUnfriend';
 
 /*
  * Post actions and comments actions

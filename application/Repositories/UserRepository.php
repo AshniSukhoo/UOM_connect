@@ -349,4 +349,36 @@ class UserRepository implements UserRepositoryInterface
         //Return completion of process
         return true;
     }
+
+    /**
+     * Ignore friend request from a user
+     *
+     * @param \App\Eloquent\User $receiver
+     * @param \App\Eloquent\User $sender
+     * @return bool
+     */
+    public function ignoreFriendRequest($receiver = null, $sender = null)
+    {
+        //Delete friend request
+        $receiver->receivedFriendRequests()->where('sender', $sender->id)->delete();
+        //Return completion of process
+        return true;
+    }
+
+    /**
+     * Un-friends two users
+     *
+     * @param \App\Eloquent\User $user1
+     * @param \App\Eloquent\User $user2
+     * @return bool
+     */
+    public function unfriendUsers($user1 = null, $user2 = null)
+    {
+        //Remove user2 from user1's friends
+        $user1->friends()->detach($user2->id);
+        //Remove user1 from user2's friends
+        $user2->friends()->detach($user1->id);
+        //Return results completed
+        return true;
+    }
 }

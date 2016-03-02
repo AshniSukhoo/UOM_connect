@@ -57,6 +57,26 @@ class UomValidId extends Model
     protected $dates = ['datetime'];
 
     /**
+     * Return the pivot table which holds the relationship
+     * for this model and Faculties
+     */
+    protected function getPivotFaculties()
+    {
+        //Return pivot table
+        return $this->type.'s_courses_faculties';
+    }
+
+    /**
+     * Return the pivot table which holds the relationship
+     * for this model and courses
+     */
+    protected function getPivotCourses()
+    {
+        //Return pivot table
+        return $this->type.'s_courses_faculties';
+    }
+
+    /**
      * All faculties for this Uom_id
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -64,7 +84,7 @@ class UomValidId extends Model
     public function faculties()
     {
         //Return all faculties
-        return $this->belongsToMany('App\Eloquent\Faculty', 'students_courses_faculties', 'uom_id', 'faculty_id');
+        return $this->belongsToMany('App\Eloquent\Faculty', $this->getPivotFaculties(), 'uom_id', 'faculty_id');
     }
 
     /**
@@ -75,6 +95,6 @@ class UomValidId extends Model
     public function courses()
     {
         //Return all courses
-        return $this->belongsToMany('App\Eloquent\Course', 'students_courses_faculties', 'uom_id', 'course_id');
+        return $this->belongsToMany('App\Eloquent\Course', $this->getPivotCourses(), 'uom_id', 'course_id');
     }
 }

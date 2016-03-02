@@ -8,18 +8,15 @@
                 <a href="<?=$user->profile_uri?>" class="poster-name" title="<?=$user->full_name?>"><?=$user->full_name?></a>
                 <br>
                 <ul class="list-group my-list-group">
-                    <?php if($user->isStudent()): ?>
-                        <li class="list-group-item">
-                            <i class="fa fa-university"></i> Faculty - <?=$user->uomId->faculties()->first()->name?>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fa fa-graduation-cap"></i> Course - <?=$user->uomId->courses()->first()->course_name?>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fa fa-calendar"></i> Born on <?=$user->date_of_birth->formatLocalized('%B %d, %Y') ?>
-                        </li>
-                    <?php else: ?>
-                    <?php endif; ?>
+                    <li class="list-group-item">
+                        <i class="fa fa-university"></i> Faculty - <?=$user->uomId->faculties()->first()->name?>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa fa-graduation-cap"></i> Course - <?=$user->uomId->courses()->first()->course_name?>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa fa-calendar"></i> Born on <?=$user->date_of_birth->formatLocalized('%B %d, %Y') ?>
+                    </li>
                 </ul>
             </div><!--/.col-md-9-->
         </div><!--/.row-->

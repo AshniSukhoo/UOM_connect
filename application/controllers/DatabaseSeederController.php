@@ -218,16 +218,16 @@ class DatabaseSeederController extends CI_Controller
     }
 
 	/**
-	 * Seed student faculties and courses
+	 * Seed student and lecturers faculties and courses
 	 */
-	public function seedStudentCoursesAndFaculties()
+	public function seedCoursesAndFaculties()
     {
         //Unguard model
         Model::unguard();
 
-        $studentsUomId = \App\Eloquent\UomValidId::whereType('student')->get();
+        $validIds = \App\Eloquent\UomValidId::all();
 
-        foreach($studentsUomId as $uomId) {
+        foreach($validIds as $uomId) {
             $randomFaculty = \App\Eloquent\Faculty::orderByRaw('RAND()')->limit(1)->first();
             $course = $randomFaculty->courses()->orderByRaw('RAND()')->limit(1)->first();
 
@@ -237,6 +237,8 @@ class DatabaseSeederController extends CI_Controller
                 'updated_at' => Carbon::now()
             ]);
         }
+
+        echo 'Database seeded !!';
 
         Model::reguard();
     }

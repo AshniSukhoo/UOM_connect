@@ -1,134 +1,55 @@
-<script type="text/javascript">
-	$(document).ready(function() {
+<?php if($this->auth->check() && $this->auth->user()->is($profileOwner)): ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#changeProfilePic').on('click', function(e) {
+                $(this).blur();
+                $('input[name="profile_picture"]').click();
+            });
 
-		<?php if($this->auth->check() && $this->auth->user()->is($profileOwner)): ?>
-			$('#changeProfilePic').on('click', function(e) {
-				$(this).blur();
-				$('input[name="profile_picture"]').click();
-			});
+            function hideProfilePicActions() {
+                $('#btn-save-profile-pic').addClass('hidden');
+                $('#btn-cancel-profile-pic').addClass('hidden');
+            }
 
-			function hideProfilePicActions() {
-				$('#btn-save-profile-pic').addClass('hidden');
-				$('#btn-cancel-profile-pic').addClass('hidden');
-			}
+            function showProfilePicactions() {
+                $('#btn-save-profile-pic').removeClass('hidden');
+                $('#btn-cancel-profile-pic').removeClass('hidden');
+            }
 
-			function showProfilePicactions() {
-				$('#btn-save-profile-pic').removeClass('hidden');
-				$('#btn-cancel-profile-pic').removeClass('hidden');
-			}
+            $('#btn-cancel-profile-pic').on('click', function(e) {
+                e.preventDefault();
+                hideProfilePicActions();
+                document.getElementById("change-picture-form").reset();
+                $('#img-profile-pic').attr('src', previousProfilePicSrc);
+            });
 
-			$('#btn-cancel-profile-pic').on('click', function(e) {
-				e.preventDefault();
-				hideProfilePicActions();
-				document.getElementById("change-picture-form").reset();
-				$('#img-profile-pic').attr('src', previousProfilePicSrc);
-			});
+            var previousProfilePicSrc = '';
 
-			var previousProfilePicSrc = '';
+            $('input[name="profile_picture"]').on('change', function() {
+                var formInformation = new FormData(document.getElementById("change-picture-form"));
 
-			$('input[name="profile_picture"]').on('change', function() {
-				var formInformation = new FormData(document.getElementById("change-picture-form"));
-
-				$.ajax({
-					url: '<?=base_url()?>preview/200/200',
-					type: 'POST',
-					data: formInformation,
-					dataType: 'json',
-					async: true,
-					enctype: 'multipart/form-data',
-					processData:false,
-					contentType:false,
-					beforeSend:function() {
-						previousProfilePicSrc = $('#img-profile-pic').attr('src');
-					},
-					success:function(data) {
-						if(data.error != true) {
-							$('#img-profile-pic').attr('src', data.data);
-							showProfilePicactions();
-						}
-					}
-				});
-			});
-		<?php endif; ?>
-
-		<?php if($this->auth->check() && $this->auth->user()->isNot($profileOwner)): ?>
-
-			$('.profile-actions-container').on('click', '.add-friend', function(e) {
-				var thisButton = $(this);
-				var user_id = $(this).attr('data-user-id');
-				var replacementButton = '';
-				$.ajax({
-					url: '<?=base_url('user-actions/add-friend')?>',
-					type: 'POST',
-					dataType: 'JSON',
-					data: {user_id:user_id},
-					beforeSend: function() {
-						replacementButton = '<?=Html::cancelFriendRequestButton()?>';
-						replacementButton = replacementButton.replace(/:userId/g, user_id)
-						$('.profile-actions-container').html(replacementButton);
-					},
-					success: function(data) {
-						if(data.error) {
-							replacementButton = '<?=Html::addAsFriendButton()?>';
-							replacementButton = replacementButton.replace(/:userId/g, user_id)
-							$('.profile-actions-container').html(replacementButton);
-							alertError(data.message);
-						}
-					}
-				});
-			});
-
-			$('.profile-actions-container').on('click', '.cancel-friend-request', function(e) {
-				var thisButton = $(this);
-				var user_id = $(this).attr('data-user-id');
-				var replacementButton = '';
-				$.ajax({
-					url : '<?=base_url('user-actions/cancel-friend-request')?>',
-					type: 'POST',
-					dataType: 'JSON',
-					data: {user_id:user_id},
-					beforeSend: function() {
-						replacementButton = '<?=Html::addAsFriendButton()?>';
-						replacementButton = replacementButton.replace(/:userId/g, user_id)
-						$('.profile-actions-container').html(replacementButton);
-					},
-					success: function(data) {
-						if(data.error) {
-							replacementButton = '<?=Html::cancelFriendRequestButton()?>';
-							replacementButton = replacementButton.replace(/:userId/g, user_id)
-							$('.profile-actions-container').html(replacementButton);
-							alertError(data.message);
-						}
-					}
-				});
-			});
-
-			$('.profile-actions-container').on('click', '.accept-friend-request', function(e) {
-                var thisButton = $(this);
-                var user_id = $(this).attr('data-user-id');
-                var replacementButton = '';
                 $.ajax({
-                    url : '<?=base_url('user-actions/accept-friend-request')?>',
+                    url: '<?=base_url()?>preview/200/200',
                     type: 'POST',
-                    dataType: 'JSON',
-                    data: {user_id:user_id},
-                    beforeSend: function() {
-                        replacementButton = '<?=Html::unfriendButton()?>';
-                        replacementButton = replacementButton.replace(/:userId/g, user_id)
-                        $('.profile-actions-container').html(replacementButton);
+                    data: formInformation,
+                    dataType: 'json',
+                    async: true,
+                    enctype: 'multipart/form-data',
+                    processData:false,
+                    contentType:false,
+                    beforeSend:function() {
+                        previousProfilePicSrc = $('#img-profile-pic').attr('src');
                     },
-                    success: function(data) {
-                        if(data.error) {
-                            replacementButton = '<?=Html::acceptFriendRequestButton()?><?=Html::ignoreFriendRequestButton()?>';
-                            replacementButton = replacementButton.replace(/:userId/g, user_id)
-                            $('.profile-actions-container').html(replacementButton);
-                            alertError(data.message);
-                        } else {
-                            location.reload();
+                    success:function(data) {
+                        if(data.error != true) {
+                            $('#img-profile-pic').attr('src', data.data);
+                            showProfilePicactions();
                         }
                     }
                 });
-            })
-		<?php endif; ?>
-	});
-</script>
+            });
+        });
+    </script>
+<?php endif; ?>
+
+<?php $this->load->view('partials/_js-user-invitations') ?>
