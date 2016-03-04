@@ -42,4 +42,13 @@ interface PostRepositoryInterface
 	 * @return \App\Eloquent\Post
 	 */
 	public function newPost($post = '', $user = null);
+
+    /**
+     * Returns the feeds for a user
+     *
+     * @param \App\Eloquent\User $user
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function feeds($user = null, $numberPerPage = 3);
 }
