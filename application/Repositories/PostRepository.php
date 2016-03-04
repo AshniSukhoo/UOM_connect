@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\PostRepositoryInterface;
 use App\Eloquent\Post;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Carbon\Carbon;
 use Exception;
 
@@ -112,4 +113,46 @@ class PostRepository implements PostRepositoryInterface
 			'updated_at' => Carbon::now()
 		]);
 	}
+
+    /**
+     * Returns the feeds for a user
+     *
+     * @param \App\Eloquent\User $user
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function feeds($user = null, $numberPerPage = 3)
+    {
+        try {
+            //Get CI super object
+            $ci = & get_instance();
+            //Calculate page
+            $page = $ci->input->get('page') !== false? $ci->input->get('page'):1;
+            //Get posts
+            $posts = $this->post->with(['user'])->whereHas('user', function($query) use($user) {
+                $query->whereIn('id', $user->friends()->lists('users.id')->merge([$user->id])->all());
+            });
+            //Limiting posts
+            $limitsPosts = $posts->skip($numberPerPage * ($page - 1))->take($numberPerPage)->orderBy('created_at', 'desc')->get();
+            //No items found
+            if($limitsPosts->count() == 0) {
+                //Return null
+                return null;
+            }
+            //Return paginator
+            return new LengthAwarePaginator(
+                $limitsPosts,
+                $posts->count(),
+                $numberPerPage,
+                $page,
+                [
+                    'path' => current_url()
+                ]
+            );
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            //Unexpected error
+            return null;
+        }
+    }
 }
