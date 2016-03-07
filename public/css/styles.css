@@ -422,3 +422,7 @@ small.text-muted {
 a.active {
     color: #2a6496;
 }
+
+#no-feeds-text {
+    margin-top: 100px;
+}

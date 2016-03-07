@@ -202,6 +202,9 @@
 				},
 				success: function(data) {
 					if(data.error == false) {
+                        if($('#no-feeds-text').length > 0) {
+                            $('#no-feeds-text').remove();
+                        }
 						$('.posts-container').prepend(data.post);
 					} else {
 						form.find('.post-status-area').val(post);

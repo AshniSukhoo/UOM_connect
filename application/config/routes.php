@@ -128,6 +128,11 @@ $route['comments/unlike'] = 'PostsActionsController/deleteUnlikeComment';
 $route['preview/(:num)/(:num)'] = 'ImageController/previewImage/$1/$2';
 $route['save-user-profile-picture'] = 'ImageController/postSaveUserProfilePicture';
 
+/*
+ * Search
+ */
+$route['search-users'] = 'IndexController/getSearchUsers';
+
 $route['404_override'] = '';
 
 

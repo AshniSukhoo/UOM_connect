@@ -11,9 +11,9 @@
             <a href="/" class="navbar-brand logo">UC</a>
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" method="get" action="<?=base_url('search-users')?>" autocomplete="off">
                 <div class="input-group input-group-sm" style="max-width:360px;">
-                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" value="<?=($this->input->get('srch-term') != false) ? $this->input->get('srch-term') : ''?>">
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                     </div>

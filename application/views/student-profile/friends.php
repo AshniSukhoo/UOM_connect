@@ -52,6 +52,7 @@
                             if(data.error == false) {
                                 $('.friends-container').append(data.grid);
                                 nextPageUrl = data.nextPageUrl;
+                                addUsersInvitationActionsToButton();
                             } else {
                                 alertError(data.message);
                             }
