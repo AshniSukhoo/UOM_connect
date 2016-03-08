@@ -217,7 +217,7 @@
 		});
 
 		function nextResults() {
-			if(($('#main').scrollTop() + $('#main').innerHeight() >= $('#main')[0].scrollHeight) && (nextPageUrl != null && nextPageUrl != '')) {
+			if((($('#main').scrollTop() + $('#main').innerHeight()) >= $('#main')[0].scrollHeight) && (nextPageUrl != null && nextPageUrl != '')) {
 				$.ajax({
 					url: nextPageUrl,
 					type: 'GET',
