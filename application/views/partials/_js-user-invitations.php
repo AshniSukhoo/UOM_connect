@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $(document).ready(function() {
+    function addUsersInvitationActionsToButton() {
         $('.profile-actions-container').on('click', '.add-friend', function(e) {
             var thisButton = $(this);
             var profileActionsContainer = $(this).parents('.profile-actions-container').first();
@@ -135,5 +135,10 @@
                 }
             });
         });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        addUsersInvitationActionsToButton();
     });
 </script>

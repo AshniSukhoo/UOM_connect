@@ -381,4 +381,43 @@ class UserRepository implements UserRepositoryInterface
         //Return results completed
         return true;
     }
+
+    /**
+     * Search for users using the keywords
+     *
+     * @param string $keywords
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function searchUsers($keywords = '', $numberPerPage = 10)
+    {
+        //Get CI super object
+        $ci = & get_instance();
+        //Calculate page
+        $page = $ci->input->get('page') !== false? $ci->input->get('page'):1;
+        //Get number of users
+        $usersCount = $this->user->search($keywords)->count();
+        //No users
+        if($usersCount == 0) {
+            //we return null
+            return null;
+        }
+        //Get results
+        $results = $this->user->search($keywords)->skip($numberPerPage * ($page - 1))->take($numberPerPage)->get();
+        //No posts on this page
+        if($results->count() == 0) {
+            //Return null
+            return null;
+        }
+        //Return paginator
+        return (new LengthAwarePaginator(
+            $results,
+            $usersCount,
+            $numberPerPage,
+            $page,
+            [
+                'path' => current_url()
+            ]
+        ))->appends(['srch-term' => $keywords]);
+    }
 }

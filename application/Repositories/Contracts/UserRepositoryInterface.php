@@ -155,4 +155,13 @@ interface UserRepositoryInterface
      * @return bool
      */
     public function unfriendUsers($user1 = null, $user2 = null);
+
+    /**
+     * Search for users using the keywords
+     *
+     * @param string $keywords
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function searchUsers($keywords = '', $numberPerPage = 10);
 }

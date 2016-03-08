@@ -73,6 +73,24 @@ class User extends Model
     protected $hidden = ['password'];
 
     /**
+     * Search scope
+     *
+     * @param Builder $query
+     * @param string $keywords
+     * @return Builder
+     */
+    public function scopeSearch($query, $keywords)
+    {
+        //Return search results
+        return $query->where(function($query) use($keywords) {
+            $query->where('first_name', 'like', $keywords.'%')
+                  ->orWhere('last_name', 'like', $keywords.'%')
+                  ->orWhereRaw('CONCAT(first_name, \' \',last_name) like \''.$keywords.'%\'');
+        });
+    }
+
+
+    /**
      * The Uom id of the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -128,13 +128,20 @@ class PostRepository implements PostRepositoryInterface
             $ci = & get_instance();
             //Calculate page
             $page = $ci->input->get('page') !== false? $ci->input->get('page'):1;
-            //Get posts
-            $posts = $this->post->with(['user'])->whereHas('user', function($query) use($user) {
+            //Count the posts
+            $postsCount = $this->post->with(['user'])->whereHas('user', function($query) use($user) {
                 $query->whereIn('id', $user->friends()->lists('users.id')->merge([$user->id])->all());
-            });
+            })->count();
+            //No posts found
+            if($postsCount == 0) {
+                //Return null
+                return null;
+            }
             //Limiting posts
-            $limitsPosts = $posts->skip($numberPerPage * ($page - 1))->take($numberPerPage)->orderBy('created_at', 'desc')->get();
-            //No items found
+            $limitsPosts = $this->post->with(['user'])->whereHas('user', function($query) use($user) {
+                                $query->whereIn('id', $user->friends()->lists('users.id')->merge([$user->id])->all());
+                            })->skip($numberPerPage * ($page - 1))->take($numberPerPage)->orderBy('created_at', 'desc')->get();
+            //No posts on this page
             if($limitsPosts->count() == 0) {
                 //Return null
                 return null;
@@ -142,7 +149,7 @@ class PostRepository implements PostRepositoryInterface
             //Return paginator
             return new LengthAwarePaginator(
                 $limitsPosts,
-                $posts->count(),
+                $postsCount,
                 $numberPerPage,
                 $page,
                 [
@@ -150,7 +157,6 @@ class PostRepository implements PostRepositoryInterface
                 ]
             );
         } catch (Exception $e) {
-            dd($e->getMessage());
             //Unexpected error
             return null;
         }

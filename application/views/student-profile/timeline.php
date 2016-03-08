@@ -20,7 +20,11 @@
             <div class="posts-container">
 	            <?php if(isset($posts) && $posts != null): ?>
 		            <?php $this->load->view('partials/_posts-grid', ['posts' => $posts]) ?>
-	            <?php endif; ?>
+	            <?php else: ?>
+                    <h1 id="no-feeds-text" class="text-center">
+                        No posts yet
+                    </h1>
+                <?php endif; ?>
             </div><!--/.posts-container-->
         </div><!--/.col-md-8-->
 
@@ -35,5 +39,7 @@
 ]); ?>
 
 <?php $this->load->view('student-profile/partials/_js-common') ?>
-<?php $this->load->view('partials/_js-timeline-actions', ['nextPageUrl' => $nextPageUrl]) ?>
+<?php $this->load->view('partials/_js-timeline-actions', [
+    'nextPageUrl' => (isset($nextPageUrl) && $nextPageUrl != null) ? $nextPageUrl : ''
+]) ?>
 <?php $this->load->view('template/_closing-body') ?>
