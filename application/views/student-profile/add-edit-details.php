@@ -41,7 +41,7 @@
 
 <?php $this->load->view('template/_footer', [
     'js_plugins' => [
-        '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
+        '/js/plugins/autogrow/autogrow.min.js',
         '/js/plugins/tags-input/bootstrap-tagsinput.js',
     ]
 ]) ?>
@@ -52,9 +52,9 @@
 		$(document).ready(function() {
 			$('.tags-input').tagsinput();
 
-			$('input[name="hobbies"]').focus();
+			$('textarea[name="about"]').autogrow().trigger('keyup');
 
-			$('textarea[name="about"]').autoGrow();
+            $('input[name="hobbies"]').focus();
 		});
 	</script>
 

@@ -22,7 +22,7 @@
 		            <?php $this->load->view('partials/_posts-grid', ['posts' => $posts]) ?>
 	            <?php else: ?>
                     <h1 id="no-feeds-text" class="text-center">
-                        No posts yet
+                        <i class="fa fa-newspaper-o"></i> No posts yet
                     </h1>
                 <?php endif; ?>
             </div><!--/.posts-container-->

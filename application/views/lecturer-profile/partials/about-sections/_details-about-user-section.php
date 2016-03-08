@@ -18,7 +18,6 @@
                 <h4>About</h4>
                 <?=nl2br($profileOwner->detail->about)?>
             <?php endif; ?>
-
         <?php else: ?>
             <h3 class="text-center">No details provided !</h3>
         <?php endif; ?>

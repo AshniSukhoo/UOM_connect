@@ -14,4 +14,4 @@
     </div><!--/panel-body-->
 </div><!--/panel-->
 
-<?php include(APPPATH.'views/pages/partials/_post-advertisement-template.php'); ?>
+<?php $this->load->view('pages/partials/_post-advertisement-template') ?>

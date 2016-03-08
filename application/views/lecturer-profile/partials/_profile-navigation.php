@@ -26,7 +26,7 @@
                 </li>
                 <li <?=(isset($profileMenu) && $profileMenu == 3)?'class="active"':''?>>
                     <a href="<?=base_url()?>lecturer-profile/<?=$profileOwner->id?>/friends">
-                        <i class="fa fa-users"></i> Friends
+                        <i class="fa fa-users"></i> Friends <?=($profileOwner->friends()->count() > 0)?'('.$profileOwner->friends()->count().')':''?>
                         <?=(isset($profileMenu) && $profileMenu == 3)?'<span class="sr-only">(current)</span>':''?>
                     </a>
                 </li>

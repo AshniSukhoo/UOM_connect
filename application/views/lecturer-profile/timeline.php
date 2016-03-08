@@ -20,6 +20,10 @@
                 <div class="posts-container">
                     <?php if(isset($posts) && $posts != null): ?>
                         <?php $this->load->view('partials/_posts-grid', ['posts' => $posts]) ?>
+                    <?php else: ?>
+                        <h1 id="no-feeds-text" class="text-center">
+                            <i class="fa fa-newspaper-o"></i> No posts yet
+                        </h1>
                     <?php endif; ?>
                 </div><!--/.posts-container-->
             </div><!--/.col-md-8-->

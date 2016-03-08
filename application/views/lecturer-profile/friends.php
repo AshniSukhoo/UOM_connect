@@ -20,6 +20,9 @@
                         'friends' => $friends
                     ]) ?>
                 <?php else: ?>
+                    <h1 id="no-feeds-text" class="text-center">
+                        <i class="fa fa-users"></i> No friends yet
+                    </h1>
                 <?php endif; ?>
             </div><!--/.friends-container-->
         </div><!--/.col-md-8-->

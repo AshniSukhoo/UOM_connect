@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-md-4">
-                <?php $this->load->view('lecturer-profile/partials/lecturer-about-summary') ?>
+                <?php $this->load->view('lecturer-profile/partials/_lecturer-about-summary') ?>
             </div><!--/.col-md-4-->
 
             <div class="col-md-8">

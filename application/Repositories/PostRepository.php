@@ -54,6 +54,11 @@ class PostRepository implements PostRepositoryInterface
 		try {
 			//Get CI super object
 			$ci = & get_instance();
+            //No posts
+            if($user->posts()->orderBy('created_at', 'desc')->count() == 0) {
+                //We return null
+                return null;
+            }
 			//Return post pagination
 			return $user->posts()->orderBy('created_at', 'desc')->paginate(
 				$numberPerPage,

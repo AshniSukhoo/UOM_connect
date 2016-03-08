@@ -99,7 +99,7 @@ class IndexController extends MY_Controller
 			//Lecturer profile was not found
 			if($profileOwner == false) {
 				//Show 404 page
-				throw new Exception('lLecturer profile not found', '404');
+				throw new Exception('Lecturer profile not found', '404');
 			}
 			//Load about page
 			$this->load->view('lecturer-profile/about', [
@@ -129,12 +129,29 @@ class IndexController extends MY_Controller
 				//Show 404 page
 				throw new Exception('Lecturer profile not found', '404');
 			}
-			//Load friends page
-			$this->load->view('Lecturer-profile/friends', [
-				'title' => $profileOwner->full_name,
-				'profileOwner' => $profileOwner,
-				'profileMenu' => 3,
-			]);
+
+            //Get Friends
+            $friends = app('UserRepo')->paginateFriends($profileOwner, 10);
+            //Get next page url
+            $nextPageUrl = generate_next_page_url($friends);
+            //This is a normal request
+            if(!$this->input->is_ajax_request()) {
+                //Load friends page
+                $this->load->view('lecturer-profile/friends', [
+                    'title' => $profileOwner->full_name,
+                    'profileOwner' => $profileOwner,
+                    'friends' => $friends,
+                    'nextPageUrl' => $nextPageUrl,
+                    'profileMenu' => 3,
+                ]);
+            } else {
+                //Return json encoded data
+                echo json_encode([
+                    'error' => false,
+                    'grid'  => $this->load->view('partials/_friends-grid', ['friends' => $friends], true),
+                    'nextPageUrl' => $nextPageUrl
+                ]);
+            }
 		} catch (Exception $e) {
 			//Unexpected error
 			show_404();

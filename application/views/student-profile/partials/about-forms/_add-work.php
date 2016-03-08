@@ -1,63 +1,74 @@
-<?php $this->load->view('template/_header', [
-	'css' => [
-		'/css/bootstrap-datetimepicker.css',
-	],
-	'hasAd' => true,
-]); ?>
-<!-- content -->
-<div class="container">
-	<?php $this->load->view('student-profile/partials/_profile-summary') ?>
+<form method="post" action="<?=base_url()?>user-actions/save-new-work" autocomplete="off">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4><i class="fa fa-suitcase"></i> Adding Work information</h4>
+        </div><!--/.panel-heading-->
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
 
-	<div class="row">
-		<div class="col-md-4">
-			<?php $this->load->view('student-profile/partials/_student-about-summary') ?>
-		</div><!--/.col-md-4-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group<?=($this->keeper->has('job_title_error'))?' has-error':''?>">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
+                                    <input type="text" name="job_title" placeholder="Enter job title" class="form-control" value="<?=$this->keeper->has('job_title')?$this->keeper->get('job_title'):''?>" />
+                                </div><!--/.input=-group--->
+                                <?=($this->keeper->has('job_title_error'))?$this->keeper->get('job_title_error'):''?>
+                            </div><!--/.form-group-->
+                        </div><!--/.col-md-12-->
+                    </div><!--/.row-->
 
-		<div class="col-md-8">
-			<?php $this->load->view('student-profile/partials/_profile-navigation') ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group<?=($this->keeper->has('company_name_error'))?' has-error':''?>">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-industry"></i></span>
+                                    <input type="text" name="company_name" placeholder="Enter the name of the company you work for" class="form-control" value="<?=$this->keeper->has('company_name')?$this->keeper->get('company_name'):''?>" />
+                                </div><!--/.input=-group--->
+                                <?=($this->keeper->has('company_name_error'))?$this->keeper->get('company_name_error'):''?>
+                            </div><!--/.form-group-->
+                        </div><!--/.col-md-12-->
+                    </div><!--/.row-->
 
-			<?php if(isset($handle) && $handle == 'add'): ?>
-				<?php $this->load->view('student-profile/partials/about-forms/_add-work') ?>
-			<?php endif; ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group<?=($this->keeper->has('date_joined_error'))?' has-error':''?>">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" name="date_joined" placeholder="Date you started new position" class="form-control datepicker" value="<?=$this->keeper->has('date_joined')?$this->keeper->get('date_joined'):''?>" />
+                                </div><!--/.input=-group--->
+                                <?=($this->keeper->has('date_joined_error'))?$this->keeper->get('date_joined_error'):''?>
+                            </div><!--/.form-group-->
+                        </div><!--/.col-md-6-->
+                        <div class="col-md-6">
+                            <div class="form-group<?=($this->keeper->has('date_left_error'))?' has-error':''?>">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" name="date_left" placeholder="Date you left position" class="form-control datepicker" value="<?=$this->keeper->has('date_left')?$this->keeper->get('date_left'):''?>" />
+                                </div><!--/.input=-group--->
+                                <?=($this->keeper->has('date_left_error'))?$this->keeper->get('date_left_error'):''?>
+                                <small class="text-muted"><sup>#</sup>Leave blank if still working</small>
+                            </div><!--/.form-group-->
+                        </div><!--/.col-md-6-->
+                    </div><!--/.row-->
 
-			<?php if(isset($handle) && $handle == 'edit'): ?>
-				<?php $this->load->view('student-profile/partials/about-forms/_edit-work') ?>
-			<?php endif; ?>
-
-
-			<?php $this->load->view('student-profile/partials/about-sections/_basic-info-section') ?>
-
-			<?php $this->load->view('student-profile/partials/about-sections/_details-about-user-section') ?>
-		</div><!--/.col-md-8-->
-
-	</div><!--/.row-->
-
-</div><!--/.container-->
-
-<?php $this->load->view('template/_footer', [
-	'js_plugins' => [
-		'/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-		'/js/plugins/moment/min/moment-with-locales.min.js',
-		'/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
-	]
-]); ?>
-
-<?php $this->load->view('student-profile/partials/_js-common') ?>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".post-status-area").autoGrow();
-
-		$('input[name="emails"]').tagsinput();
-
-		$('input[name="job_title"]').focus();
-
-		$('.datepicker').datetimepicker({
-			viewMode: 'years',
-			format: 'DD/MM/YYYY',
-			maxDate: moment()
-		});
-	});
-</script>
-
-<?php $this->load->view('template/_closing-body') ?>
+                </div><!--/.col-md-12-->
+            </div><!--/.row-->
+        </div><!--/.panel-body-->
+        <?php if($profileOwner->is($this->auth->user())): ?>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary pull-right">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                        <a href="<?=$this->auth->user()->profile_uri.'/about'?>" class="btn btn-default">
+                            <i class="fa fa-times"></i> Cancel
+                        </a>
+                    </div><!--/.col-md-12-->
+                </div><!--/.row-->
+            </div><!--/.panel-footer-->
+        <?php endif; ?>
+    </div><!--/.panel-->
+</form>

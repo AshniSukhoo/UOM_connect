@@ -1,10 +1,7 @@
-<?php $hasAd = true; ?>
-<?php
-	$css = [
-		'/css/bootstrap-tagsinput.css',
-	];
-?>
-<?php $this->load->view('template/_header') ?>
+<?php $this->load->view('template/_header', [
+    'css' => ['/css/bootstrap-tagsinput.css'],
+    'hasAd' => true
+]) ?>
 	<style type="text/css">
 		.bootstrap-tagsinput {
 			width: 100% !important;
@@ -39,17 +36,14 @@
 
     </div><!--/.container-->
 
-<?php $js_plugins = [
-    '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
-	'/js/plugins/tags-input/bootstrap-tagsinput.js',
-]; ?>
-<?php $this->load->view('template/_footer') ?>
+<?php $this->load->view('template/_footer', ['js_plugins' => [
+    '/js/plugins/tags-input/bootstrap-tagsinput.js',
+]]) ?>
 
 	<?php $this->load->view('student-profile/partials/_js-common') ?>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $(".post-status-area").autoGrow();
+        $(document).ready(function() {
 
 	        $('input[name="emails"]').tagsinput();
 
