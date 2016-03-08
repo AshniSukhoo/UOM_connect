@@ -169,4 +169,152 @@ class IndexController extends MY_Controller
 			show_404();
 		}
 	}
+
+	/**
+	 * Show page to education to user lecturer profile
+	 *
+	 * @param $userId
+	 * @return string
+	 */
+	public function showAddEducation($userId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'lecturer');
+			//Lecturer profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Lecturer profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('lecturer-profile/add-education', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'add',
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
+
+	/**
+	 * Show the page to edit education row
+	 *
+	 * @param $userId
+	 * @param $educationId
+	 * @return string
+	 */
+	public function showEditEducation($userId, $educationId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'lecturer');
+			//Lecturer profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Lecturer profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('lecturer-profile/add-education', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'edit',
+				'education' => $profileOwner->educations()->findOrFail($educationId),
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
+
+	/**
+	 * Show page to work to user lecturer profile
+	 *
+	 * @param $userId
+	 * @return string
+	 */
+	public function showAddWork($userId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'lecturer');
+			//Lecturer profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Lecturer profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('lecturer-profile/add-work', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'add',
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
+
+	/**
+	 * Show page to edit a work item
+	 *
+	 * @param string $userId
+	 * @param string $workId
+	 * @return string
+	 */
+	public function showEditWork($userId, $workId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'lecturer');
+			//Lecturer profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Lecturer profile not found', '404');
+			}
+			//Load Edit basic info page
+			$this->load->view('lecturer-profile/add-work', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+				'handle' => 'edit',
+				'work' => $profileOwner->works()->findOrFail($workId),
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
+
+	/**
+	 * Show page to add or edit user details
+	 *
+	 * @param string $userId
+	 * @return string
+	 */
+	public function addEditDetails($userId)
+	{
+		try {
+			//Get user for who this profile belongs
+			$profileOwner = app('UserRepo')->getUser($userId, 'lecturer');
+			//Lecturer profile was not found
+			if($profileOwner == false || $profileOwner->isNot($this->auth->user())) {
+				//Show 404 page
+				throw new Exception('Lecturer profile not found', '404');
+			}
+			//Load page to add or edit details
+			$this->load->view('lecturer-profile/add-edit-details', [
+				'title' => $profileOwner->full_name,
+				'profileOwner' => $profileOwner,
+				'profileMenu' => 2,
+			]);
+		} catch (Exception $e) {
+			//Unexpected error
+			show_404();
+		}
+	}
 }

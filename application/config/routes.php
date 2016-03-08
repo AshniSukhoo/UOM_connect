@@ -90,8 +90,11 @@ $route['lecturer-profile/(:any)/timeline'] = 'Lecturer/IndexController/profile/$
 $route['lecturer-profile/(:any)/about'] = 'Lecturer/IndexController/about/$1';
 $route['lecturer-profile/(:any)/friends'] = 'Lecturer/IndexController/friends/$1';
 $route['lecturer-profile/(:any)/edit-basic-info'] = 'Lecturer/IndexController/showEditBasicInfo/$1';
-
-
+$route['lecturer-profile/(:any)/add-education'] = 'Lecturer/IndexController/showAddEducation/$1';
+$route['lecturer-profile/(:any)/add-work'] = 'Lecturer/IndexController/showAddWork/$1';
+$route['lecturer-profile/(:any)/edit-education/(:any)'] = 'Lecturer/IndexController/showEditEducation/$1/$2';
+$route['lecturer-profile/(:any)/edit-work/(:any)'] = 'Lecturer/IndexController/showEditWork/$1/$2';
+$route['lecturer-profile/(:any)/add-edit-details'] = 'Lecturer/IndexController/addEditDetails/$1';
 $route['lecturer-profile/(:any)'] = 'Lecturer/IndexController/profile/$1';
 
 /*
