@@ -1,4 +1,4 @@
-<?php $this->load->view('template/_header.php', [
+<?php $this->load->view('template/_header', [
     'hasAd' => true
 ]) ?>
 

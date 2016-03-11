@@ -46,9 +46,6 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $(".post-status-area").autoGrow();
-
-        $('input[name="emails"]').tagsinput();
 
         $('input[name="job_title"]').focus();
 

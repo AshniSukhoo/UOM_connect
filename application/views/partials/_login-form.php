@@ -11,7 +11,7 @@
                 <input name="login_password" type="password" id="login_password" class="form-control input-sm" placeholder="Password" value="">
                 <br/>
                 <label class="checkbox-inline">
-                    <a href="#" style="color: #ffffff;cursor: pointer">Forgot your password?</a>
+                    <a href="<?=base_url('passwords/reset')?>" style="color: #ffffff;cursor: pointer">Forgot your password?</a>
                 </label>
             </div><!--/.form-group-->
             &nbsp;&nbsp;

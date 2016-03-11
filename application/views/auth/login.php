@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Welcome to UOM-Connect - First student portal and social network</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <?php include(APPPATH.'views/template/_css.php'); ?>
+    <?php $this->load->view('template/_css') ?>
 </head>
 <body class="login-with-bg">
 
@@ -15,7 +15,7 @@
         <!-- main col -->
         <div class="column col-sm-12 col-xs-12" id="main-login">
 
-            <?php include(APPPATH.'views/template/_top-navigation.php') ?>
+            <?php $this->load->view('template/_top-navigation.php') ?>
 
             <div class="padding">
 
@@ -37,7 +37,7 @@
                                             <p>Students and Lecturers of UOM, welcome to your portal.</p>
                                         </div><!--/.col-sm-12-->
                                     </div><!--/.row-->
-                                    <?php include(APPPATH.'views/partials/_sign-up-form.php'); ?>
+                                    <?php $this->load->view('partials/_sign-up-form') ?>
                                 </div>
                             </div><!--/.panel-->
 
@@ -57,7 +57,7 @@
 
 </div><!--/.wrapper-->
 
-<?php include(APPPATH.'views/template/_js.php'); ?>
+<?php $this->load->view('template/_js') ?>
 <script type="text/javascript" src="/js/plugins/jquery-validation/jquery.validate.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {

@@ -39,9 +39,11 @@
 */
 
 /*
- * Home page route
+ * Home page route and other pages
  */
 $route['default_controller'] = "IndexController";
+$route['contact-us'] = "IndexController/getContactUs";
+$route['passwords/reset'] = 'IndexController/getResetPasswords';
 
 /*
  * Sign-up route
@@ -136,7 +138,15 @@ $route['save-user-profile-picture'] = 'ImageController/postSaveUserProfilePictur
  */
 $route['search-users'] = 'IndexController/getSearchUsers';
 
-$route['404_override'] = '';
+/*
+ * Errors
+ */
+$route['404_override'] = 'IndexController/error404';
+
+/*
+ * Notifications
+ */
+$route['notifications'] = 'NotificationsController';
 
 
 /* End of file routes.php */

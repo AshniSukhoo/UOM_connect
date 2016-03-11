@@ -14,7 +14,7 @@
 		    </a>
 	    </li>
         <li>
-	        <a href="#" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingFriendRequests())?$this->auth->user()->pendingFriendRequests().' pending Friend Requests':'No Friend Request'?>">
+	        <a href="<?=base_url('invitations')?>" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingFriendRequests())?$this->auth->user()->pendingFriendRequests().' pending Friend Requests':'No Friend Request'?>">
 		        <i class="fa fa-user-plus"></i>
 		        <?php if($this->auth->user()->hasPendingFriendRequests()): ?>
 			        <span class="label label-danger"><?=$this->auth->user()->pendingFriendRequests()?></span>
@@ -22,7 +22,7 @@
 	        </a>
         </li>
         <li>
-	        <a href="#" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingNotifications())?$this->auth->user()->pendingNotifications().' pending notifications':'No new notifications'?>">
+	        <a href="<?=base_url('notifications')?>" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingNotifications())?$this->auth->user()->pendingNotifications().' pending notifications':'No new notifications'?>">
 		        <i class="fa fa-bell"></i>
 		        <?php if($this->auth->user()->hasPendingNotifications()): ?>
 			        <span class="label label-danger"><?=$this->auth->user()->pendingNotifications()?></span>
@@ -41,12 +41,12 @@
 	        </a>
         </li>
         <li>
-	        <a href="#" class="text-center">
+	        <a href="<?=base_url('invitations')?>" class="text-center">
 		        <i class="fa fa-user-plus"></i>
 	        </a>
         </li>
         <li>
-	        <a href="#" class="text-center">
+	        <a href="<?=base_url('notifications')?>" class="text-center">
 		        <i class="fa fa-bell"></i>
 	        </a>
         </li>

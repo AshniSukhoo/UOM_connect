@@ -51,7 +51,7 @@
             </div>
             <?php if(!isset($noNavLogin) || $noNavLogin == false): ?>
                 <nav class="collapse navbar-collapse" role="navigation">
-                    <?php include(APPPATH.'views/partials/_login-form.php'); ?>
+                    <?php $this->load->view('partials/_login-form'); ?>
                 </nav>
             <?php endif; ?>
         </div><!--/.container-->

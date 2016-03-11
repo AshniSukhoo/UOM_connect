@@ -36,7 +36,6 @@
 
 <?php $this->load->view('template/_footer', [
     'js_plugins' => [
-        '/js/plugins/autogrow/jquery.autogrowtextarea.min.js',
         '/js/plugins/moment/min/moment-with-locales.min.js',
         '/js/plugins/datetimepicker/bootstrap-datetimepicker.js'
     ]
@@ -45,10 +44,7 @@
 	<?php $this->load->view('student-profile/partials/_js-common') ?>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $(".post-status-area").autoGrow();
-
-            $('input[name="emails"]').tagsinput();
+        $(document).ready(function() {
 
             $('input[name="job_title"]').focus();
 

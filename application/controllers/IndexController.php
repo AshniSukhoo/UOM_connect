@@ -106,4 +106,33 @@ class IndexController extends MY_Controller
             ]);
         }
     }
+
+    /**
+     * Loads contact us page
+     *
+     * @return string
+     */
+    public function getContactUs()
+    {
+
+    }
+
+    /**
+     * Show reset password form
+     *
+     * @return string
+     */
+    public function getResetPasswords()
+    {}
+
+    /**
+     * 404 Error Page
+     *
+     * @return string
+     */
+    public function error404()
+    {
+        //Show 404 Page
+        $this->load->view('errors/404');
+    }
 }

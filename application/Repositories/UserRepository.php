@@ -420,4 +420,42 @@ class UserRepository implements UserRepositoryInterface
             ]
         ))->appends(['srch-term' => $keywords]);
     }
+
+    /**
+     * Paginate user notifications
+     *
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function paginateNotifications($user = null,  $numberPerPage = 10)
+    {
+        //Get CI super object
+        $ci = & get_instance();
+        //Calculate page
+        $page = $ci->input->get('page') !== false? $ci->input->get('page'):1;
+        //Get the number of notifications
+        $notificationsCount = $user->receivedNotifications()->count();
+        //No notifications
+        if($notificationsCount == 0) {
+            //we return null
+            return null;
+        }
+        //Get results
+        $results = $user->receivedNotifications()->skip($numberPerPage * ($page - 1))->take($numberPerPage)->get();
+        //No notifications on this page
+        if($results->count() == 0) {
+            //Return null
+            return null;
+        }
+        //Return paginator
+        return new LengthAwarePaginator(
+            $results,
+            $notificationsCount,
+            $numberPerPage,
+            $page,
+            [
+                'path' => current_url()
+            ]
+        );
+    }
 }

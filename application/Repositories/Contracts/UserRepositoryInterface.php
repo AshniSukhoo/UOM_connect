@@ -164,4 +164,12 @@ interface UserRepositoryInterface
      * @return \Illuminate\Pagination\LengthAwarePaginator|null
      */
     public function searchUsers($keywords = '', $numberPerPage = 10);
+
+    /**
+     * Paginate user notifications
+     *
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function paginateNotifications($user = null,  $numberPerPage = 10);
 }
