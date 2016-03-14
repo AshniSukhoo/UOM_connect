@@ -147,6 +147,7 @@ $route['404_override'] = 'IndexController/error404';
  * Notifications
  */
 $route['notifications'] = 'NotificationsController';
+$route['notifications-count-unseen'] = 'NotificationsController/getCountUnseen';
 
 
 /* End of file routes.php */

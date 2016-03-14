@@ -242,4 +242,40 @@ class DatabaseSeederController extends CI_Controller
 
         Model::reguard();
     }
+
+    /**
+     * Seed the notifications table for a given user
+     *
+     * @param string $userId
+     */
+    public function seedNotifications($userId)
+    {
+        //Unguard model
+        Model::unguard();
+
+        //Get the user
+        $user = \App\Eloquent\User::findOrFail($userId);
+        //Seed notifications
+        for ($i = 0; $i < rand(10, 100); $i++) {
+            //Get a random user
+            $notifier = \App\Eloquent\User::where('id', '!=', $userId)->orderByRaw('RAND()')->limit(1)->first();
+            //Create the notification
+            $notif = $this->faker->randomElement([
+                ['content' => 'accepted your friend request', 'url' => $notifier->base_profile_uri, 'type' => 'friended'],
+                ['content' => 'likes your post', 'url' => $user->base_profile_uri.'/posts/'.$this->faker->randomDigit, 'type' => 'like'],
+                ['content' => 'likes your comment', 'url' => $user->base_profile_uri.'/posts/'.$this->faker->randomDigit, 'type' => 'like'],
+                ['content' => 'commented on your post', 'url' => $user->base_profile_uri.'/posts/'.$this->faker->randomDigit, 'type' => 'comment'],
+            ]);
+            //Create notification for sender
+            $user->receivedNotifications()->create([
+                'notifier' => $notifier->id,
+                'content' => $notif['content'],
+                'url' => $notif['url'],
+                'notified' => false,
+                'type' => $notif['type']
+            ]);
+        }
+
+        Model::reguard();
+    }
 }

@@ -58,4 +58,18 @@ class NotificationsController extends MY_Controller
             show_404();
         }
     }
+
+    /**
+     * Get count of unseen notification for user
+     *
+     * @return string
+     */
+    public function getCountUnseen()
+    {
+        //Return notif count
+        echo json_encode([
+            'count' => '<i class="fa fa-bell"></i> '.($this->auth->user()->hasPendingNotifications() ? '<span class="label label-danger">'.$this->auth->user()->pendingNotifications().'</span>' : ''),
+            'hint' => $this->auth->user()->hasPendingNotifications() ? $this->auth->user()->pendingNotifications().' pending notifications' : 'No new notifications',
+        ]);
+    }
 }

@@ -20,15 +20,25 @@ trait UserPresenter
     }
 
 	/**
-	 * Returns the profile uri of a user
+	 * Returns the full profile uri of a user
 	 *
 	 * @return string
 	 */
 	public function getProfileUriAttribute()
 	{
-		//Return the uri
-		return ($this->user_type == 'student')?base_url('student-profile/'.$this->id):base_url('lecturer-profile/'.$this->id);
+		//Return the full uri
+		return base_url($this->base_profile_uri);
 	}
+
+    /**
+     * Returns the base profile uri
+     *
+     * @return string
+     */
+    public function getBaseProfileUriAttribute()
+    {
+        return ($this->user_type == 'student')?'student-profile/'.$this->id:'lecturer-profile/'.$this->id;
+    }
 
 	/**
 	 * Get the profile picture attribute

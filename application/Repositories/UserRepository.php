@@ -343,6 +343,7 @@ class UserRepository implements UserRepositoryInterface
         $sender->receivedNotifications()->create([
             'notifier' => $receiver->id,
             'content' => 'accepted your friend request',
+            'url' => $receiver->base_profile_uri,
             'notified' => false,
             'type' => 'friended'
         ]);

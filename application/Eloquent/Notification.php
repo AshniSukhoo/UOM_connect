@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Presenters\NotificationPresenter;
 
 /**
  * Class Notification
@@ -10,6 +11,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Notification extends Model
 {
+    /**
+     * The Model's trait
+     */
+    use NotificationPresenter;
+
 	/**
 	 * The table associated with the model.
 	 *
@@ -87,5 +93,4 @@ class Notification extends Model
 		//Return user model
 		return $this->belongsTo('App\Eloquent\User', 'notifier', 'id');
 	}
-
 }

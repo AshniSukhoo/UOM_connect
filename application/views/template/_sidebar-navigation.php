@@ -22,7 +22,7 @@
 	        </a>
         </li>
         <li>
-	        <a href="<?=base_url('notifications')?>" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingNotifications())?$this->auth->user()->pendingNotifications().' pending notifications':'No new notifications'?>">
+	        <a href="<?=base_url('notifications')?>" class="hint--warning hint--bottom notif-count" data-hint="<?=($this->auth->user()->hasPendingNotifications())?$this->auth->user()->pendingNotifications().' pending notifications':'No new notifications'?>">
 		        <i class="fa fa-bell"></i>
 		        <?php if($this->auth->user()->hasPendingNotifications()): ?>
 			        <span class="label label-danger"><?=$this->auth->user()->pendingNotifications()?></span>
