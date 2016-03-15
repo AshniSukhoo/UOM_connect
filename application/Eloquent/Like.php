@@ -4,6 +4,7 @@ namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Eloquent\Observers\LikeObserver;
 
 /**
  * Class Like
@@ -14,7 +15,7 @@ class Like extends Model
 	/**
 	 * The model's trait
 	 */
-	use SoftDeletes;
+	use SoftDeletes, LikeObserver;
 
 	/**
 	 * The table associated with the model.
@@ -79,7 +80,7 @@ class Like extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\MorphTo
 	 */
-	public function resourcable()
+	public function resourceable()
 	{
 		//Return morph
 		return $this->morphTo();

@@ -51,11 +51,24 @@ class NotificationsController extends MY_Controller
                 $this->load->view('pages/notifications', compact('notifications', 'nextPageUrl'));
             } else {
                 //Is an ajax request
-
+                echo json_encode([
+                    'error' => false,
+                    'grid' => $this->load->view('pages/partials/_notifications-grid', compact('notifications'), true),
+                    'nextPageUrl' => $nextPageUrl
+                ]);
             }
         } catch (Exception $e) {
-            //Unexpected error
-            show_404();
+            //This is not an ajax request
+            if(! $this->input->is_ajax_request()) {
+                //Show error page
+                show_404();
+            } else {
+                //Is an ajax request
+                echo json_encode([
+                    'error' => true,
+                    'message' => $e->getMessage()
+                ]);
+            }
         }
     }
 

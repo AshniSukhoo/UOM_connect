@@ -345,7 +345,9 @@ class UserRepository implements UserRepositoryInterface
             'content' => 'accepted your friend request',
             'url' => $receiver->base_profile_uri,
             'notified' => false,
-            'type' => 'friended'
+            'type' => 'friended',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
         //Return completion of process
         return true;
@@ -442,7 +444,7 @@ class UserRepository implements UserRepositoryInterface
             return null;
         }
         //Get results
-        $results = $user->receivedNotifications()->skip($numberPerPage * ($page - 1))->take($numberPerPage)->get();
+        $results = $user->receivedNotifications()->orderBy('created_at', 'desc')->skip($numberPerPage * ($page - 1))->take($numberPerPage)->get();
         //No notifications on this page
         if($results->count() == 0) {
             //Return null

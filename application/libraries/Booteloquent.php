@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Events\Dispatcher;
+use Illuminate\Container\Container;
 
 /**
  * Class Booteloquent
@@ -46,6 +48,8 @@ class BootEloquent
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
         ]);
+        // Set the event dispatcher used by Eloquent models... (optional)
+        $this->capsule->setEventDispatcher(new Dispatcher(new Container));
     }
 
     /**

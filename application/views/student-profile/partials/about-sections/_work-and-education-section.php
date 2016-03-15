@@ -9,7 +9,7 @@
 		        <div class="list-group">
 			        <?php foreach($profileOwner->educations()->orderBy('year_joined', 'desc')->get() as $education): ?>
 				        <a href="javascript:;" class="list-group-item">
-					        <h4 class="list-group-item-heading">Major in <?=$education->major?></h4>
+					        <h5 class="list-group-item-heading" style="font-weight: bold;">Major in <?=$education->major?></h5>
 					        <p class="list-group-item-text">
 						        <?=($education->is_current)?'Studying':'Graduated'?> from <?=$education->institution_name?>
 						        <?=($education->is_current)?'since':'from'?> <?=$education->year_joined?> <?=($education->is_current)?'':' to '.$education->year_left?>
@@ -33,7 +33,7 @@
 		        <h4>Work Experiences</h4>
 		        <?php foreach($profileOwner->works()->orderBy('date_joined', 'desc')->get() as $work): ?>
 	                <a href="javascript:;" class="list-group-item">
-		                <h4 class="list-group-item-heading"><?=$work->job_title?> at <?=$work->company_name?></h4>
+		                <h5 class="list-group-item-heading" style="font-weight: bold;"><?=$work->job_title?> at <?=$work->company_name?></h5>
 		                <p class="list-group-item-text">
 			                <?=($work->is_current)?'Working since':'Worked from'?> <?=$work->date_joined->format('Y')?> <?=($work->is_current)?'':' to '.$work->date_left->format('Y')?>
 			                <?php if($profileOwner->is($this->auth->user())): ?>

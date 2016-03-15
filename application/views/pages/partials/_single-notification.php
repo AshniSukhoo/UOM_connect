@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-2">
-        <img src="<?=$notification->theNotifier->profile_picture?>" class="img-responsive" style="width: 55px;">
+        <img src="<?=$notification->theNotifier->profile_picture?>" class="img-responsive" style="width: 55px;margin: auto;">
     </div><!--/.col-md-2-->
     <div class="col-md-10">
         <a href="<?=$notification->theNotifier->profile_uri?>" class="poster-name" style="padding: 0px;">
