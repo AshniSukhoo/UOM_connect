@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e2e1566cf1931be9daae20e917a05ca6",
-    "content-hash": "ced2869edf6e5e1eb053faab541bddd7",
+    "hash": "2f876e1cd3620932f155edead9a7a8b2",
+    "content-hash": "dac9db46f9d4f5718894a54644f2ef6f",
     "packages": [
         {
             "name": "ahir/facades",
@@ -547,6 +547,54 @@
                 "sql"
             ],
             "time": "2016-02-24 15:02:47"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "illuminate/events",
+            "version": "v5.2.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/events.git",
+                "reference": "aeebcd54a61ce3bddddcb0273b532256201cd9d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/events/zipball/aeebcd54a61ce3bddddcb0273b532256201cd9d1",
+                "reference": "aeebcd54a61ce3bddddcb0273b532256201cd9d1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.2.*",
+                "illuminate/contracts": "5.2.*",
+                "illuminate/support": "5.2.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Events\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "The Illuminate Events package.",
+            "homepage": "http://laravel.com",
+            "time": "2016-01-01 01:00:19"
+>>>>>>> b061fa8a29377bdcd9e4301631bcf5e73e31ce6a
         },
         {
             "name": "illuminate/filesystem",

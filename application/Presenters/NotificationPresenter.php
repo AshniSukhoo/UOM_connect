@@ -19,6 +19,10 @@ trait NotificationPresenter
         switch($this->type) {
             case 'friended':
                 return 'fa fa-user';
+            case 'like':
+                return 'fa fa-thumbs-up';
+            case 'comment':
+                return 'fa fa-comment';
             default:
                 return '';
         }

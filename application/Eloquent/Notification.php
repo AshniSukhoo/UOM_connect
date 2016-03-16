@@ -57,8 +57,11 @@ class Notification extends Model
 		'receiver',
 		'notifier',
 		'content',
+        'url',
 		'notified',
-		'type'
+		'type',
+        'created_at',
+        'updated_at',
 	];
 
 	/**

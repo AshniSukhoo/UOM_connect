@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Presenters\PostPresenter;
 use App\ModelFunctions\PostFunctions;
+use App\Eloquent\Observers\PostObserver;
 
 /**
  * Class Post
