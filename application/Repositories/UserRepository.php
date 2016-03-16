@@ -346,8 +346,6 @@ class UserRepository implements UserRepositoryInterface
             'url' => $receiver->base_profile_uri,
             'notified' => false,
             'type' => 'friended',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
         ]);
         //Return completion of process
         return true;

@@ -13,7 +13,7 @@ trait LikeObserver
     /**
      * Notify a user when his post is liked
      *
-     * @param $like
+     * @param \App\Eloquent\Like $like
      */
     public static function notificationToUser($like)
     {
@@ -26,8 +26,6 @@ trait LikeObserver
                 'url' => $like->resourceable->base_uri,
                 'notified' => false,
                 'type' => 'like',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
             ]);
         }
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Presenters\CommentPresenter;
 use App\ModelFunctions\CommentFunctions;
+use App\Eloquent\Observers\CommentObserver;
 
 /**
  * Class Comment
@@ -16,7 +17,7 @@ class Comment extends Model
 	/**
 	 * The model's trait
 	 */
-	use SoftDeletes, CommentPresenter, CommentFunctions;
+	use SoftDeletes, CommentPresenter, CommentFunctions, CommentObserver;
 
 	/**
 	 * The table associated with the model.
