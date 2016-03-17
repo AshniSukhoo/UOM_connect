@@ -547,6 +547,8 @@
                 "sql"
             ],
             "time": "2016-02-24 15:02:47"
+<<<<<<< HEAD
+=======
         },
         {
             "name": "illuminate/events",
@@ -592,6 +594,7 @@
             "description": "The Illuminate Events package.",
             "homepage": "http://laravel.com",
             "time": "2016-01-01 01:00:19"
+>>>>>>> b061fa8a29377bdcd9e4301631bcf5e73e31ce6a
         },
         {
             "name": "illuminate/filesystem",
