@@ -88,7 +88,7 @@ class DatabaseSeederController extends CI_Controller
 			$randDate = $this->faker->dateTimeBetween('-1years', 'now');
 			Post::create([
 				'user_id' => $userId,
-				'content' => $this->faker->paragraphs(rand(3, 10), true),
+				'content' => $this->faker->paragraphs(mt_rand(3, 10), true),
 				'created_at' => $randDate,
 				'updated_at' => $randDate
 			]);
@@ -110,12 +110,12 @@ class DatabaseSeederController extends CI_Controller
 		$totalGenerated = 0;
 
 		foreach(Post::all() as $post) {
-			$numComments = rand(3, 50);
+			$numComments = mt_rand(3, 50);
 			$randDate = $this->faker->dateTimeBetween('-1years', 'now');
 			for($i = 0; $i < $numComments; $i++) {
 				$post->comments()->create([
 					'user_id' => User::orderByRaw('RAND()')->limit(1)->first()->id,
-					'content' => $this->faker->paragraph(rand(1, 5)),
+					'content' => $this->faker->paragraph(mt_rand(1, 5)),
 					'created_at' => $randDate,
 					'updated_at' => $randDate,
 				]);
@@ -139,7 +139,7 @@ class DatabaseSeederController extends CI_Controller
 		$totalGenerated = 0;
 
 		foreach(Post::all() as $post) {
-			$users = User::orderByRaw('RAND()')->limit(rand(1, 30))->get();
+			$users = User::orderByRaw('RAND()')->limit(mt_rand(1, 30))->get();
 			//Create a new like on post by the user
 			foreach($users as $user) {
 				$randDate = $this->faker->dateTimeBetween('-1years', 'now');
@@ -168,7 +168,7 @@ class DatabaseSeederController extends CI_Controller
 		$totalGenerated = 0;
 
 		foreach(Comment::orderBYRaw('RAND()')->limit(100)->get() as $comment) {
-			$users = User::orderByRaw('RAND()')->limit(rand(1, 30))->get();
+			$users = User::orderByRaw('RAND()')->limit(mt_rand(1, 30))->get();
 			//Create a new like on post by the user
 			foreach($users as $user) {
 				$randDate = $this->faker->dateTimeBetween('-1years', 'now');
@@ -194,7 +194,7 @@ class DatabaseSeederController extends CI_Controller
         //Unguard model
         Model::unguard();
 
-        $totalGenerated = rand(30, 100);
+        $totalGenerated = mt_rand(30, 100);
 
         $currentUser = User::findOrFail($userId);
 
@@ -256,7 +256,7 @@ class DatabaseSeederController extends CI_Controller
         //Get the user
         $user = \App\Eloquent\User::findOrFail($userId);
         //Seed notifications
-        for ($i = 0; $i < rand(10, 100); $i++) {
+        for ($i = 0; $i < mt_rand(10, 100); $i++) {
             //Get a random user
             $notifier = \App\Eloquent\User::where('id', '!=', $userId)->orderByRaw('RAND()')->limit(1)->first();
             //Create the notification
@@ -276,6 +276,35 @@ class DatabaseSeederController extends CI_Controller
             ]);
         }
 
+        Model::reguard();
+    }
+
+    /**
+     * Seed invitations for a user
+     *
+     * @param string $userId
+     */
+    public function seedInvitations($userId = '')
+    {
+        //Unguard model
+        Model::unguard();
+
+        $numRequestToSend = mt_rand(10, 100);
+
+        //Get the user
+        $user = \App\Eloquent\User::findOrFail($userId);
+        //Get number of users accordingly
+        $users = \App\Eloquent\User::where('id', '!=', $userId)->orderByRaw('RAND()')->limit($numRequestToSend)->get();
+
+        //Seed friend request
+        foreach ($users as $someUser) {
+            //Create friend request for user
+            $user->receivedFriendRequests()->create([
+                'sender' => $someUser->id,
+                'notified' => false,
+            ]);
+        }
+        echo $numRequestToSend.' requests created';
         Model::reguard();
     }
 }

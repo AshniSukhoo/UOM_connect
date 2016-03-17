@@ -149,6 +149,12 @@ $route['404_override'] = 'IndexController/error404';
 $route['notifications'] = 'NotificationsController';
 $route['notifications-count-unseen'] = 'NotificationsController/getCountUnseen';
 
+/*
+ * Invitations
+ */
+$route['invitations'] = 'InvitationsController';
+$route['invitations-count-unseen'] = 'InvitationsController/getCountUnseen';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

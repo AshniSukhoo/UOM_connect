@@ -168,8 +168,18 @@ interface UserRepositoryInterface
     /**
      * Paginate user notifications
      *
+     * @param \App\Eloquent\User $user
      * @param int $numberPerPage
      * @return \Illuminate\Pagination\LengthAwarePaginator|null
      */
     public function paginateNotifications($user = null,  $numberPerPage = 10);
+
+    /**
+     * Paginate user invitations
+     *
+     * @param \App\Eloquent\User $user
+     * @param int $numberPerPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator|null
+     */
+    public function paginateInvitations($user = null, $numberPerPage = 10);
 }

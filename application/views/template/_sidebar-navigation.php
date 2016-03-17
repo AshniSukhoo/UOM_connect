@@ -14,7 +14,7 @@
 		    </a>
 	    </li>
         <li>
-	        <a href="<?=base_url('invitations')?>" class="hint--warning hint--bottom" data-hint="<?=($this->auth->user()->hasPendingFriendRequests())?$this->auth->user()->pendingFriendRequests().' pending Friend Requests':'No Friend Request'?>">
+	        <a href="<?=base_url('invitations')?>" class="hint--warning hint--bottom invite-count" data-hint="<?=($this->auth->user()->hasPendingFriendRequests())?$this->auth->user()->pendingFriendRequests().' pending Friend Requests':'No Friend Request'?>">
 		        <i class="fa fa-user-plus"></i>
 		        <?php if($this->auth->user()->hasPendingFriendRequests()): ?>
 			        <span class="label label-danger"><?=$this->auth->user()->pendingFriendRequests()?></span>
