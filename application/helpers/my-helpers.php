@@ -1,5 +1,26 @@
 <?php
 
+if (! function_exists('env')) {
+    /**
+     * Gets the value of an environment variable. Supports boolean, empty and null.
+     *
+     * @param $key
+     * @param mixed $default
+     * @return mixed
+     */
+    function env($key, $default = null)
+    {
+        //Get the value from env
+        $value = getenv($key);
+        //Not found in env
+        if ($value === false) {
+            return $default;
+        }
+        //Return value
+        return $value;
+    }
+}
+
 if (! function_exists('app')) {
     /**
      * Get the available container instance.

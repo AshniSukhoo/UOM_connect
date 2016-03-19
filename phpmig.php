@@ -4,14 +4,22 @@ use \Phpmig\Adapter;
 use \Phpmig\Pimple\Pimple,
     \Illuminate\Database\Capsule\Manager as Capsule;
 
+use Dotenv\Dotenv;
+
+/*
+ * Load env
+ */
+$dotenv = new Dotenv(realpath(__DIR__));
+$dotenv->load();
+
 $container = new Pimple();
 
 $container['config'] = [
     'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'uom_connect1',
-    'username'  => 'root',
-    'password'  => '',
+    'host'      => env('DB_UOM_HOST'),
+    'database'  => env('DB_UOM_DATABASE'),
+    'username'  => env('DB_UOM_USERNAME'),
+    'password'  => env('DB_UOM_PASSWORD'),
     'charset'   => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix'    => '',

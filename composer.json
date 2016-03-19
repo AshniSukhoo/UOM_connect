@@ -19,7 +19,8 @@
       "ahir/facades": "^1.0",
       "coduo/php-humanizer": "^1.0",
     "illuminate/container": "^5.2",
-    "illuminate/events": "^5.2"
+    "illuminate/events": "^5.2",
+    "vlucas/phpdotenv": "^2.2"
   },
   "config": {
       "bin-dir": "bin/"

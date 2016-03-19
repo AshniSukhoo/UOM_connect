@@ -45,24 +45,31 @@
 | the active record class
 */
 
-$active_group = 'default';
-$active_record = TRUE;
+$active_group = env('DB_UOM_CONNECTION');
+$active_record = true;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'uom_connect1';
-$db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE;
+/**
+ * Db connection
+ */
+$db = [
+    'default' => [
+        'hostname' => env('DB_UOM_HOST'),
+        'username' => env('DB_UOM_USERNAME'),
+        'password' => env('DB_UOM_PASSWORD'),
+        'database' => env('DB_UOM_DATABASE'),
+        'dbdriver' => env('DB_UOM_DEFAULT_DRIVER'),
+        'dbprefix' => '',
+        'pconnect' => true,
+        'db_debug' => true,
+        'cache_on' => false,
+        'cachedir' => '',
+        'char_set' => 'utf8',
+        'dbcollat' => 'utf8_general_ci',
+        'swap_pre' => '',
+        'autoinit' => true,
+        'stricton' => false
+    ]
+];
 
 
 /* End of file database.php */

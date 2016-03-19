@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f876e1cd3620932f155edead9a7a8b2",
-    "content-hash": "dac9db46f9d4f5718894a54644f2ef6f",
+    "hash": "28a13b91b0cdac498f6ef42e8e670b52",
+    "content-hash": "866562dce67ca7e15d8cbc16d945d760",
     "packages": [
         {
             "name": "ahir/facades",
@@ -547,8 +547,6 @@
                 "sql"
             ],
             "time": "2016-02-24 15:02:47"
-<<<<<<< HEAD
-=======
         },
         {
             "name": "illuminate/events",
@@ -594,7 +592,6 @@
             "description": "The Illuminate Events package.",
             "homepage": "http://laravel.com",
             "time": "2016-01-01 01:00:19"
->>>>>>> b061fa8a29377bdcd9e4301631bcf5e73e31ce6a
         },
         {
             "name": "illuminate/filesystem",
@@ -2283,6 +2280,57 @@
                 "shortcode"
             ],
             "time": "2016-02-25 12:49:16"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "9caf304153dc2288e4970caec6f1f3b3bc205412"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/9caf304153dc2288e4970caec6f1f3b3bc205412",
+                "reference": "9caf304153dc2288e4970caec6f1f3b3bc205412",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "homepage": "http://github.com/vlucas/phpdotenv",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2015-12-29 15:10:30"
         }
     ],
     "packages-dev": [],
