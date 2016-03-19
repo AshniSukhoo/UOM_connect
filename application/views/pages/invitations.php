@@ -26,6 +26,7 @@
 <script type="text/javascript">
     var nextPageUrl = '<?=$nextPageUrl?>';
 </script>
+<?php $this->load->view('partials/_js-user-invitations') ?>
 <script type="text/javascript">
     $(document).ready(function() {
         function updateInvitationsCount() {

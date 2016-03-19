@@ -43,6 +43,7 @@
  */
 $route['default_controller'] = "IndexController";
 $route['contact-us'] = "IndexController/getContactUs";
+$route['terms-and-conditions'] = "IndexController/getShowContents/1";
 $route['passwords/reset'] = 'IndexController/getResetPasswords';
 
 /*
@@ -53,10 +54,10 @@ $route['sign-up'] = "AuthController/signUp";
 /*
  * Login route
  */
-if($_SERVER['REQUEST_METHOD'] == 'GET') {
+if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'GET') {
     //Get Method use AuthController and getLogin function
     $route['login'] = "AuthController/getLogin";
-} elseif($_SERVER['REQUEST_METHOD'] == 'POST'){
+} elseif(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST'){
     //Post Method use AuthController and postLogin function
     $route['login'] = "AuthController/postLogin";
 }

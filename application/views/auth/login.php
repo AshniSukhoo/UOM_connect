@@ -42,7 +42,7 @@
                             </div><!--/.panel-->
 
                             <small style="color: #ffffff">
-                                By clicking Sign Up, you agree to our <a style="color: #428bca;" href="<?=base_url()?>terms">Terms of use and Data Policy</a>.
+                                By clicking Sign Up, you agree to our <a style="color: #428bca;" href="<?=base_url()?>terms-and-conditions">Terms of use and Data Policy</a>.
                             </small>
 
                         </div><!--/.col-sm-7-->

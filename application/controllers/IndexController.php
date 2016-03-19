@@ -2,6 +2,8 @@
 
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\ContentRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class IndexController
@@ -23,6 +25,13 @@ class IndexController extends MY_Controller
     protected $userRepo;
 
     /**
+     * The content repo service
+     *
+     * @var \App\Repositories\ContentRepository
+     */
+    protected $contentRepo;
+
+    /**
      * Create Index controller
      * instance
      */
@@ -35,6 +44,8 @@ class IndexController extends MY_Controller
             $this->postRepo = new PostRepository();
             //Create user repo service
             $this->userRepo = new UserRepository();
+            //Create new content repo
+            $this->contentRepo = new ContentRepository();
         } catch (Exception $e) {
             //Unexpected error or unknown error
         }
@@ -124,6 +135,24 @@ class IndexController extends MY_Controller
      */
     public function getResetPasswords()
     {}
+
+    /**
+     * Show content page
+     *
+     * @param string $id
+     * @return string
+     */
+    public function getShowContents($id = '')
+    {
+        try {
+            //Get the content from the data base
+            $content = $this->contentRepo->getContent($id);
+            dd($content);
+        } catch (ModelNotFoundException $e) {
+            //Unexpected error
+            show_error(404);
+        }
+    }
 
     /**
      * 404 Error Page
