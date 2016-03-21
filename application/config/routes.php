@@ -43,6 +43,7 @@
  */
 $route['default_controller'] = "IndexController";
 $route['contact-us'] = "IndexController/getContactUs";
+$route['send-contact'] = "IndexController/postSendContactMessage";
 $route['terms-and-conditions'] = "IndexController/getShowContents/1";
 $route['passwords/reset'] = 'IndexController/getResetPasswords';
 

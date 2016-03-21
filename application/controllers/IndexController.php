@@ -3,6 +3,7 @@
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ContentRepository;
+use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
@@ -32,6 +33,13 @@ class IndexController extends MY_Controller
     protected $contentRepo;
 
     /**
+     * The contact repo service
+     *
+     * @var \App\Repositories\ContactRepository
+     */
+    protected $contactMessageRepo;
+
+    /**
      * Create Index controller
      * instance
      */
@@ -46,6 +54,8 @@ class IndexController extends MY_Controller
             $this->userRepo = new UserRepository();
             //Create new content repo
             $this->contentRepo = new ContentRepository();
+            //Create new contact repo service
+            $this->contactMessageRepo = new ContactRepository();
         } catch (Exception $e) {
             //Unexpected error or unknown error
         }
@@ -125,7 +135,73 @@ class IndexController extends MY_Controller
      */
     public function getContactUs()
     {
+        //Load Contact page
+        $this->load->view('pages/contact-us');
+    }
 
+    /**
+     * Send contact message
+     *
+     * @return string
+     */
+    public function postSendContactMessage()
+    {
+        try {
+            //Set validation rules
+            $this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
+            $this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
+            $this->form_validation->set_rules('message', 'Message', 'required|min_length[300]|xss_clean');
+
+            //Run validation
+            if($this->form_validation->run() == false) {
+                //Our form is not valid, so sad!!
+                //Define list of fields
+                $fieldNames = [
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'message'
+                ];
+                //Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
+                //Loop through all fields and put error
+                foreach($fieldNames as $fieldName) {
+                    //We have value for the field
+                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
+                        //Put value in keeper
+                        $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
+                    }
+                    //There is an error on the field
+                    if(form_error($fieldName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldName.'_error', form_error($fieldName));
+                    }
+                }
+                //Redirect on login-register page
+                redirect('/contact-us', 'location');
+            }
+
+            //Create new contact message
+            $message = $this->contactMessageRepo->saveMessage($this->input->post());
+
+            //Send email
+            $this->email->from($this->input->post('email'), $message->first_name.' '.$message->last_name.' via UOM-Connect contact');
+            $this->email->to('contact@uom-connect.mu');
+            $this->email->subject('Help Needed');
+            $this->email->message($this->load->view('emails/contact-email', ['contact' => $message], true));
+            $this->email->send();
+
+            //Alert success
+            $notif = 'Your message has been sent successfully. We will get back to you as soon as possible.';
+            $this->keeper->put('notificationSuccess', $notif);
+
+            //Redirect to contact page
+            redirect('/contact-us', 'location');
+        } catch (Exception $e) {
+            //Unexpected error
+
+        }
     }
 
     /**
@@ -147,7 +223,8 @@ class IndexController extends MY_Controller
         try {
             //Get the content from the data base
             $content = $this->contentRepo->getContent($id);
-            dd($content);
+            //Load view with content
+            $this->load->view('pages/content-pages', ['content' => $content]);
         } catch (ModelNotFoundException $e) {
             //Unexpected error
             show_error(404);
