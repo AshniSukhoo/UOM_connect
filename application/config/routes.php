@@ -45,12 +45,13 @@ $route['default_controller'] = "IndexController";
 $route['contact-us'] = "IndexController/getContactUs";
 $route['send-contact'] = "IndexController/postSendContactMessage";
 $route['terms-and-conditions'] = "IndexController/getShowContents/1";
-$route['passwords/reset'] = 'IndexController/getResetPasswords';
 
 /*
  * Sign-up route
  */
 $route['sign-up'] = "AuthController/signUp";
+$route['passwords/reset'] = 'AuthController/getResetPasswords';
+$route['passwords/send-reset'] = "AuthController/postSendResetPasswords";
 
 /*
  * Login route

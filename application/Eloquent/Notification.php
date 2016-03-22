@@ -4,6 +4,7 @@ namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Presenters\NotificationPresenter;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Notification
@@ -14,7 +15,7 @@ class Notification extends Model
     /**
      * The Model's trait
      */
-    use NotificationPresenter;
+    use NotificationPresenter, SoftDeletes;
 
 	/**
 	 * The table associated with the model.

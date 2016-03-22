@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class ContactMessage
@@ -11,6 +12,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ContactMessage extends Model
 {
+    /**
+     * Model's trait
+     */
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *

@@ -34,6 +34,28 @@ trait UserFunctions
 		return !$this->is($user);
 	}
 
+    /**
+     * Check if user is active
+     *
+     * @return bool
+     */
+    public function isActive()
+    {
+        //Account must be status 1
+        return $this->account_status == 1;
+    }
+
+    /**
+     * Check if user is not active
+     *
+     * @return bool
+     */
+    public function isNotActive()
+    {
+        //Opposite of active
+        return ! $this->isActive();
+    }
+
 	/**
 	 * Checks if user is a student
 	 *

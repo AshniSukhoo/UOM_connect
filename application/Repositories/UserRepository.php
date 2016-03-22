@@ -44,14 +44,24 @@ class UserRepository implements UserRepositoryInterface
     {
         try {
             //Try to find the user with the ID and type specified
-            $user = $this->user->where('user_type', '=', $type)->findOrFail($userId);
-            //User is not found
-            if($user == null) {
-                //We return false
-                return false;
-            }
-            //Return the user
-            return $user;
+            return $this->user->where('user_type', '=', $type)->findOrFail($userId);
+        } catch (Exception $e) {
+            //Unexpected error
+            return null;
+        }
+    }
+
+    /**
+     * Find user by email
+     *
+     * @param string $email
+     * @return \App\Eloquent\User|null
+     */
+    public function findUserByMail($email)
+    {
+        try {
+            //Try to find the user with the ID and type specified
+            return $this->user->whereEmail($email)->firstOrFail();
         } catch (Exception $e) {
             //Unexpected error
             return null;

@@ -210,4 +210,15 @@ class User extends Model
 		//Return all notifications
 		return $this->hasMany('App\Eloquent\Notification', 'receiver', 'id');
 	}
+
+    /**
+     * User has only one reset token
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function passwordResetToken()
+    {
+        //Return the row
+        return $this->hasOne('App\Eloquent\PasswordReset', 'user_id', 'id');
+    }
 }

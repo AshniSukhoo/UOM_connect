@@ -1,16 +1,27 @@
 <?php
 
+use App\Repositories\UserRepository;
+
 /**
  * Class AuthController
  */
 Class AuthController extends MY_Controller
 {
     /**
+     * The user repo service
+     *
+     * @var \App\Repositories\UserRepository;
+     */
+    protected $userRepo;
+
+    /**
      * Create new instance of AuthController
      */
     public function __construct()
     {
         parent::__construct();
+        //Create new instance of user repo service
+        $this->userRepo = new UserRepository;
     }
 
     /**
@@ -233,5 +244,73 @@ Class AuthController extends MY_Controller
             //Redirect on login-register page
             redirect('/');
 		}
+    }
+
+    /**
+     * Show reset password form
+     *
+     * @return string
+     */
+    public function getResetPasswords()
+    {
+        try {
+            //Load view with content
+            $this->load->view('auth/password-reset');
+        } catch (Exception $e) {
+            //Unexpected error
+            show_error($e->getCode());
+        }
+    }
+
+    /**
+     * Create token and send password reset email
+     *
+     * @return string
+     */
+    public function postSendResetPasswords()
+    {
+        try {
+            //Set validation rules
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
+            //Run validation
+            if($this->form_validation->run() == false) {
+                //Our form is not valid, so sad!!
+                //Define list of fields
+                $fieldNames = ['email'];
+                //Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
+                //Loop through all fields and put error
+                foreach($fieldNames as $fieldName) {
+                    //We have value for the field
+                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
+                        //Put value in keeper
+                        $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
+                    }
+                    //There is an error on the field
+                    if(form_error($fieldName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldName.'_error', form_error($fieldName));
+                    }
+                }
+                //Redirect on login-register page
+                redirect('passwords/reset', 'location');
+            }
+
+            //Get user by email
+            $user = $this->userRepo->findUserByMail($this->input->post('email'));
+            //No user found or not active
+            if($user == null || $user->isNotActive()) {
+                //Pass error
+                throw new Exception('No active account with this email', 422);
+            }
+
+            //
+
+        } catch (Exception $e) {
+            //Notify error
+            $this->keeper->put('email_error', $e->getMessage());
+            //Redirect on login-register page
+            redirect('passwords/reset', 'location');
+        }
     }
 }

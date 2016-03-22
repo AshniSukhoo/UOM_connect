@@ -18,6 +18,14 @@ interface UserRepositoryInterface
      */
     public function getUser($userId, $type);
 
+    /**
+     * Find user by email
+     *
+     * @param string $email
+     * @return \App\Eloquent\User|null
+     */
+    public function findUserByMail($email);
+
 	/**
 	 * Get a single User using only
 	 * his user ID

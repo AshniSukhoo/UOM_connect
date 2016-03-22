@@ -200,17 +200,9 @@ class IndexController extends MY_Controller
             redirect('/contact-us', 'location');
         } catch (Exception $e) {
             //Unexpected error
-
+            show_error($e->getCode());
         }
     }
-
-    /**
-     * Show reset password form
-     *
-     * @return string
-     */
-    public function getResetPasswords()
-    {}
 
     /**
      * Show content page
