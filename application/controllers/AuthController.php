@@ -1,6 +1,7 @@
 <?php
 
 use App\Repositories\UserRepository;
+use App\Repositories\PasswordResetRepository;
 
 /**
  * Class AuthController
@@ -15,6 +16,13 @@ Class AuthController extends MY_Controller
     protected $userRepo;
 
     /**
+     * The password reset repo service
+     *
+     * @var \App\Repositories\PasswordResetRepository
+     */
+    protected $passwordResetRepo;
+
+    /**
      * Create new instance of AuthController
      */
     public function __construct()
@@ -22,6 +30,8 @@ Class AuthController extends MY_Controller
         parent::__construct();
         //Create new instance of user repo service
         $this->userRepo = new UserRepository;
+        //New up password reset repo
+        $this->passwordResetRepo = new PasswordResetRepository;
     }
 
     /**
@@ -304,13 +314,42 @@ Class AuthController extends MY_Controller
                 throw new Exception('No active account with this email', 422);
             }
 
-            //
+            //Create token for user
+            $this->passwordResetRepo->saveTokenForUser($user);
 
+            //Send email with token
+            $this->email->from('no-reply@uom-connect.mu', 'UOM-Connect');
+            $this->email->to($this->input->post('email'));
+            $this->email->subject('Your password reset link');
+            $this->email->message($this->load->view('emails/password-reset-link', [
+                'fullName' => $user->full_name,
+                'resetLink' => base_url('passwords/show-reset/'.$user->passwordResetToken->code),
+                'title' => 'Your password reset link',
+                'intro' => 'Your password reset link'
+            ], true));
+            $this->email->send();
+
+            //Notify user that link has been sent
+            $notif = 'We sent you an email with a link to reset your password';
+            $this->keeper->put('notificationSuccess', $notif);
+            //Redirect back
+            redirect('passwords/reset', 'location');
         } catch (Exception $e) {
             //Notify error
             $this->keeper->put('email_error', $e->getMessage());
-            //Redirect on login-register page
+            //Redirect back
             redirect('passwords/reset', 'location');
         }
+    }
+
+    /**
+     * Show password reset form
+     *
+     * @param $code
+     * @return string
+     */
+    public function getShowResetForm($code)
+    {
+        dd($code);
     }
 }
