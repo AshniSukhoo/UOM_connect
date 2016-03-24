@@ -350,6 +350,28 @@ Class AuthController extends MY_Controller
      */
     public function getShowResetForm($code)
     {
-        dd($code);
+        try {
+            //Get the token
+            $token = $this->passwordResetRepo->verifyToken($code);
+            //User not logged in
+            if(!$this->auth->check()) {
+                //Log user with token in
+                $this->auth->login($token->user);
+            } elseif ($this->auth->check() && $token->user->isNot($this->auth->user())) {
+                //Log user out
+                $this->auth->logout();
+                //Log user with token in
+                $this->auth->login($token->user);
+                //Redirect to correct session
+                redirect('passwords/show-reset/'.$token->code,'location');
+            }
+            //Load view with form to change password
+            $this->load->view('auth/password-reset-form', [
+                'token' => $token
+            ]);
+        } catch (Exception $e) {
+            //Unexpected error
+            show_404();
+        }
     }
 }

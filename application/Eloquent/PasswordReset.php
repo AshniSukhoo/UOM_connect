@@ -2,6 +2,7 @@
 
 namespace App\Eloquent;
 
+use App\Presenters\PasswordResetPresenter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,7 +16,7 @@ class PasswordReset extends Model
     /**
      * Model's trait
      */
-    use SoftDeletes;
+    use SoftDeletes, PasswordResetPresenter;
 
     /**
      * The table associated with the model.

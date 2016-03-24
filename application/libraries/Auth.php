@@ -190,6 +190,27 @@ class Auth
     }
 
     /**
+     * Log user in
+     *
+     * @param \App\Eloquent\User
+     * @return bool
+     */
+    public function login($user)
+    {
+        //Get CI super object
+        $ci = & get_instance();
+        //Account not active
+        if($user->account_status != 1) {
+            //Stop and return false
+            throw new Exception('Your account is not confirmed yet, please click on the confirmation link that you have recieved in your email inbox', '403');
+        }
+        //Start session for user
+        $ci->keeper->put('logged_in_user', $user->id, true);
+        //Return ok
+        return true;
+    }
+
+    /**
      * Clears all user sessions
      *
      * @return void

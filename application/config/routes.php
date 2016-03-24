@@ -53,6 +53,7 @@ $route['sign-up'] = "AuthController/signUp";
 $route['passwords/reset'] = 'AuthController/getResetPasswords';
 $route['passwords/send-reset'] = "AuthController/postSendResetPasswords";
 $route['passwords/show-reset/(:any)'] = "AuthController/getShowResetForm/$1";
+$route['passwords/change-password'] = "AuthController/postChangePassword";
 
 /*
  * Login route

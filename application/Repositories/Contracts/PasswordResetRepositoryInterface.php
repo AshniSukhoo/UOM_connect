@@ -17,4 +17,11 @@ interface PasswordResetRepositoryInterface
      */
     public function saveTokenForUser($user);
 
+    /**
+     * Verify if token is valid
+     *
+     * @param string $code
+     * @return \App\Eloquent\PasswordReset
+     */
+    public function verifyToken($code);
 }
