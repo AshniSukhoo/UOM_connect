@@ -51,4 +51,18 @@ trait UserPresenter
 		//Return profile picture
 		return ($this->hasDetails() && $this->hasProfilePic())?$this->detail->profile_picture:base_url('img/profile-pictures/avatar.png');
 	}
+
+    /**
+     * Set password by encryption
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setPasswordAttribute($value)
+    {
+        //Get CI super object
+        $CI = & get_instance();
+        //Encrypt password
+        $this->attributes['password'] = $CI->auth->encryptPassword($value);
+    }
 }

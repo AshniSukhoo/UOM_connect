@@ -64,4 +64,16 @@ class PasswordResetRepository implements PasswordResetRepositoryInterface
         //Otherwise we return the token
         return $token;
     }
+
+    /**
+     * Delete token
+     *
+     * @param string $code
+     * @return bool
+     */
+    public function deleteToken($code)
+    {
+        //Delete token
+        $this->passwordReset->whereCode($code)->firstOrFail()->forceDelete();
+    }
 }

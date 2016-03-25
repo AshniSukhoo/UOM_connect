@@ -25,9 +25,9 @@
                                 </a>
                             </div><!--/.form-group-->
                         <?php else: ?>
-                            <form action="<?=base_url('passwords/change-password')?>" method="post">
+                            <form action="<?=base_url('passwords/change-password/'.$token->code)?>" method="post" autocomplete="off">
                                 <div class="form-group <?=$this->keeper->has('password_error') ? 'has-error' : ''?>">
-                                    <input type="text"
+                                    <input type="password"
                                            name="password"
                                            id="password"
                                            class="form-control"

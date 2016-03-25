@@ -6,6 +6,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
+            <?php if($this->keeper->has('notificationSuccess')) : ?>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?=$this->keeper->get('notificationSuccess')?>
+                </div>
+            <?php endif; ?>
+
             <?php $this->load->view('student-profile/partials/_post-status-form') ?>
 
             <div class="posts-container">

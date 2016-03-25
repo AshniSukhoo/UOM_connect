@@ -50,10 +50,15 @@ $route['terms-and-conditions'] = "IndexController/getShowContents/1";
  * Sign-up route
  */
 $route['sign-up'] = "AuthController/signUp";
+
+/*
+ * Password routes
+ */
 $route['passwords/reset'] = 'AuthController/getResetPasswords';
 $route['passwords/send-reset'] = "AuthController/postSendResetPasswords";
 $route['passwords/show-reset/(:any)'] = "AuthController/getShowResetForm/$1";
-$route['passwords/change-password'] = "AuthController/postChangePassword";
+$route['passwords/change-password/(:any)'] = "AuthController/postChangePassword/$1";
+$route['change-password'] = "AuthController/showChangePassword";
 
 /*
  * Login route

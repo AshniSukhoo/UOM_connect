@@ -190,4 +190,13 @@ interface UserRepositoryInterface
      * @return \Illuminate\Pagination\LengthAwarePaginator|null
      */
     public function paginateInvitations($user = null, $numberPerPage = 10);
+
+    /**
+     * Change the user password
+     *
+     * @param \App\Eloquent\User $user
+     * @param string $password
+     * @return bool
+     */
+    public function updatePassword($user, $password);
 }

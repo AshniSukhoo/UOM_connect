@@ -24,4 +24,12 @@ interface PasswordResetRepositoryInterface
      * @return \App\Eloquent\PasswordReset
      */
     public function verifyToken($code);
+
+    /**
+     * Delete token
+     *
+     * @param string $code
+     * @return bool
+     */
+    public function deleteToken($code);
 }

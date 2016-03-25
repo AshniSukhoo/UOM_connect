@@ -1,12 +1,12 @@
 <?php
 
-use App\Repositories\UserRepository;
 use App\Repositories\PasswordResetRepository;
+use App\Repositories\UserRepository;
 
 /**
  * Class AuthController
  */
-Class AuthController extends MY_Controller
+class AuthController extends MY_Controller
 {
     /**
      * The user repo service
@@ -55,7 +55,7 @@ Class AuthController extends MY_Controller
             $this->form_validation->set_rules('uomId', 'UOM ID', 'required|numeric|callback_check_uom_id['.$this->input->post('userType').']|xss_clean');
 
             //Run the validation rules
-            if($this->form_validation->run() === false) {
+            if ($this->form_validation->run() === false) {
                 //Our form is not valid, so sad!!
                 //Define list of fields
                 $fieldNames = [
@@ -65,14 +65,14 @@ Class AuthController extends MY_Controller
                 //Set error delimiter
                 $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
                 //Loop through all fields and put error
-                foreach($fieldNames as $fieldName) {
+                foreach ($fieldNames as $fieldName) {
                     //We have value for the field
-                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName]) && $fieldName != 'password' && $fieldName != 'confirmPassword') {
+                    if (isset($_POST[$fieldName]) && !empty($_POST[$fieldName]) && $fieldName != 'password' && $fieldName != 'confirmPassword') {
                         //Put value in keeper
                         $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
                     }
                     //There is an error on the field
-                    if(form_error($fieldName) != '') {
+                    if (form_error($fieldName) != '') {
                         //Keep error in the keeper
                         $this->keeper->put($fieldName.'_error', form_error($fieldName));
                     }
@@ -133,7 +133,7 @@ Class AuthController extends MY_Controller
                 //Redirect on login-register page
                 redirect('/');
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             //Unexpected error or unknown error
             //Notify error
             $this->keeper->put('notificationError', $e->getMessage());
@@ -182,7 +182,7 @@ Class AuthController extends MY_Controller
             $this->auth->logout();
             //Redirect back to home page
             redirect('/', 'location');
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             //Unexpected error
             show_404();
         }
@@ -193,13 +193,13 @@ Class AuthController extends MY_Controller
      */
     public function postLogin()
     {
-		try{
-			//Set validation rules
-			$this->form_validation->set_rules('login_email', 'Email', 'required|valid_email|xss_clean');
+        try {
+            //Set validation rules
+            $this->form_validation->set_rules('login_email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('login_password', 'Password', 'required|min_length[5]|xss_clean');
-			
-			//Run validation rules
-            if($this->form_validation->run() === false) {
+            
+            //Run validation rules
+            if ($this->form_validation->run() === false) {
                 //Our form is not valid
                 //Define list of fields
                 $fieldsNames = [
@@ -208,19 +208,19 @@ Class AuthController extends MY_Controller
                 //Set error delimiter
                 $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
                 //Loop through all fields and put error
-				 foreach($fieldsNames as $fieldsName) {
-                    //We have value for the field
-                    if(isset($_POST[$fieldsName]) && !empty($_POST[$fieldsName]) && $fieldsName != 'password') {
+                 foreach ($fieldsNames as $fieldsName) {
+                     //We have value for the field
+                    if (isset($_POST[$fieldsName]) && !empty($_POST[$fieldsName]) && $fieldsName != 'password') {
                         //Put value in keeper
                         $this->keeper->put($fieldsName.'_value', $_POST[$fieldsName]);
                     }
                     //There is an error on the field
-                    if(form_error($fieldsName) != '') {
+                    if (form_error($fieldsName) != '') {
                         //Keep error in the keeper
                         $this->keeper->put($fieldsName.'_error', form_error($fieldsName));
                     }
-                }
-				//Redirect on login-register page
+                 }
+                //Redirect on login-register page
                 redirect('/login', 'location');
             } else {
                 //Validation has passed.
@@ -234,7 +234,7 @@ Class AuthController extends MY_Controller
                 //Attempt to login user in
                 $loginAttempt = $this->auth->attempt($credentials, $keepAlive);
                 //Attemps was a success
-                if($loginAttempt['status']) {
+                if ($loginAttempt['status']) {
                     //Redirect to Home page
                     redirect('/', 'location');
                 } else {
@@ -247,13 +247,13 @@ Class AuthController extends MY_Controller
                     redirect('login', 'location');
                 }
             }
-		} catch(Exception $e){
+        } catch (Exception $e) {
             //Unexpected error or unknown error
-			//Notify error
+            //Notify error
             $this->keeper->put('notificationError', $e->getMessage());
             //Redirect on login-register page
             redirect('/');
-		}
+        }
     }
 
     /**
@@ -273,6 +273,20 @@ Class AuthController extends MY_Controller
     }
 
     /**
+     * Show change password
+     *
+     * @return string
+     */
+    public function showChangePassword()
+    {
+        //User not logged in
+        if (!$this->auth->check()) {
+            //Show error page
+            throw new Exception('Not logged in');
+        }
+    }
+
+    /**
      * Create token and send password reset email
      *
      * @return string
@@ -283,21 +297,21 @@ Class AuthController extends MY_Controller
             //Set validation rules
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             //Run validation
-            if($this->form_validation->run() == false) {
+            if ($this->form_validation->run() == false) {
                 //Our form is not valid, so sad!!
                 //Define list of fields
                 $fieldNames = ['email'];
                 //Set error delimiter
                 $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
                 //Loop through all fields and put error
-                foreach($fieldNames as $fieldName) {
+                foreach ($fieldNames as $fieldName) {
                     //We have value for the field
-                    if(isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
+                    if (isset($_POST[$fieldName]) && !empty($_POST[$fieldName])) {
                         //Put value in keeper
                         $this->keeper->put($fieldName.'_value', $_POST[$fieldName]);
                     }
                     //There is an error on the field
-                    if(form_error($fieldName) != '') {
+                    if (form_error($fieldName) != '') {
                         //Keep error in the keeper
                         $this->keeper->put($fieldName.'_error', form_error($fieldName));
                     }
@@ -309,7 +323,7 @@ Class AuthController extends MY_Controller
             //Get user by email
             $user = $this->userRepo->findUserByMail($this->input->post('email'));
             //No user found or not active
-            if($user == null || $user->isNotActive()) {
+            if ($user == null || $user->isNotActive()) {
                 //Pass error
                 throw new Exception('No active account with this email', 422);
             }
@@ -354,7 +368,7 @@ Class AuthController extends MY_Controller
             //Get the token
             $token = $this->passwordResetRepo->verifyToken($code);
             //User not logged in
-            if(!$this->auth->check()) {
+            if (!$this->auth->check()) {
                 //Log user with token in
                 $this->auth->login($token->user);
             } elseif ($this->auth->check() && $token->user->isNot($this->auth->user())) {
@@ -363,12 +377,57 @@ Class AuthController extends MY_Controller
                 //Log user with token in
                 $this->auth->login($token->user);
                 //Redirect to correct session
-                redirect('passwords/show-reset/'.$token->code,'location');
+                redirect('passwords/show-reset/'.$token->code, 'location');
             }
             //Load view with form to change password
             $this->load->view('auth/password-reset-form', [
                 'token' => $token
             ]);
+        } catch (Exception $e) {
+            //Unexpected error
+            show_404();
+        }
+    }
+
+    /**
+     * Change the password
+     *
+     * @return string
+     */
+    public function postChangePassword($code)
+    {
+        try {
+            //User not logged in
+            if (!$this->auth->check()) {
+                //Show error page
+                throw new Exception('Not logged in');
+            }
+            //Set rules
+            $this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+            $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|xss_clean||matches[password]');
+
+            //Validation fails
+            if ($this->form_validation->run() == false) {
+                //Redirect to form
+                redirect('passwords/show-reset/'.$code, 'location');
+            }
+
+            //Change password of user
+            if (! $this->userRepo->updatePassword($this->auth->user(), $this->input->post('password'))) {
+                //Put value in keeper
+                $this->keeper->put('password_error', 'Unable to save password');
+                //Redirect to form
+                redirect('passwords/show-reset/'.$code, 'location');
+            }
+
+            //Delete token
+            $this->passwordResetRepo->deleteToken($code);
+
+            //Notify user that link has been sent
+            $notif = 'Your password has been updated';
+            $this->keeper->put('notificationSuccess', $notif);
+            //Redirect back
+            redirect('/', 'location');
         } catch (Exception $e) {
             //Unexpected error
             show_404();
