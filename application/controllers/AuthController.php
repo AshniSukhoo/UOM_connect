@@ -279,10 +279,83 @@ class AuthController extends MY_Controller
      */
     public function showChangePassword()
     {
-        //User not logged in
-        if (!$this->auth->check()) {
-            //Show error page
-            throw new Exception('Not logged in');
+
+        try {
+            //User not logged in
+            if (!$this->auth->check()) {
+                //Show error page
+                throw new Exception('Not logged in');
+            }
+            //Show change password form
+            $this->load->view('auth/change-password', ['title' => 'Change Password']);
+        } catch (Exception $e) {
+            //Unexpected error
+            show_error($e->getCode());
+        }
+    }
+
+    /**
+     * Perform change of password
+     *
+     * @return string
+     */
+    public function updateChangePassword()
+    {
+        try {
+            //User not logged in
+            if (!$this->auth->check()) {
+                //Show error page
+                throw new Exception('Not logged in');
+            }
+
+            //Set validation rules
+            $this->form_validation->set_rules('current_password', 'Current Password', 'required|xss_clean');
+            $this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[5]|xss_clean');
+            $this->form_validation->set_rules('confirm_new_password', 'Confirm New Password', 'required|matches[new_password]|xss_clean');
+
+            //Run validation rules
+            if ($this->form_validation->run() === false) {
+                //Our form is not valid, so sad!!
+                //Define list of fields
+                $fieldNames = ['current_password', 'new_password', 'confirm_new_password'];
+                //Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
+                //Loop through all fields and put error
+                foreach ($fieldNames as $fieldName) {
+                    //There is an error on the field
+                    if (form_error($fieldName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldName.'_error', form_error($fieldName));
+                    }
+                }
+                //Redirect to form
+                redirect('change-password', 'location');
+            }
+
+            //Check if current user password is ok
+            if ($this->auth->user()->password != $this->auth->encryptPassword($this->input->post('current_password'))) {
+                //Keep error in the keeper
+                $this->keeper->put('current_password_error', '<small class="help-block server-error">Current password in incorrect</small>');
+                //Redirect to form
+                redirect('change-password', 'location');
+            }
+
+            //Update password
+            if (! $this->userRepo->updatePassword($this->auth->user(), $this->input->post('new_password'))) {
+                //Put value in keeper
+                $this->keeper->put('new_password_error', '<small class="help-block server-error">Unable to save password</small>');
+                //Redirect to form
+                redirect('change-password', 'location');
+            }
+
+            //Notify user that link has been sent
+            $notif = 'Your password has been updated';
+            $this->keeper->put('notificationSuccess', $notif);
+            //Redirect back
+            redirect('/', 'location');
+        } catch (Exception $e) {
+            //Unexpected error
+            show_error($e->getCode());
         }
     }
 
@@ -403,11 +476,24 @@ class AuthController extends MY_Controller
                 throw new Exception('Not logged in');
             }
             //Set rules
-            $this->form_validation->set_rules('password', 'Password', 'required|xss_clean');
+            $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|xss_clean');
             $this->form_validation->set_rules('confirm_password', 'Confirm password', 'required|xss_clean||matches[password]');
 
             //Validation fails
             if ($this->form_validation->run() == false) {
+                //Our form is not valid, so sad!!
+                //Define list of fields
+                $fieldNames = ['password', 'confirm_password'];
+                //Set error delimiter
+                $this->form_validation->set_error_delimiters('<small class="help-block server-error">', '</small>');
+                //Loop through all fields and put error
+                foreach ($fieldNames as $fieldName) {
+                    //There is an error on the field
+                    if (form_error($fieldName) != '') {
+                        //Keep error in the keeper
+                        $this->keeper->put($fieldName.'_error', form_error($fieldName));
+                    }
+                }
                 //Redirect to form
                 redirect('passwords/show-reset/'.$code, 'location');
             }
@@ -415,7 +501,7 @@ class AuthController extends MY_Controller
             //Change password of user
             if (! $this->userRepo->updatePassword($this->auth->user(), $this->input->post('password'))) {
                 //Put value in keeper
-                $this->keeper->put('password_error', 'Unable to save password');
+                $this->keeper->put('password_error', '<small class="help-block server-error">Unable to save password</small>');
                 //Redirect to form
                 redirect('passwords/show-reset/'.$code, 'location');
             }
